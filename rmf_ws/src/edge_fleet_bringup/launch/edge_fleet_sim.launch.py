@@ -5,7 +5,7 @@ Supports Dual-Mode execution:
   - mode:=EDGE_AI       (Proposed: Decentralized ORCA velocity negotiation)
   - mode:=STOP_AND_WAIT (Baseline: Traditional stop-and-wait benchmark)
 
-SIH Problem Statement 26123 (Bharat Electronics Limited)
+Edge-AI Distributed Fleet Coordination (Bharat Electronics Limited - Smart Automation)
 """
 
 from launch import LaunchDescription

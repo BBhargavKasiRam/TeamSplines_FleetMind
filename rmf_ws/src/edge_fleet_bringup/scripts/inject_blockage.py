@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dynamic Aisle Blockage Injection Tool for Live SIH Demonstrations.
+Dynamic Aisle Blockage Injection Tool for Live Fleet Demonstrations.
 Publishes a blockage event to trigger Edge Perception and Decentralized Task Auction (CNP).
 Usage:
   ros2 run edge_fleet_bringup inject_blockage.py --robot robot_1 --blocked true
@@ -14,7 +14,7 @@ from std_msgs.msg import Bool
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Inject dynamic aisle blockage for BEL SIH demo")
+    parser = argparse.ArgumentParser(description="Inject dynamic aisle blockage for BEL Fleet demo")
     parser.add_argument('--robot', type=str, default='robot_1', help='Target robot namespace')
     parser.add_argument('--blocked', type=str, default='true', help='true to block, false to clear')
     args, unknown = parser.parse_known_args()
@@ -35,7 +35,7 @@ def main():
     pub.publish(msg)
 
     print(f"\n=======================================================")
-    print(f" [SIH BEL DEMO] Aisle Blockage Injection Event")
+    print(f" [BEL FLEET DEMO] Aisle Blockage Injection Event")
     print(f" Target AMR : /{args.robot}")
     print(f" State      : {'>>> AISLE BLOCKED <<<' if is_blocked else 'CLEARED'}")
     print(f" Triggered  : Edge Perception -> D* Re-Route -> Contract Net Auction")

@@ -25,7 +25,7 @@ if [ "$1" = "--daemon" ] || [ "$1" = "-d" ]; then
 fi
 
 echo "================================================================================"
-echo " 🚀 LAUNCHING SMART WAREHOUSE DUAL-FLEET BENCHMARK SUITE (SIH)"
+echo " 🚀 LAUNCHING SMART WAREHOUSE DUAL-FLEET BENCHMARK SUITE"
 echo " Root Folder : $SIH_DIR"
 echo " Components  : Central Dashboard (8080) | Edge-AI (rmf_ws) | Traditional (rmf_ws_t)"
 echo "================================================================================"

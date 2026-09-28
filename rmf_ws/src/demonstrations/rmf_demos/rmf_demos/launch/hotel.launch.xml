@@ -55,7 +55,7 @@
     </include>
   </group>
 
-  <!-- Edge-AI Decentralized Coordination Layer (SIH Problem Statement 26123 - BEL) -->
+  <!-- Edge-AI Decentralized Coordination Layer (Bharat Electronics Limited - Smart Automation) -->
   <group if="$(var use_edge_ai)">
     <include file="$(find-pkg-share rmf_edge_ai)/launch/rmf_edge_ai.launch.xml">
       <arg name="fleet_name" value="tinyRobot"/>

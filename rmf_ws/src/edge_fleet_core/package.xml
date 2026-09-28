@@ -3,8 +3,8 @@
 <package format="3">
   <name>edge_fleet_core</name>
   <version>1.0.0</version>
-  <description>C++ Decentralized Edge AI Coordination, ORCA Conflict Resolution, and Task Allocation (SIH Problem 26123)</description>
-  <maintainer email="sih_team@bel.gov.in">BEL Edge AI Team</maintainer>
+  <description>C++ Decentralized Edge AI Coordination, ORCA Conflict Resolution, and Task Allocation (Bharat Electronics Limited - Smart Automation)</description>
+  <maintainer email="fleet_team@bel.gov.in">BEL Edge AI Team</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

@@ -39,7 +39,7 @@ class EdgeAiTelemetryAuditor(Node):
         self.print_timer = self.create_timer(1.0, self.print_telemetry)
 
         print("\n" + "=" * 80)
-        print(" [BEL SIH EVALUATION] DECENTRALIZED EDGE-AI LIVE TELEMETRY AUDITOR")
+        print(" [BEL FLEET EVALUATION] DECENTRALIZED EDGE-AI LIVE TELEMETRY AUDITOR")
         print(" Real-Time Odometry & Velocity Negotiation Tracking across All 5 AMRs")
         print("=" * 80 + "\n")
 

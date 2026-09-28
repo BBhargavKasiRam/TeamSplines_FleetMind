@@ -36,7 +36,7 @@ class FleetBenchmarkRunner(Node):
         self.has_finished_audit = False
 
         print("\n" + "=" * 80)
-        print(" [BEL SIH EVALUATION] Automated Fleet Benchmark Auditor Active")
+        print(" [BEL FLEET EVALUATION] Automated Fleet Benchmark Auditor Active")
         print(" Listening for Fleet Telemetry over ROS 2...")
         print("=" * 80 + "\n")
 

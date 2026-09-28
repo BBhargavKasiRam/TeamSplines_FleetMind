@@ -3,8 +3,8 @@
 <package format="3">
   <name>edge_fleet_bringup</name>
   <version>1.0.0</version>
-  <description>Universal launch and benchmark runner for Edge-AI Fleet Coordination (SIH Problem Statement 26123)</description>
-  <maintainer email="sih_team@bel.gov.in">BEL Edge AI Team</maintainer>
+  <description>Universal launch and benchmark runner for Edge-AI Fleet Coordination (Bharat Electronics Limited - Smart Automation)</description>
+  <maintainer email="fleet_team@bel.gov.in">BEL Edge AI Team</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
