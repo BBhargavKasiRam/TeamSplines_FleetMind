@@ -1,0 +1,2943 @@
+<sdf version="1.7">
+  <world name="sim_world">
+    <!-- Physics Configuration -->
+    <physics name="10ms" type="ode">
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <!-- Essential Gazebo Plugins -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu" />
+
+    <!-- Scene & Ambient Environment -->
+    <scene>
+      <ambient>0.74 0.76 0.80 1.0</ambient>
+      <background>0.16 0.18 0.22 1.0</background>
+      <shadows>false</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <!-- 3D GUI Camera Viewport Overview -->
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>40.0 -85.0 52.0 0 0.85 1.5708</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+    <!-- Primary Directional Sunlight -->
+    <light type="directional" name="sun_primary">
+      <cast_shadows>false</cast_shadows>
+      <pose>40.0 -32.5 25.0 0 0 0</pose>
+      <diffuse>0.88 0.88 0.92 1.0</diffuse>
+      <specular>0.25 0.25 0.25 1.0</specular>
+      <attenuation>
+        <range>150</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.3 0.2 -0.9</direction>
+    </light>
+
+    <light type="point" name="bay_light_0">
+      <pose>16.0 -14.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_1">
+      <pose>16.0 -32.5 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_2">
+      <pose>16.0 -50.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_3">
+      <pose>30.0 -14.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_4">
+      <pose>30.0 -32.5 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_5">
+      <pose>30.0 -50.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_6">
+      <pose>42.0 -14.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_7">
+      <pose>42.0 -32.5 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_8">
+      <pose>42.0 -50.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_9">
+      <pose>54.0 -14.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_10">
+      <pose>54.0 -32.5 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_11">
+      <pose>54.0 -50.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_12">
+      <pose>66.0 -14.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_13">
+      <pose>66.0 -32.5 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <light type="point" name="bay_light_14">
+      <pose>66.0 -50.0 9.0 0 0 0</pose>
+      <diffuse>0.78 0.82 0.86 1.0</diffuse>
+      <specular>0.20 0.20 0.25 1.0</specular>
+      <attenuation>
+        <range>28</range>
+        <constant>0.22</constant>
+        <linear>0.04</linear>
+        <quadratic>0.005</quadratic>
+      </attenuation>
+      <cast_shadows>false</cast_shadows>
+    </light>
+
+    <include>
+      <name>warehouse_lamp_0</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>16.0 -14.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_1</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>16.0 -32.5 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_2</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>16.0 -50.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_3</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>30.0 -14.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_4</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>30.0 -32.5 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_5</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>30.0 -50.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_6</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>42.0 -14.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_7</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>42.0 -32.5 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_8</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>42.0 -50.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_9</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>54.0 -14.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_10</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>54.0 -32.5 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_11</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>54.0 -50.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_12</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>66.0 -14.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_13</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>66.0 -32.5 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <include>
+      <name>warehouse_lamp_14</name>
+      <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
+      <pose>66.0 -50.0 8.8 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- 4x Expanded Warehouse Ground Floor Slab (76m x 62m) -->
+    <model name="warehouse_floor">
+      <static>true</static>
+      <pose>40.0 -32.5 0.0 0 0 0</pose>
+      <link name="floor_link">
+        <collision name="floor_collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>76 62</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="floor_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>76 62</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.34 0.36 0.38 1.0</ambient>
+            <diffuse>0.42 0.44 0.47 1.0</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Warehouse Perimeter Architecture (9.0m High Clear-Span Architecture) -->
+    <model name="warehouse_architecture">
+      <static>true</static>
+      <pose>40.0 -32.5 0.0 0 0 0</pose>
+      <link name="wall_north_base">
+        <pose>0.0000 26.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_north_base_col">
+          <geometry><box><size>64.8000 0.5000 1.2000</size></box></geometry>
+        </collision>
+        <visual name="wall_north_base_vis">
+          <geometry><box><size>64.8000 0.5000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.156 0.176 0.202 1.00</ambient>
+            <diffuse>0.240 0.270 0.310 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_north_upper">
+        <pose>0.0000 26.0000 5.0000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_north_upper_col">
+          <geometry><box><size>64.8000 0.5000 7.8000</size></box></geometry>
+        </collision>
+        <visual name="wall_north_upper_vis">
+          <geometry><box><size>64.8000 0.5000 7.8000</size></box></geometry>
+          <material>
+            <ambient>0.455 0.468 0.488 1.00</ambient>
+            <diffuse>0.700 0.720 0.750 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_north_coping">
+        <pose>0.0000 26.0000 9.0500 0.0000 0.0000 0.0000</pose>
+        <visual name="wall_north_coping_vis">
+          <geometry><box><size>65.2000 0.6000 0.3000</size></box></geometry>
+          <material>
+            <ambient>0.117 0.130 0.143 1.00</ambient>
+            <diffuse>0.180 0.200 0.220 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="window_north">
+        <pose>0.0000 25.8000 7.0000 0.0000 0.0000 0.0000</pose>
+        <visual name="window_north_vis">
+          <geometry><box><size>56.0000 0.0500 1.6000</size></box></geometry>
+          <material>
+            <ambient>0.293 0.423 0.552 0.70</ambient>
+            <diffuse>0.450 0.650 0.850 0.70</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_south_base">
+        <pose>0.0000 -26.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_south_base_col">
+          <geometry><box><size>64.8000 0.5000 1.2000</size></box></geometry>
+        </collision>
+        <visual name="wall_south_base_vis">
+          <geometry><box><size>64.8000 0.5000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.156 0.176 0.202 1.00</ambient>
+            <diffuse>0.240 0.270 0.310 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_south_coping">
+        <pose>0.0000 -26.0000 1.2500 0.0000 0.0000 0.0000</pose>
+        <visual name="wall_south_coping_vis">
+          <geometry><box><size>65.2000 0.6000 0.1000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_east_base">
+        <pose>32.0000 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_east_base_col">
+          <geometry><box><size>0.5000 52.0000 1.2000</size></box></geometry>
+        </collision>
+        <visual name="wall_east_base_vis">
+          <geometry><box><size>0.5000 52.0000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.156 0.176 0.202 1.00</ambient>
+            <diffuse>0.240 0.270 0.310 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_east_upper">
+        <pose>32.0000 0.0000 5.0000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_east_upper_col">
+          <geometry><box><size>0.5000 52.0000 7.8000</size></box></geometry>
+        </collision>
+        <visual name="wall_east_upper_vis">
+          <geometry><box><size>0.5000 52.0000 7.8000</size></box></geometry>
+          <material>
+            <ambient>0.455 0.468 0.488 1.00</ambient>
+            <diffuse>0.700 0.720 0.750 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_east_coping">
+        <pose>32.0000 0.0000 9.0500 0.0000 0.0000 0.0000</pose>
+        <visual name="wall_east_coping_vis">
+          <geometry><box><size>0.6000 52.4000 0.3000</size></box></geometry>
+          <material>
+            <ambient>0.117 0.130 0.143 1.00</ambient>
+            <diffuse>0.180 0.200 0.220 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="window_east">
+        <pose>31.8000 0.0000 7.0000 0.0000 0.0000 0.0000</pose>
+        <visual name="window_east_vis">
+          <geometry><box><size>0.0500 44.0000 1.6000</size></box></geometry>
+          <material>
+            <ambient>0.293 0.423 0.552 0.70</ambient>
+            <diffuse>0.450 0.650 0.850 0.70</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_west_n">
+        <pose>-32.0000 24.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_west_n_col">
+          <geometry><box><size>0.5000 3.0000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="wall_west_n_vis">
+          <geometry><box><size>0.5000 3.0000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.455 0.468 0.488 1.00</ambient>
+            <diffuse>0.700 0.720 0.750 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="lintel_inbound">
+        <pose>-32.0000 20.5000 7.0000 0.0000 0.0000 0.0000</pose>
+        <collision name="lintel_inbound_col">
+          <geometry><box><size>0.5000 5.0000 4.0000</size></box></geometry>
+        </collision>
+        <visual name="lintel_inbound_vis">
+          <geometry><box><size>0.5000 5.0000 4.0000</size></box></geometry>
+          <material>
+            <ambient>0.156 0.176 0.202 1.00</ambient>
+            <diffuse>0.240 0.270 0.310 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="shutter_inbound">
+        <pose>-31.8000 20.5000 2.5000 0.0000 0.0000 0.0000</pose>
+        <visual name="shutter_inbound_vis">
+          <geometry><box><size>0.1000 4.8000 5.0000</size></box></geometry>
+          <material>
+            <ambient>0.227 0.273 0.338 1.00</ambient>
+            <diffuse>0.350 0.420 0.520 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_west_c">
+        <pose>-32.0000 2.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_west_c_col">
+          <geometry><box><size>0.5000 31.0000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="wall_west_c_vis">
+          <geometry><box><size>0.5000 31.0000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.455 0.468 0.488 1.00</ambient>
+            <diffuse>0.700 0.720 0.750 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="lintel_outbound">
+        <pose>-32.0000 -15.5000 7.0000 0.0000 0.0000 0.0000</pose>
+        <collision name="lintel_outbound_col">
+          <geometry><box><size>0.5000 5.0000 4.0000</size></box></geometry>
+        </collision>
+        <visual name="lintel_outbound_vis">
+          <geometry><box><size>0.5000 5.0000 4.0000</size></box></geometry>
+          <material>
+            <ambient>0.156 0.176 0.202 1.00</ambient>
+            <diffuse>0.240 0.270 0.310 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="shutter_outbound">
+        <pose>-31.8000 -15.5000 2.5000 0.0000 0.0000 0.0000</pose>
+        <visual name="shutter_outbound_vis">
+          <geometry><box><size>0.1000 4.8000 5.0000</size></box></geometry>
+          <material>
+            <ambient>0.227 0.273 0.338 1.00</ambient>
+            <diffuse>0.350 0.420 0.520 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="wall_west_s">
+        <pose>-32.0000 -21.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="wall_west_s_col">
+          <geometry><box><size>0.5000 7.0000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="wall_west_s_vis">
+          <geometry><box><size>0.5000 7.0000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.455 0.468 0.488 1.00</ambient>
+            <diffuse>0.700 0.720 0.750 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_-31.6_-25.5">
+        <pose>-31.6000 -25.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_-31.6_-25.5_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_-31.6_-25.5_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_-31.6_-25.5">
+        <pose>-31.6000 -25.5000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_-31.6_-25.5_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_-31.6_-13.0">
+        <pose>-31.6000 -13.0000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_-31.6_-13.0_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_-31.6_-13.0_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_-31.6_-13.0">
+        <pose>-31.6000 -13.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_-31.6_-13.0_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_-31.6_0.0">
+        <pose>-31.6000 0.0000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_-31.6_0.0_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_-31.6_0.0_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_-31.6_0.0">
+        <pose>-31.6000 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_-31.6_0.0_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_-31.6_13.0">
+        <pose>-31.6000 13.0000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_-31.6_13.0_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_-31.6_13.0_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_-31.6_13.0">
+        <pose>-31.6000 13.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_-31.6_13.0_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_-31.6_25.5">
+        <pose>-31.6000 25.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_-31.6_25.5_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_-31.6_25.5_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_-31.6_25.5">
+        <pose>-31.6000 25.5000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_-31.6_25.5_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_31.6_-25.5">
+        <pose>31.6000 -25.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_31.6_-25.5_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_31.6_-25.5_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_31.6_-25.5">
+        <pose>31.6000 -25.5000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_31.6_-25.5_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_31.6_-13.0">
+        <pose>31.6000 -13.0000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_31.6_-13.0_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_31.6_-13.0_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_31.6_-13.0">
+        <pose>31.6000 -13.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_31.6_-13.0_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_31.6_0.0">
+        <pose>31.6000 0.0000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_31.6_0.0_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_31.6_0.0_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_31.6_0.0">
+        <pose>31.6000 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_31.6_0.0_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_31.6_13.0">
+        <pose>31.6000 13.0000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_31.6_13.0_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_31.6_13.0_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_31.6_13.0">
+        <pose>31.6000 13.0000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_31.6_13.0_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_31.6_25.5">
+        <pose>31.6000 25.5000 4.5000 0.0000 0.0000 0.0000</pose>
+        <collision name="pcol_31.6_25.5_col">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+        </collision>
+        <visual name="pcol_31.6_25.5_vis">
+          <geometry><box><size>0.6000 0.6000 9.0000</size></box></geometry>
+          <material>
+            <ambient>0.130 0.150 0.182 1.00</ambient>
+            <diffuse>0.200 0.230 0.280 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="pcol_base_31.6_25.5">
+        <pose>31.6000 25.5000 0.6000 0.0000 0.0000 0.0000</pose>
+        <visual name="pcol_base_31.6_25.5_vis">
+          <geometry><box><size>0.8000 0.8000 1.2000</size></box></geometry>
+          <material>
+            <ambient>0.617 0.488 0.033 1.00</ambient>
+            <diffuse>0.950 0.750 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- 4x Wide Open Highway Safety Floor Markings -->
+    <model name="industrial_floor_markings">
+      <static>true</static>
+      <pose>40.0 -32.5 0.0 0 0 0</pose>
+      <link name="highway_line_w">
+        <pose>-22.0000 0.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_line_w_vis">
+          <geometry><box><size>0.1500 48.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_line_e">
+        <pose>-18.0000 0.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_line_e_vis">
+          <geometry><box><size>0.1500 48.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_0">
+        <pose>-20.0000 -24.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_0_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_1">
+        <pose>-20.0000 -20.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_1_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_2">
+        <pose>-20.0000 -16.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_2_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_3">
+        <pose>-20.0000 -12.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_3_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_4">
+        <pose>-20.0000 -8.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_4_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_5">
+        <pose>-20.0000 -4.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_5_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_6">
+        <pose>-20.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_6_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_7">
+        <pose>-20.0000 4.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_7_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_8">
+        <pose>-20.0000 8.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_8_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_9">
+        <pose>-20.0000 12.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_9_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_10">
+        <pose>-20.0000 16.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_10_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_11">
+        <pose>-20.0000 20.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_11_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="highway_dash_12">
+        <pose>-20.0000 24.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="highway_dash_12_vis">
+          <geometry><box><size>0.1200 2.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_line_s">
+        <pose>0.0000 -2.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_line_s_vis">
+          <geometry><box><size>58.0000 0.1500 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_line_n">
+        <pose>0.0000 2.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_line_n_vis">
+          <geometry><box><size>58.0000 0.1500 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_0">
+        <pose>-28.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_0_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_1">
+        <pose>-24.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_1_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_2">
+        <pose>-20.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_2_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_3">
+        <pose>-16.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_3_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_4">
+        <pose>-12.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_4_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_5">
+        <pose>-8.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_5_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_6">
+        <pose>-4.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_6_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_7">
+        <pose>0.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_7_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_8">
+        <pose>4.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_8_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_9">
+        <pose>8.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_9_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_10">
+        <pose>12.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_10_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_11">
+        <pose>16.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_11_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_12">
+        <pose>20.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_12_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_13">
+        <pose>24.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_13_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="cross_dash_14">
+        <pose>28.0000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="cross_dash_14_vis">
+          <geometry><box><size>2.0000 0.1200 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.624 0.624 1.00</ambient>
+            <diffuse>0.960 0.960 0.960 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_0">
+        <pose>-25.0000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_0_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_1">
+        <pose>-24.2000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_1_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_2">
+        <pose>-23.4000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_2_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_3">
+        <pose>-22.6000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_3_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_4">
+        <pose>-21.8000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_4_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_5">
+        <pose>-21.0000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_5_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_in_6">
+        <pose>-20.2000 20.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_in_6_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_0">
+        <pose>-25.0000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_0_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_1">
+        <pose>-24.2000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_1_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_2">
+        <pose>-23.4000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_2_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_3">
+        <pose>-22.6000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_3_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_4">
+        <pose>-21.8000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_4_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_5">
+        <pose>-21.0000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_5_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zebra_pack_6">
+        <pose>-20.2000 -18.5000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="zebra_pack_6_vis">
+          <geometry><box><size>0.4500 3.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.617 0.617 1.00</ambient>
+            <diffuse>0.950 0.950 0.950 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zone_a_floor">
+        <pose>-25.5000 18.5000 0.0010 0.0000 0.0000 0.0000</pose>
+        <visual name="zone_a_floor_vis">
+          <geometry><box><size>10.0000 10.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.117 0.227 0.358 0.35</ambient>
+            <diffuse>0.180 0.350 0.550 0.35</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zone_c_floor">
+        <pose>-25.5000 -18.5000 0.0010 0.0000 0.0000 0.0000</pose>
+        <visual name="zone_c_floor_vis">
+          <geometry><box><size>10.0000 12.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.130 0.325 0.227 0.35</ambient>
+            <diffuse>0.200 0.500 0.350 0.35</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zone_d_floor">
+        <pose>-25.5000 0.0000 0.0010 0.0000 0.0000 0.0000</pose>
+        <visual name="zone_d_floor_vis">
+          <geometry><box><size>9.0000 15.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.163 0.260 0.358 0.25</ambient>
+            <diffuse>0.250 0.400 0.550 0.25</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="zone_b_floor">
+        <pose>26.0000 0.0000 0.0010 0.0000 0.0000 0.0000</pose>
+        <visual name="zone_b_floor_vis">
+          <geometry><box><size>10.0000 15.0000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.293 0.163 0.358 0.30</ambient>
+            <diffuse>0.450 0.250 0.550 0.30</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_box_bay_0">
+        <pose>-26.5000 4.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_box_bay_0_vis">
+          <geometry><box><size>2.4000 1.5000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.078 0.293 0.617 0.55</ambient>
+            <diffuse>0.120 0.450 0.950 0.55</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_border_bay_0">
+        <pose>-26.5000 4.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_border_bay_0_vis">
+          <geometry><box><size>2.5000 1.6000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_bolt_bay_0">
+        <pose>-26.5000 4.0000 0.0050 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_bolt_bay_0_vis">
+          <geometry><cylinder><radius>0.2000</radius><length>0.0020</length></cylinder></geometry>
+          <material>
+            <ambient>0.637 0.637 0.130 1.00</ambient>
+            <diffuse>0.980 0.980 0.200 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_box_bay_1">
+        <pose>-26.5000 2.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_box_bay_1_vis">
+          <geometry><box><size>2.4000 1.5000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.098 0.098 0.55</ambient>
+            <diffuse>0.950 0.150 0.150 0.55</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_border_bay_1">
+        <pose>-26.5000 2.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_border_bay_1_vis">
+          <geometry><box><size>2.5000 1.6000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_bolt_bay_1">
+        <pose>-26.5000 2.0000 0.0050 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_bolt_bay_1_vis">
+          <geometry><cylinder><radius>0.2000</radius><length>0.0020</length></cylinder></geometry>
+          <material>
+            <ambient>0.637 0.637 0.130 1.00</ambient>
+            <diffuse>0.980 0.980 0.200 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_box_bay_2">
+        <pose>-26.5000 0.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_box_bay_2_vis">
+          <geometry><box><size>2.4000 1.5000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.098 0.552 0.163 0.55</ambient>
+            <diffuse>0.150 0.850 0.250 0.55</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_border_bay_2">
+        <pose>-26.5000 0.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_border_bay_2_vis">
+          <geometry><box><size>2.5000 1.6000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_bolt_bay_2">
+        <pose>-26.5000 0.0000 0.0050 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_bolt_bay_2_vis">
+          <geometry><cylinder><radius>0.2000</radius><length>0.0020</length></cylinder></geometry>
+          <material>
+            <ambient>0.637 0.637 0.130 1.00</ambient>
+            <diffuse>0.980 0.980 0.200 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_box_bay_3">
+        <pose>-26.5000 -2.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_box_bay_3_vis">
+          <geometry><box><size>2.4000 1.5000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.617 0.552 0.065 0.55</ambient>
+            <diffuse>0.950 0.850 0.100 0.55</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_border_bay_3">
+        <pose>-26.5000 -2.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_border_bay_3_vis">
+          <geometry><box><size>2.5000 1.6000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_bolt_bay_3">
+        <pose>-26.5000 -2.0000 0.0050 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_bolt_bay_3_vis">
+          <geometry><cylinder><radius>0.2000</radius><length>0.0020</length></cylinder></geometry>
+          <material>
+            <ambient>0.637 0.637 0.130 1.00</ambient>
+            <diffuse>0.980 0.980 0.200 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_box_bay_4">
+        <pose>-26.5000 -4.0000 0.0020 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_box_bay_4_vis">
+          <geometry><box><size>2.4000 1.5000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.488 0.117 0.598 0.55</ambient>
+            <diffuse>0.750 0.180 0.920 0.55</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_border_bay_4">
+        <pose>-26.5000 -4.0000 0.0030 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_border_bay_4_vis">
+          <geometry><box><size>2.5000 1.6000 0.0010</size></box></geometry>
+          <material>
+            <ambient>0.624 0.507 0.033 1.00</ambient>
+            <diffuse>0.960 0.780 0.050 1.00</diffuse>
+            <specular>0.15 0.15 0.15 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="stall_bolt_bay_4">
+        <pose>-26.5000 -4.0000 0.0050 0.0000 0.0000 0.0000</pose>
+        <visual name="stall_bolt_bay_4_vis">
+          <geometry><cylinder><radius>0.2000</radius><length>0.0020</length></cylinder></geometry>
+          <material>
+            <ambient>0.637 0.637 0.130 1.00</ambient>
+            <diffuse>0.980 0.980 0.200 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_F Unit 1 (ShelfE_01) -->
+    <include>
+      <name>Rack_F_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>27.68 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_F Unit 2 (ShelfF_01) -->
+    <include>
+      <name>Rack_F_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>30.23 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_F Unit 3 (ShelfD_01) -->
+    <include>
+      <name>Rack_F_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>32.77 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_F Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_F_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>35.33 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_F_bollards">
+      <static>true</static>
+      <pose>31.50 -16.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_E Unit 1 (ShelfF_01) -->
+    <include>
+      <name>Rack_E_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>27.68 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_E Unit 2 (ShelfE_01) -->
+    <include>
+      <name>Rack_E_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>30.23 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_E Unit 3 (ShelfE_01) -->
+    <include>
+      <name>Rack_E_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>32.77 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_E Unit 4 (ShelfF_01) -->
+    <include>
+      <name>Rack_E_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>35.33 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_E_bollards">
+      <static>true</static>
+      <pose>31.50 -21.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_D Unit 1 (ShelfE_01) -->
+    <include>
+      <name>Rack_D_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>27.68 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_D Unit 2 (ShelfD_01) -->
+    <include>
+      <name>Rack_D_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>30.23 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_D Unit 3 (ShelfF_01) -->
+    <include>
+      <name>Rack_D_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>32.77 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_D Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_D_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>35.33 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_D_bollards">
+      <static>true</static>
+      <pose>31.50 -27.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_C Unit 1 (ShelfD_01) -->
+    <include>
+      <name>Rack_C_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>27.68 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_C Unit 2 (ShelfE_01) -->
+    <include>
+      <name>Rack_C_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>30.23 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_C Unit 3 (ShelfF_01) -->
+    <include>
+      <name>Rack_C_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>32.77 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_C Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_C_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>35.33 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_C_bollards">
+      <static>true</static>
+      <pose>31.50 -39.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_B Unit 1 (ShelfE_01) -->
+    <include>
+      <name>Rack_B_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>27.68 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_B Unit 2 (ShelfF_01) -->
+    <include>
+      <name>Rack_B_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>30.23 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_B Unit 3 (ShelfE_01) -->
+    <include>
+      <name>Rack_B_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>32.77 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_B Unit 4 (ShelfD_01) -->
+    <include>
+      <name>Rack_B_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>35.33 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_B_bollards">
+      <static>true</static>
+      <pose>31.50 -45.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_A Unit 1 (ShelfF_01) -->
+    <include>
+      <name>Rack_A_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>27.68 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_A Unit 2 (ShelfE_01) -->
+    <include>
+      <name>Rack_A_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>30.23 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_A Unit 3 (ShelfD_01) -->
+    <include>
+      <name>Rack_A_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>32.77 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_A Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_A_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>35.33 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_A_bollards">
+      <static>true</static>
+      <pose>31.50 -50.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_F_East Unit 1 (ShelfF_01) -->
+    <include>
+      <name>Rack_F_East_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>48.67 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_F_East Unit 2 (ShelfE_01) -->
+    <include>
+      <name>Rack_F_East_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>51.23 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_F_East Unit 3 (ShelfF_01) -->
+    <include>
+      <name>Rack_F_East_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>53.77 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_F_East Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_F_East_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>56.33 -16.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_F_East_bollards">
+      <static>true</static>
+      <pose>52.50 -16.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_E_East Unit 1 (ShelfE_01) -->
+    <include>
+      <name>Rack_E_East_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>48.67 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_E_East Unit 2 (ShelfD_01) -->
+    <include>
+      <name>Rack_E_East_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>51.23 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_E_East Unit 3 (ShelfE_01) -->
+    <include>
+      <name>Rack_E_East_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>53.77 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_E_East Unit 4 (ShelfF_01) -->
+    <include>
+      <name>Rack_E_East_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>56.33 -21.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_E_East_bollards">
+      <static>true</static>
+      <pose>52.50 -21.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_D_East Unit 1 (ShelfF_01) -->
+    <include>
+      <name>Rack_D_East_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>48.67 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_D_East Unit 2 (ShelfE_01) -->
+    <include>
+      <name>Rack_D_East_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>51.23 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_D_East Unit 3 (ShelfD_01) -->
+    <include>
+      <name>Rack_D_East_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>53.77 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_D_East Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_D_East_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>56.33 -27.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_D_East_bollards">
+      <static>true</static>
+      <pose>52.50 -27.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_C_East Unit 1 (ShelfE_01) -->
+    <include>
+      <name>Rack_C_East_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>48.67 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_C_East Unit 2 (ShelfF_01) -->
+    <include>
+      <name>Rack_C_East_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>51.23 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_C_East Unit 3 (ShelfE_01) -->
+    <include>
+      <name>Rack_C_East_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>53.77 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_C_East Unit 4 (ShelfD_01) -->
+    <include>
+      <name>Rack_C_East_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>56.33 -39.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_C_East_bollards">
+      <static>true</static>
+      <pose>52.50 -39.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_B_East Unit 1 (ShelfD_01) -->
+    <include>
+      <name>Rack_B_East_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfD_01</uri>
+      <pose>48.67 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_B_East Unit 2 (ShelfE_01) -->
+    <include>
+      <name>Rack_B_East_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>51.23 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_B_East Unit 3 (ShelfF_01) -->
+    <include>
+      <name>Rack_B_East_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>53.77 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_B_East Unit 4 (ShelfE_01) -->
+    <include>
+      <name>Rack_B_East_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>56.33 -45.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_B_East_bollards">
+      <static>true</static>
+      <pose>52.50 -45.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Rack_A_East Unit 1 (ShelfE_01) -->
+    <include>
+      <name>Rack_A_East_unit_1</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>48.67 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_A_East Unit 2 (ShelfF_01) -->
+    <include>
+      <name>Rack_A_East_unit_2</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>51.23 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_A_East Unit 3 (ShelfE_01) -->
+    <include>
+      <name>Rack_A_East_unit_3</name>
+      <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
+      <pose>53.77 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Rack_A_East Unit 4 (ShelfF_01) -->
+    <include>
+      <name>Rack_A_East_unit_4</name>
+      <uri>model://aws_robomaker_warehouse_ShelfF_01</uri>
+      <pose>56.33 -50.70 0.0 0 0 1.570796</pose>
+      <static>true</static>
+    </include>
+
+    <model name="Rack_A_East_bollards">
+      <static>true</static>
+      <pose>52.50 -50.70 0.0 0 0 0</pose>
+      <link name="bollard_w1">
+        <pose>-5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_w2">
+        <pose>-5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_w2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e1">
+        <pose>5.2000 -0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e1_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+      <link name="bollard_e2">
+        <pose>5.2000 0.5500 0.4000 0.0000 0.0000 0.0000</pose>
+        <visual name="bollard_e2_vis">
+          <geometry><cylinder><radius>0.0800</radius><length>0.8000</length></cylinder></geometry>
+          <material>
+            <ambient>0.617 0.507 0.033 1.00</ambient>
+            <diffuse>0.950 0.780 0.050 1.00</diffuse>
+            <specular>0.2 0.2 0.2 1.0</specular>
+          </material>
+        </visual>
+      </link>
+    </model>\n
+    <!-- Industrial Pallet Jack (pallet_jack_dock_1) -->
+    <include>
+      <name>pallet_jack_dock_1</name>
+      <uri>model://aws_robomaker_warehouse_PalletJackB_01</uri>
+      <pose>10.50 -10.00 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Pallet Jack (pallet_jack_dock_2) -->
+    <include>
+      <name>pallet_jack_dock_2</name>
+      <uri>model://aws_robomaker_warehouse_PalletJackB_01</uri>
+      <pose>10.50 -14.00 0.0 0 0 1.57</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Pallet Jack (pallet_jack_pack_1) -->
+    <include>
+      <name>pallet_jack_pack_1</name>
+      <uri>model://aws_robomaker_warehouse_PalletJackB_01</uri>
+      <pose>10.50 -53.00 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Pallet Jack (pallet_jack_staging) -->
+    <include>
+      <name>pallet_jack_staging</name>
+      <uri>model://aws_robomaker_warehouse_PalletJackB_01</uri>
+      <pose>65.00 -29.00 0.0 0 0 -1.57</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Pallet Jack (pallet_jack_corridor) -->
+    <include>
+      <name>pallet_jack_corridor</name>
+      <uri>model://aws_robomaker_warehouse_PalletJackB_01</uri>
+      <pose>65.00 -37.00 0.0 0 0 -1.57</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Workstation Desk (packing_workstation_1) -->
+    <include>
+      <name>packing_workstation_1</name>
+      <uri>model://aws_robomaker_warehouse_DeskC_01</uri>
+      <pose>10.50 -45.00 0.0 0 0 1.57</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Workstation Desk (packing_workstation_2) -->
+    <include>
+      <name>packing_workstation_2</name>
+      <uri>model://aws_robomaker_warehouse_DeskC_01</uri>
+      <pose>10.50 -49.00 0.0 0 0 1.57</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Workstation Desk (inbound_supervisor_desk) -->
+    <include>
+      <name>inbound_supervisor_desk</name>
+      <uri>model://aws_robomaker_warehouse_DeskC_01</uri>
+      <pose>10.50 -17.00 0.0 0 0 1.57</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Logistics Clutter (inbound_freight_stack_1) -->
+    <include>
+      <name>inbound_freight_stack_1</name>
+      <uri>model://aws_robomaker_warehouse_ClutteringA_01</uri>
+      <pose>10.00 -15.50 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Logistics Clutter (inbound_freight_totes) -->
+    <include>
+      <name>inbound_freight_totes</name>
+      <uri>model://aws_robomaker_warehouse_ClutteringC_01</uri>
+      <pose>15.00 -10.00 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Logistics Clutter (packing_shipping_crates) -->
+    <include>
+      <name>packing_shipping_crates</name>
+      <uri>model://aws_robomaker_warehouse_ClutteringD_01</uri>
+      <pose>10.00 -42.00 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Logistics Clutter (storage_staging_pallets) -->
+    <include>
+      <name>storage_staging_pallets</name>
+      <uri>model://aws_robomaker_warehouse_ClutteringA_01</uri>
+      <pose>66.00 -43.00 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Logistics Clutter (east_overflow_cartons) -->
+    <include>
+      <name>east_overflow_cartons</name>
+      <uri>model://aws_robomaker_warehouse_ClutteringD_01</uri>
+      <pose>66.00 -22.00 0.0 0 0 0.00</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Trash Can (trash_can_dock) -->
+    <include>
+      <name>trash_can_dock</name>
+      <uri>model://aws_robomaker_warehouse_TrashCanC_01</uri>
+      <pose>9.00 -12.00 0.0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Trash Can (trash_can_packing) -->
+    <include>
+      <name>trash_can_packing</name>
+      <uri>model://aws_robomaker_warehouse_TrashCanC_01</uri>
+      <pose>9.00 -51.00 0.0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Industrial Trash Can (trash_can_central - moved off central corridor to x=44.0) -->
+    <include>
+      <name>trash_can_central</name>
+      <uri>model://aws_robomaker_warehouse_TrashCanC_01</uri>
+      <pose>44.00 -31.00 0.0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Charging Station Alpha (Edge-AI TinyRobot1) -->
+    <model name="charging_bay_alpha">
+      <static>true</static>
+      <pose>11.80 -28.50 0.0 0 0 0</pose>
+      <link name="terminal_housing">
+        <pose>0 0 0.65 0 0 0</pose>
+        <visual name="pylon_vis">
+          <geometry><box><size>0.35 0.50 1.3</size></box></geometry>
+          <material><ambient>0.22 0.25 0.28 1.0</ambient><diffuse>0.30 0.34 0.38 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="terminal_cap">
+        <pose>0 0 1.33 0 0 0</pose>
+        <visual name="cap_vis">
+          <geometry><box><size>0.38 0.53 0.08</size></box></geometry>
+          <material><ambient>0.10 0.36 0.76 1.0</ambient><diffuse>0.12 0.45 0.95 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="charging_beacon">
+        <pose>0.15 0 1.10 0 0 0</pose>
+        <visual name="beacon_vis">
+          <geometry><cylinder><radius>0.06</radius><length>0.12</length></cylinder></geometry>
+          <material>
+            <ambient>0.12 0.45 0.95 1.0</ambient>
+            <diffuse>0.12 0.45 0.95 1.0</diffuse>
+            <emissive>0.12 0.45 0.95 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Charging Station Beta (Traditional TinyRobot2) -->
+    <model name="charging_bay_beta">
+      <static>true</static>
+      <pose>11.80 -30.50 0.0 0 0 0</pose>
+      <link name="terminal_housing">
+        <pose>0 0 0.65 0 0 0</pose>
+        <visual name="pylon_vis">
+          <geometry><box><size>0.35 0.50 1.3</size></box></geometry>
+          <material><ambient>0.22 0.25 0.28 1.0</ambient><diffuse>0.30 0.34 0.38 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="terminal_cap">
+        <pose>0 0 1.33 0 0 0</pose>
+        <visual name="cap_vis">
+          <geometry><box><size>0.38 0.53 0.08</size></box></geometry>
+          <material><ambient>0.76 0.12 0.12 1.0</ambient><diffuse>0.95 0.15 0.15 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="charging_beacon">
+        <pose>0.15 0 1.10 0 0 0</pose>
+        <visual name="beacon_vis">
+          <geometry><cylinder><radius>0.06</radius><length>0.12</length></cylinder></geometry>
+          <material>
+            <ambient>0.95 0.15 0.15 1.0</ambient>
+            <diffuse>0.95 0.15 0.15 1.0</diffuse>
+            <emissive>0.95 0.15 0.15 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Charging Station Gamma -->
+    <model name="charging_bay_gamma">
+      <static>true</static>
+      <pose>11.80 -32.50 0.0 0 0 0</pose>
+      <link name="terminal_housing">
+        <pose>0 0 0.65 0 0 0</pose>
+        <visual name="pylon_vis">
+          <geometry><box><size>0.35 0.50 1.3</size></box></geometry>
+          <material><ambient>0.22 0.25 0.28 1.0</ambient><diffuse>0.30 0.34 0.38 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="terminal_cap">
+        <pose>0 0 1.33 0 0 0</pose>
+        <visual name="cap_vis">
+          <geometry><box><size>0.38 0.53 0.08</size></box></geometry>
+          <material><ambient>0.12 0.68 0.20 1.0</ambient><diffuse>0.15 0.85 0.25 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="charging_beacon">
+        <pose>0.15 0 1.10 0 0 0</pose>
+        <visual name="beacon_vis">
+          <geometry><cylinder><radius>0.06</radius><length>0.12</length></cylinder></geometry>
+          <material>
+            <ambient>0.15 0.85 0.25 1.0</ambient>
+            <diffuse>0.15 0.85 0.25 1.0</diffuse>
+            <emissive>0.15 0.85 0.25 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Charging Station Delta -->
+    <model name="charging_bay_delta">
+      <static>true</static>
+      <pose>11.80 -34.50 0.0 0 0 0</pose>
+      <link name="terminal_housing">
+        <pose>0 0 0.65 0 0 0</pose>
+        <visual name="pylon_vis">
+          <geometry><box><size>0.35 0.50 1.3</size></box></geometry>
+          <material><ambient>0.22 0.25 0.28 1.0</ambient><diffuse>0.30 0.34 0.38 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="terminal_cap">
+        <pose>0 0 1.33 0 0 0</pose>
+        <visual name="cap_vis">
+          <geometry><box><size>0.38 0.53 0.08</size></box></geometry>
+          <material><ambient>0.76 0.68 0.08 1.0</ambient><diffuse>0.95 0.85 0.10 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="charging_beacon">
+        <pose>0.15 0 1.10 0 0 0</pose>
+        <visual name="beacon_vis">
+          <geometry><cylinder><radius>0.06</radius><length>0.12</length></cylinder></geometry>
+          <material>
+            <ambient>0.95 0.85 0.10 1.0</ambient>
+            <diffuse>0.95 0.85 0.10 1.0</diffuse>
+            <emissive>0.95 0.85 0.10 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Charging Station Epsilon -->
+    <model name="charging_bay_epsilon">
+      <static>true</static>
+      <pose>11.80 -36.50 0.0 0 0 0</pose>
+      <link name="terminal_housing">
+        <pose>0 0 0.65 0 0 0</pose>
+        <visual name="pylon_vis">
+          <geometry><box><size>0.35 0.50 1.3</size></box></geometry>
+          <material><ambient>0.22 0.25 0.28 1.0</ambient><diffuse>0.30 0.34 0.38 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="terminal_cap">
+        <pose>0 0 1.33 0 0 0</pose>
+        <visual name="cap_vis">
+          <geometry><box><size>0.38 0.53 0.08</size></box></geometry>
+          <material><ambient>0.60 0.14 0.74 1.0</ambient><diffuse>0.75 0.18 0.92 1.0</diffuse></material>
+        </visual>
+      </link>
+      <link name="charging_beacon">
+        <pose>0.15 0 1.10 0 0 0</pose>
+        <visual name="beacon_vis">
+          <geometry><cylinder><radius>0.06</radius><length>0.12</length></cylinder></geometry>
+          <material>
+            <ambient>0.75 0.18 0.92 1.0</ambient>
+            <diffuse>0.75 0.18 0.92 1.0</diffuse>
+            <emissive>0.75 0.18 0.92 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Signboard ZONE A: INBOUND RECEIVING -->
+    <model name="sign_zone_a">
+      <static>true</static>
+      <pose>16.00 -9.00 5.00 0 0 0</pose>
+      <link name="sign_link">
+        <visual name="panel_vis">
+          <geometry><box><size>3.6 0.10 0.90</size></box></geometry>
+          <material><ambient>0.15 0.18 0.22 1.0</ambient><diffuse>0.20 0.24 0.28 1.0</diffuse></material>
+        </visual>
+        <visual name="banner_vis">
+          <pose>0 -0.052 0 0 0 0</pose>
+          <geometry><box><size>3.4 0.01 0.75</size></box></geometry>
+          <material>
+            <ambient>0.12 0.36 0.68 1.0</ambient>
+            <diffuse>0.15 0.45 0.85 1.0</diffuse>
+            <emissive>0.07 0.23 0.42 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Signboard ZONE B: BULK STORAGE -->
+    <model name="sign_zone_b">
+      <static>true</static>
+      <pose>66.00 -28.00 5.00 0 0 0</pose>
+      <link name="sign_link">
+        <visual name="panel_vis">
+          <geometry><box><size>3.6 0.10 0.90</size></box></geometry>
+          <material><ambient>0.15 0.18 0.22 1.0</ambient><diffuse>0.20 0.24 0.28 1.0</diffuse></material>
+        </visual>
+        <visual name="banner_vis">
+          <pose>0 -0.052 0 0 0 0</pose>
+          <geometry><box><size>3.4 0.01 0.75</size></box></geometry>
+          <material>
+            <ambient>0.44 0.16 0.60 1.0</ambient>
+            <diffuse>0.55 0.20 0.75 1.0</diffuse>
+            <emissive>0.28 0.10 0.38 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Signboard ZONE C: PACKING & SHIP -->
+    <model name="sign_zone_c">
+      <static>true</static>
+      <pose>16.00 -53.00 5.00 0 0 0</pose>
+      <link name="sign_link">
+        <visual name="panel_vis">
+          <geometry><box><size>3.6 0.10 0.90</size></box></geometry>
+          <material><ambient>0.15 0.18 0.22 1.0</ambient><diffuse>0.20 0.24 0.28 1.0</diffuse></material>
+        </visual>
+        <visual name="banner_vis">
+          <pose>0 -0.052 0 0 0 0</pose>
+          <geometry><box><size>3.4 0.01 0.75</size></box></geometry>
+          <material>
+            <ambient>0.16 0.52 0.28 1.0</ambient>
+            <diffuse>0.20 0.65 0.35 1.0</diffuse>
+            <emissive>0.10 0.33 0.17 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Signboard ZONE D: AMR FLEET DEPOT -->
+    <model name="sign_zone_d">
+      <static>true</static>
+      <pose>11.00 -25.00 5.00 0 0 0</pose>
+      <link name="sign_link">
+        <visual name="panel_vis">
+          <geometry><box><size>3.6 0.10 0.90</size></box></geometry>
+          <material><ambient>0.15 0.18 0.22 1.0</ambient><diffuse>0.20 0.24 0.28 1.0</diffuse></material>
+        </visual>
+        <visual name="banner_vis">
+          <pose>0 -0.052 0 0 0 0</pose>
+          <geometry><box><size>3.4 0.01 0.75</size></box></geometry>
+          <material>
+            <ambient>0.68 0.44 0.08 1.0</ambient>
+            <diffuse>0.85 0.55 0.10 1.0</diffuse>
+            <emissive>0.42 0.28 0.05 1.0</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Open-RMF TinyRobot Fleet: 5 AMRs across all 5 charging bays -->
+    <include>
+      <name>tinyRobot1</name>
+      <uri>model://TinyRobot</uri>
+      <pose>13.50 -28.50 0.0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tinyRobot2</name>
+      <uri>model://TinyRobot</uri>
+      <pose>13.50 -30.50 0.0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tinyRobot3</name>
+      <uri>model://TinyRobot</uri>
+      <pose>13.50 -32.50 0.0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tinyRobot4</name>
+      <uri>model://TinyRobot</uri>
+      <pose>13.50 -34.50 0.0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tinyRobot5</name>
+      <uri>model://TinyRobot</uri>
+      <pose>13.50 -36.50 0.0 0 0 0</pose>
+    </include>
+
+    <!-- Open-RMF Charger Component Registry Plugin -->
+    <plugin name="register_component" filename="libregister_component.so">
+      <component name="Chargers">
+        <rmf_charger name="tinyRobot1_charger" x="13.50" y="-28.50" z="0.0" />
+        <rmf_charger name="tinyRobot2_charger" x="13.50" y="-30.50" z="0.0" />
+        <rmf_charger name="charger_gamma" x="13.50" y="-32.50" z="0.0" />
+        <rmf_charger name="charger_delta" x="13.50" y="-34.50" z="0.0" />
+        <rmf_charger name="charger_epsilon" x="13.50" y="-36.50" z="0.0" />
+      </component>
+    </plugin>
+  </world>
+</sdf>

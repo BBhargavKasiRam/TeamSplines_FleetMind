@@ -1,0 +1,25 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="failover_mode" default="false"/>
+  <arg name="sim_update_rate" default='100'/>
+  <arg name="use_edge_ai" default="true"/>
+
+  <set_env name="__NV_PRIME_RENDER_OFFLOAD" value="1"/>
+  <set_env name="__GLX_VENDOR_LIBRARY_NAME" value="nvidia"/>
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share rmf_demos)/office.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="failover_mode" value="$(var failover_mode)"/>
+    <arg name="use_edge_ai" value="$(var use_edge_ai)"/>
+  </include>
+
+  <!-- Simulation launch -->
+  <include file="$(find-pkg-share rmf_demos_gz)/simulation.launch.xml">
+    <arg name="map_name" value="office" />
+    <arg name="sim_update_rate" value="$(var sim_update_rate)"/>
+  </include>
+
+</launch>

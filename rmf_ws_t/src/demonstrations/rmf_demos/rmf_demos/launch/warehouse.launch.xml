@@ -1,0 +1,24 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="use_sim_time" default="false"/>
+  <arg name="failover_mode" default="false"/>
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value="$(find-pkg-share rmf_demos)/include/warehouse/warehouse.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_demos_maps)/warehouse/warehouse.building.yaml"/>
+    <arg name="use_reservation_node" value="true"/>
+  </include>
+
+  <!-- TinyRobot Fleet Adapter -->
+  <group>
+    <include file="$(find-pkg-share rmf_demos_fleet_adapter)/launch/fleet_adapter.launch.xml">
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/warehouse/nav_graphs/0.yaml"/>
+      <arg name="config_file" value="$(find-pkg-share rmf_demos)/config/warehouse/tinyRobot_config.yaml"/>
+    </include>
+  </group>
+
+</launch>

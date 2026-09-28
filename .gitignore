@@ -1,0 +1,111 @@
+# ==============================================================================
+# Git Ignore Configuration for Smart Warehouse Dual-Fleet Benchmark Suite
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# ROS 2 & Colcon Workspace Artifacts (Build outputs, compiled binaries, logs)
+# ------------------------------------------------------------------------------
+build/
+install/
+log/
+**/build/
+**/install/
+**/log/
+COLCON_IGNORE
+COLCON_IGNORE.dsv
+*.dsv
+*.log
+
+# ------------------------------------------------------------------------------
+# Python Artifacts & Caches
+# ------------------------------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ------------------------------------------------------------------------------
+# C / C++ Build Artifacts
+# ------------------------------------------------------------------------------
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+compile_commands.json
+
+# ------------------------------------------------------------------------------
+# Databases & Runtime State (Benchmark audit logs, dynamic RMF schedules)
+# ------------------------------------------------------------------------------
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+benchmark_history.db
+**/benchmark_history.db
+.rmf_schedule_node.yaml
+**/.rmf_schedule_node.yaml
+
+# ------------------------------------------------------------------------------
+# Simulation Dumps & Crash Logs
+# ------------------------------------------------------------------------------
+*.xwd
+*.png.dump
+core
+core.*
+vgcore.*
+
+# ------------------------------------------------------------------------------
+# Temporary & Backup Files
+# ------------------------------------------------------------------------------
+*.tmp
+*.bak
+*.orig
+*~
+scratch/
+tmp/
+
+# ------------------------------------------------------------------------------
+# IDEs & Editor Configuration
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*.kate-swp
+*.sublime-project
+*.sublime-workspace
+.clangd/
+
+# ------------------------------------------------------------------------------
+# Operating System Artifacts
+# ------------------------------------------------------------------------------
+.DS_Store
+Thumbs.db

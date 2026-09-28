@@ -1,0 +1,16 @@
+# TaskState.msg
+# Detailed execution status of an active warehouse task
+
+string PHASE_PENDING=PENDING
+string PHASE_MOVING_TO_PICKUP=MOVING_TO_PICKUP
+string PHASE_PICKING_UP=PICKING_UP
+string PHASE_MOVING_TO_DESTINATION=MOVING_TO_DESTINATION
+string PHASE_DROPPING_OFF=DROPPING_OFF
+string PHASE_COMPLETED=COMPLETED
+string PHASE_FAILED=FAILED
+
+warehouse_3d_interfaces/WarehouseTask task
+float32 progress_percentage
+string current_phase
+string assigned_robot
+float32 elapsed_time_seconds

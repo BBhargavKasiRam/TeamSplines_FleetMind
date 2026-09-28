@@ -1,0 +1,16 @@
+name: build
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '55 0 * * *'
+
+jobs:
+  build_and_test:
+    name: Build and test
+    uses: open-rmf/rmf_ci_templates/.github/workflows/reusable_build.yaml@main
+    with:
+      packages: rmf_traffic

@@ -1,0 +1,10 @@
+# Goal
+warehouse_3d_interfaces/WarehouseTask task
+---
+# Result
+bool success
+string message
+---
+# Feedback
+float32 progress
+string current_phase

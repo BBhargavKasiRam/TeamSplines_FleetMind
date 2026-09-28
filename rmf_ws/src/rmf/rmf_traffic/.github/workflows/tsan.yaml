@@ -1,0 +1,16 @@
+name: tsan
+on:
+  pull_request:
+  schedule:
+    - cron: '36 0 * * *'
+
+jobs:
+  tsan:
+    name: Thread Santization
+    uses: open-rmf/rmf_ci_templates/.github/workflows/reusable_build.yaml@main
+    with:
+      packages: rmf_traffic
+      dist-matrix: |
+        [{"ros_distribution": "lyrical",
+          "ubuntu_distribution": "resolute"}]
+      mixin: tsan

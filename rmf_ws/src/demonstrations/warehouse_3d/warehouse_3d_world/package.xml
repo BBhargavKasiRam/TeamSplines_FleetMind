@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>warehouse_3d_world</name>
+  <version>1.0.0</version>
+  <description>3D Industrial Warehouse World for Gazebo Sim</description>
+  <maintainer email="warehouse_sim@simulation.local">Autonomous Warehouse Simulation Team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_sim_resource_path>${prefix}/worlds</gazebo_sim_resource_path>
+    <gazebo_sim_resource_path>${prefix}/models</gazebo_sim_resource_path>
+  </export>
+</package>

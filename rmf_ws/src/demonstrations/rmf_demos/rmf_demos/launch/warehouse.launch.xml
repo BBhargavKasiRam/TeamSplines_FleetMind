@@ -1,0 +1,39 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="use_sim_time" default="false"/>
+  <arg name="failover_mode" default="false"/>
+  <arg name="mode" default="edge_ai" description="Coordination mode: Decentralized Edge-AI"/>
+  <arg name="use_edge_ai" default="true"/>
+
+  <set_env name="__NV_PRIME_RENDER_OFFLOAD" value="1"/>
+  <set_env name="__GLX_VENDOR_LIBRARY_NAME" value="nvidia"/>
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value="$(find-pkg-share rmf_demos)/include/warehouse/warehouse.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_demos_maps)/warehouse/warehouse.building.yaml"/>
+    <arg name="use_reservation_node" value="true"/>
+  </include>
+
+  <!-- TinyRobot Fleet Adapter -->
+  <group>
+    <include file="$(find-pkg-share rmf_demos_fleet_adapter)/launch/fleet_adapter.launch.xml">
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/warehouse/nav_graphs/0.yaml"/>
+      <arg name="config_file" value="$(find-pkg-share rmf_demos)/config/warehouse/tinyRobot_config.yaml"/>
+    </include>
+  </group>
+
+  <!-- Edge-AI Coordination Layer (SIH Problem Statement 26123 - BEL) -->
+  <group>
+    <include file="$(find-pkg-share rmf_edge_ai)/launch/rmf_edge_ai.launch.xml">
+      <arg name="fleet_name" value="tinyRobot"/>
+      <arg name="mode" value="edge_ai"/>
+      <arg name="pickup_place" value="loading_dock"/>
+      <arg name="dropoff_place" value="packing_01"/>
+    </include>
+  </group>
+
+</launch>

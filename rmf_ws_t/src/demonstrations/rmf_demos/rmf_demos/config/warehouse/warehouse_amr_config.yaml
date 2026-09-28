@@ -1,0 +1,66 @@
+# FLEET CONFIG =================================================================
+# RMF Fleet parameters for Warehouse AMR Fleet (Alpha, Beta, Gamma, Delta, Epsilon)
+
+rmf_fleet:
+  name: "warehouseAMR"
+  limits:
+    linear: [0.8, 1.2]
+    angular: [0.9, 2.5]
+  profile:
+    footprint: 0.40
+    vicinity: 0.70
+  reversible: True
+  battery_system:
+    voltage: 24.0
+    capacity: 50.0
+    charging_current: 12.0
+  mechanical_system:
+    mass: 30.0
+    moment_of_inertia: 15.0
+    friction_coefficient: 0.22
+  ambient_system:
+    power: 25.0
+  tool_system:
+    power: 0.0
+  recharge_threshold: 0.15
+  recharge_soc: 1.0
+  publish_fleet_state: 10.0
+  account_for_battery_drain: True
+  task_capabilities:
+    loop: True
+    delivery: True
+  actions: ["teleop"]
+  finishing_request: "charge"
+  responsive_wait: False
+  use_parking_reservations: True
+  reassign_task_interval: 120
+  task_assignment_strategy:
+    profile: "DefaultFastest"
+    weights:
+      finish_time: [1.0]
+      battery_penalty: [5.0, 20.0]
+      busy_penalty: [60.0]
+    options:
+      busy_mode: "Binary"
+  robots:
+    robot_alpha:
+      charger: "tinyRobot1_charger"
+      responsive_wait: False
+    robot_beta:
+      charger: "tinyRobot2_charger"
+      responsive_wait: False
+    robot_gamma:
+      charger: "charger_gamma"
+      responsive_wait: False
+    robot_delta:
+      charger: "charger_delta"
+      responsive_wait: False
+    robot_epsilon:
+      charger: "charger_epsilon"
+      responsive_wait: False
+
+fleet_manager:
+  ip: "127.0.0.1"
+  port: 22012
+  user: "some_user"
+  password: "some_password"

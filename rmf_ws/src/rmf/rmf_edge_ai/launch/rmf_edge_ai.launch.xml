@@ -1,0 +1,48 @@
+<?xml version='1.0' ?>
+<launch>
+  <arg name="fleet_name" default="tinyRobot" description="Target Open-RMF fleet name"/>
+  <arg name="mode" default="EDGE_AI" description="Coordination mode: Decentralized EDGE_AI"/>
+  <arg name="pickup_place" default="loading_dock" description="Standard benchmark pickup location"/>
+  <arg name="dropoff_place" default="packing_01" description="Standard benchmark dropoff location"/>
+
+  <!-- Layer 1: Edge Perception & Aisle Anomaly Detector for All Available AMRs -->
+  <node pkg="rmf_edge_ai" exec="rmf_edge_perception_node" name="rmf_edge_perception_tinyRobot1" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+    <param name="robot_name" value="tinyRobot1"/>
+  </node>
+  <node pkg="rmf_edge_ai" exec="rmf_edge_perception_node" name="rmf_edge_perception_tinyRobot2" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+    <param name="robot_name" value="tinyRobot2"/>
+  </node>
+  <node pkg="rmf_edge_ai" exec="rmf_edge_perception_node" name="rmf_edge_perception_tinyRobot3" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+    <param name="robot_name" value="tinyRobot3"/>
+  </node>
+  <node pkg="rmf_edge_ai" exec="rmf_edge_perception_node" name="rmf_edge_perception_tinyRobot4" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+    <param name="robot_name" value="tinyRobot4"/>
+  </node>
+  <node pkg="rmf_edge_ai" exec="rmf_edge_perception_node" name="rmf_edge_perception_tinyRobot5" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+    <param name="robot_name" value="tinyRobot5"/>
+  </node>
+
+  <!-- Layer 2: Decentralized P2P Mesh Bridge (All Robots) -->
+  <node pkg="rmf_edge_ai" exec="rmf_edge_p2p_bridge_node" name="rmf_edge_p2p_bridge_node" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+  </node>
+
+  <!-- Layer 3: Dynamic Conflict Resolution & Deadlock Breaker (Pure Mode Enforcer) -->
+  <node pkg="rmf_edge_ai" exec="rmf_edge_conflict_resolver_node" name="rmf_edge_conflict_resolver_node" output="screen">
+    <param name="mode" value="$(var mode)"/>
+    <param name="fleet_name" value="$(var fleet_name)"/>
+  </node>
+
+  <!-- Layer 4: Decentralized Task Allocation & Contract Net Protocol -->
+  <node pkg="rmf_edge_ai" exec="rmf_edge_task_allocator_node" name="rmf_edge_task_allocator_node" output="screen">
+    <param name="fleet_name" value="$(var fleet_name)"/>
+    <param name="robot_name" value="tinyRobot1"/>
+    <param name="pickup_place" value="$(var pickup_place)"/>
+    <param name="dropoff_place" value="$(var dropoff_place)"/>
+  </node>
+</launch>

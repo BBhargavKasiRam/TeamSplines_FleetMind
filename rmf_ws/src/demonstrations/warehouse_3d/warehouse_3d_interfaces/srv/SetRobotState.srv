@@ -1,0 +1,5 @@
+string robot_id
+string command
+---
+bool success
+string message

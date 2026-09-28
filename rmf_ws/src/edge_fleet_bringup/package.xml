@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>edge_fleet_bringup</name>
+  <version>1.0.0</version>
+  <description>Universal launch and benchmark runner for Edge-AI Fleet Coordination (SIH Problem Statement 26123)</description>
+  <maintainer email="sih_team@bel.gov.in">BEL Edge AI Team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>edge_fleet_msgs</depend>
+  <depend>edge_fleet_core</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

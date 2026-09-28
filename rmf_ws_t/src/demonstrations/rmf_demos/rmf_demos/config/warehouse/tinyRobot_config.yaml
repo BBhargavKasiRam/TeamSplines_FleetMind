@@ -1,0 +1,66 @@
+# FLEET CONFIG =================================================================
+# RMF Fleet parameters for Warehouse Demo
+
+rmf_fleet:
+  name: "tinyRobot"
+  limits:
+    linear: [0.75, 1.0] # velocity, acceleration
+    angular: [0.8, 2.5] # velocity, acceleration
+  profile: # Robot profile is modelled as a circle
+    footprint: 0.35 # radius in m
+    vicinity: 0.65 # radius in m
+  reversible: True # whether robots in this fleet can reverse
+  battery_system:
+    voltage: 24.0 # V
+    capacity: 40.0 # Ahr
+    charging_current: 10.0 # A
+  mechanical_system:
+    mass: 25.0 # kg
+    moment_of_inertia: 12.0 # kgm^2
+    friction_coefficient: 0.22
+  ambient_system:
+    power: 20.0 # W
+  tool_system:
+    power: 0.0 # W
+  recharge_threshold: 0.10 # Battery level below which robots in this fleet will not operate
+  recharge_soc: 1.0 # Battery level to which robots in this fleet should be charged up to
+  publish_fleet_state: 10.0 # Publish frequency for fleet state
+  account_for_battery_drain: True
+  task_capabilities:
+    loop: True
+    delivery: True
+  actions: ["teleop"]
+  finishing_request: "charge" # [park, charge, nothing]
+  responsive_wait: False
+  use_parking_reservations: False
+  reassign_task_interval: 120 # seconds
+  task_assignment_strategy:
+    profile: "DefaultFastest"
+    weights:
+      finish_time: [1.0]
+      battery_penalty: [5.0, 20.0]
+      busy_penalty: [60.0]
+    options:
+      busy_mode: "Binary"
+  robots:
+    tinyRobot1:
+      charger: "tinyRobot1_charger"
+      responsive_wait: False
+    tinyRobot2:
+      charger: "tinyRobot2_charger"
+      responsive_wait: False
+    tinyRobot3:
+      charger: "charger_gamma"
+      responsive_wait: False
+    tinyRobot4:
+      charger: "charger_delta"
+      responsive_wait: False
+    tinyRobot5:
+      charger: "charger_epsilon"
+      responsive_wait: False
+
+fleet_manager:
+  ip: "127.0.0.1"
+  port: 22012
+  user: "some_user"
+  password: "some_password"
