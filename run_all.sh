@@ -14,10 +14,10 @@
 
 set -e
 
-SIH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-EDGE_WS="$SIH_DIR/rmf_ws"
-TRAD_WS="$SIH_DIR/rmf_ws_t"
-WEB_DASH="$SIH_DIR/web_dashboard"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+EDGE_WS="$BASE_DIR/rmf_ws"
+TRAD_WS="$BASE_DIR/rmf_ws_t"
+WEB_DASH="$BASE_DIR/web_dashboard"
 
 DAEMON_MODE=0
 if [ "$1" = "--daemon" ] || [ "$1" = "-d" ]; then
@@ -26,13 +26,13 @@ fi
 
 echo "================================================================================"
 echo " 🚀 LAUNCHING SMART WAREHOUSE DUAL-FLEET BENCHMARK SUITE"
-echo " Root Folder : $SIH_DIR"
+echo " Root Folder : $BASE_DIR"
 echo " Components  : Central Dashboard (8080) | Edge-AI (rmf_ws) | Traditional (rmf_ws_t)"
 echo "================================================================================"
 
 # 1. Clean up any previous runs
 echo "[1/4] Stopping any previous simulations and servers..."
-"$SIH_DIR/kill_all.sh" >/dev/null 2>&1 || true
+"$BASE_DIR/kill_all.sh" >/dev/null 2>&1 || true
 sleep 1
 
 # Common NVIDIA GPU & display settings
@@ -43,14 +43,14 @@ export __VK_LAYER_NV_optimus=NVIDIA_only
 export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
 export QT_QPA_PLATFORM=xcb
 export GZ_RENDERING_ENGINE=ogre2
-export PATH="/home/manoj/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # 2. Start Centralized Dashboard & Gateway (web_dashboard on port 8080)
 echo "[2/4] Starting Centralized Comparison Dashboard on port 8080 & 8765..."
 nohup setsid bash -c '
   export ROS_DOMAIN_ID=10
   export TRADITIONAL_API_URL="http://localhost:8081/api/status"
-  export SIH_DIR="'"$SIH_DIR"'"
+  export FLEETMIND_DIR="'"$BASE_DIR"'"
   source /opt/ros/jazzy/setup.bash
   source "'"$EDGE_WS"'/install/setup.bash"
   exec python3 -u "'"$WEB_DASH"'/dashboard_server.py"
@@ -104,7 +104,7 @@ disown $EDGE_SIM_PID 2>/dev/null || true
 echo "      -> Edge-AI Gazebo & RViz2 launched (PID: $EDGE_SIM_PID, logs: $EDGE_WS/simulation.log)"
 
 # Auto-tile visualizer windows in background
-nohup setsid python3 "$SIH_DIR/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
+nohup setsid python3 "$BASE_DIR/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
 
 echo ""
 echo "================================================================================"
@@ -162,7 +162,7 @@ export DISPLAY=${DISPLAY:-:1}
 nohup setsid google-chrome http://localhost:8080/ </dev/null >/dev/null 2>&1 &
 
 # Auto-tile visualizer and dashboard windows
-nohup setsid python3 "$SIH_DIR/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
+nohup setsid python3 "$BASE_DIR/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
 
 echo "================================================================================"
 echo " 🎉 ALL 3 SYSTEMS ARE RUNNING AND FULLY CONNECTED!"
@@ -190,7 +190,7 @@ echo "[*] Keeping launcher active. Press Ctrl+C at any time to cleanly stop all 
 cleanup() {
   echo ""
   echo "[*] Signal received. Terminating all services..."
-  "$SIH_DIR/kill_all.sh"
+  "$BASE_DIR/kill_all.sh"
   exit 0
 }
 trap cleanup INT TERM

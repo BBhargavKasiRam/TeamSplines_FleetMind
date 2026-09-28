@@ -16,7 +16,7 @@
 
 set -e
 
-SIH_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCENARIO="${1:-benchmark}"
 ROBOT="${2:-all}"
 
@@ -84,7 +84,7 @@ trap_save() {
   echo "    Open http://localhost:8080 and click [📊 Graphical Charts] to view interactive charts"
   echo ""
   echo " 🔍 To inspect database records via CLI:"
-  echo "    sqlite3 \"$SIH_DIR/web_dashboard/benchmark_history.db\" \"SELECT run_id, scenario, edge_time_sec, trad_time_sec, time_saved_pct FROM benchmark_history ORDER BY id DESC LIMIT 5;\""
+  echo "    sqlite3 \"$BASE_DIR/web_dashboard/benchmark_history.db\" \"SELECT run_id, scenario, edge_time_sec, trad_time_sec, time_saved_pct FROM benchmark_history ORDER BY id DESC LIMIT 5;\""
   echo "================================================================================"
   exit 0
 }

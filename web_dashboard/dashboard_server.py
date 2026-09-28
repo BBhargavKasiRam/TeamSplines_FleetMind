@@ -44,27 +44,25 @@ from edge_fleet_msgs.msg import RobotIntent, ConflictEvent, TaskAuction, FleetBe
 
 # Workspace & File Paths
 CURRENT_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-SIH_DIR = os.environ.get("SIH_DIR", "")
-if not SIH_DIR or not os.path.isdir(SIH_DIR):
+FLEETMIND_DIR = os.environ.get("FLEETMIND_DIR", os.environ.get("SIH_DIR", ""))
+if not FLEETMIND_DIR or not os.path.isdir(FLEETMIND_DIR):
     parent = os.path.abspath(os.path.join(CURRENT_FILE_DIR, ".."))
     if os.path.isdir(os.path.join(parent, "rmf_ws")):
-        SIH_DIR = parent
-    elif os.path.isdir("/home/manoj/SIH"):
-        SIH_DIR = "/home/manoj/SIH"
+        FLEETMIND_DIR = parent
     else:
-        SIH_DIR = "/home/manoj"
+        FLEETMIND_DIR = parent
 
-WORKSPACE_ROOT = os.path.join(SIH_DIR, "rmf_ws")
-TRADITIONAL_WORKSPACE = os.path.join(SIH_DIR, "rmf_ws_t")
+WORKSPACE_ROOT = os.path.join(FLEETMIND_DIR, "rmf_ws")
+TRADITIONAL_WORKSPACE = os.path.join(FLEETMIND_DIR, "rmf_ws_t")
 
-DB_PATH = os.path.join(SIH_DIR, "web_dashboard", "benchmark_history.db")
+DB_PATH = os.path.join(FLEETMIND_DIR, "web_dashboard", "benchmark_history.db")
 if not os.path.exists(os.path.dirname(DB_PATH)):
     DB_PATH = os.path.join(WORKSPACE_ROOT, "benchmark_history.db")
 
 WAREHOUSE_YAML_PATH = os.path.join(WORKSPACE_ROOT, "src/demonstrations/rmf_demos/rmf_demos_maps/maps/warehouse/warehouse.building.yaml")
 WAREHOUSE_IMG_PATH = os.path.join(WORKSPACE_ROOT, "src/demonstrations/rmf_demos/rmf_demos_maps/maps/warehouse/warehouse_L1.png")
 
-DASHBOARD_DIR = os.path.join(SIH_DIR, "web_dashboard", "dashboard_ui")
+DASHBOARD_DIR = os.path.join(FLEETMIND_DIR, "web_dashboard", "dashboard_ui")
 if not os.path.exists(DASHBOARD_DIR):
     try:
         from ament_index_python.packages import get_package_share_directory

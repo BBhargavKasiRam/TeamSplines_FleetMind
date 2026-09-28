@@ -6,7 +6,8 @@
 set -e
 
 source /opt/ros/jazzy/setup.bash
-source /home/manoj/SIH/rmf_ws_t/install/setup.bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/install/setup.bash"
 
 export DISPLAY=${DISPLAY:-:1}
 export __NV_PRIME_RENDER_OFFLOAD=1

@@ -109,3 +109,12 @@ tmp/
 # ------------------------------------------------------------------------------
 .DS_Store
 Thumbs.db
+
+# ------------------------------------------------------------------------------
+# Local Presentation Utilities & Temporary Uploads
+# ------------------------------------------------------------------------------
+image*.png
+Pasted*.png
+generate_comparison_chart.py
+screenshots/fleetmind_comparison_chart.png
+

@@ -550,5 +550,6 @@ def generate_expanded_warehouse_world(output_path):
     print(f"[generate_warehouse_world] Successfully generated 4x expanded warehouse world at: {output_path}")
 
 if __name__ == "__main__":
-    target = sys.argv[1] if len(sys.argv) > 1 else "/home/manoj/rmf_ws/src/demonstrations/rmf_demos/rmf_demos_maps/maps/warehouse/warehouse.world"
+    default_target = os.path.join(os.path.dirname(os.path.abspath(__file__)), "warehouse.world")
+    target = sys.argv[1] if len(sys.argv) > 1 else default_target
     generate_expanded_warehouse_world(target)
