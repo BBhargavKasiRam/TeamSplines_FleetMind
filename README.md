@@ -207,14 +207,20 @@ In the decentralized Edge-AI fleet, each AMR $i$ computes a safe collision-free 
 $$\mathbf{v}_i^{\text{new}} = \arg\min_{\mathbf{v} \in \text{ORCA}_{i|j}} \|\mathbf{v} - \mathbf{v}_i^{\text{pref}}\|$$
 Each AMR shares responsibility reciprocally (50/50), adjusting its velocity vector continuously. This avoids the severe stop-and-wait penalties inherent in traditional mutex schedule reservations.
 
-### Distributed Task Allocation (Contract Net Protocol)
-When an order arrives or an aisle is obstructed:
-1. The detecting robot broadcasts a `TaskAuction` message over the P2P topic `/edge_fleet/task_auction`.
-2. Available AMRs compute a bid $B_k = \alpha \cdot \text{distance} + \beta \cdot (1 - \text{battery}) + \gamma \cdot \text{queue\_length}$.
-3. The lowest-cost bidder self-assigns the waypoint and broadcasts an intent update to prevent duplicated execution.
+### Dynamic Task Allocation & Autonomous Re-Routing (Contract Net Protocol)
 
----
+When an AMR encounters a dynamic disturbance (such as an obstructed aisle or newly prioritized warehouse order), the fleet coordinates autonomously without a central server:
 
-## 🛡️ License & Copyright
-Developed for **Bharat Electronics Limited (BEL)** under the **Smart Automation** software initiative.  
-Licensed under the **Apache License, Version 2.0**.
+1. **Aisle Blockage Detection & Local Detour**:
+   - The robot's onboard perception node detects the obstruction (`/aisle_blocked`).
+   - If an alternative passable path exists in its local warehouse topological graph, the AMR dynamically computes a detour.
+
+2. **Distributed Contract Net Protocol (CNP) Auctioning**:
+   If the corridor is completely blocked or the AMR cannot service the pickup point, it initiates a peer-to-peer auction over `/fleet/task_auctions`:
+   - **Phase 1: Task Announcement (`AUCTION_ANNOUNCE`)**: The detecting AMR acts as the auctioneer, broadcasting the unfulfilled task parameters (task ID, pickup coordinates, dropoff destination, and reason `AISLE_BLOCKED`).
+   - **Phase 2: Bid Evaluation & Submission (`AUCTION_BID`)**: Neighboring peer AMRs calculate a bid cost based on physical proximity and battery state-of-charge:
+     $$\text{Bid Cost} = \text{Euclidean Distance to Pickup (m)} + \frac{100 - \text{Battery SoC (\%)}}{10}$$
+     Peers transmit their bids with current battery level and cost back to the auctioneer.
+   - **Phase 3: Award Decision (`AUCTION_AWARD`)**: After a 500 ms evaluation window, the auctioneer selects the best bidder (minimum cost) and transmits an award confirmation.
+   - **Phase 4: Acknowledgment & Handshake (`AUCTION_ACK`)**: The winning AMR confirms acceptance, updates its active mission queue to service the reallocated pickup location, and broadcasts the status, ensuring continuous warehouse throughput with zero duplicate dispatch.
+
