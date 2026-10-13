@@ -22,6 +22,31 @@ To prove performance, the platform includes a **Unified Dual-Fleet Comparative S
 
 ---
 
+## 🎬 Live Demonstration Video
+
+Watch the complete live system demonstration, featuring synchronized dual-fleet simulation, decentralized ORCA conflict resolution, dynamic aisle blockage detour, and real-time comparative telemetry:
+
+[![FleetMind Live Simulation Demonstration](https://img.youtube.com/vi/heSe1762jio/maxresdefault.jpg)](https://www.youtube.com/watch?v=heSe1762jio)
+
+> 🔗 **Watch Video on YouTube:** [https://www.youtube.com/watch?v=heSe1762jio](https://www.youtube.com/watch?v=heSe1762jio)
+
+---
+
+## 💡 Project Attribution: What We Developed vs. Baseline Control Group
+
+To clearly distinguish what was engineered specifically for this solution versus the baseline comparison group:
+
+| Component | Subsystem Path | Developed by Our Team? | Technical Description |
+| :--- | :--- | :---: | :--- |
+| **Edge-AI Fleet Core** | [`rmf_ws/src/edge_fleet_core`](rmf_ws/src/edge_fleet_core) | **Yes (100% Original)** | Real-time C++20 ORCA velocity modulation (20 Hz), P2P mesh state sharing, dynamic deadlock override, and Contract Net Protocol (CNP) decentralized task auctioning. |
+| **Custom Messaging Stack** | [`rmf_ws/src/edge_fleet_msgs`](rmf_ws/src/edge_fleet_msgs) | **Yes (100% Original)** | Distributed ROS 2 message definitions (`RobotIntent.msg`, `ConflictEvent.msg`, `TaskAuction.msg`, `FleetBenchmark.msg`). |
+| **Bringup & Dynamic Perception** | [`rmf_ws/src/edge_fleet_bringup`](rmf_ws/src/edge_fleet_bringup) | **Yes (100% Original)** | Dynamic obstacle injection tool (`inject_blockage.py`), local occupancy grid updates, and 5-AMR launch topology. |
+| **Comparative Telemetry & Web Dashboard** | [`web_dashboard/`](web_dashboard/) | **Yes (100% Original)** | FastAPI & WebSocket telemetry aggregator (port `8080`), live 2D warehouse floorplan canvas, 4-panel Chart.js analytics engine, and persistent SQLite benchmark database. |
+| **Dual-Fleet Orchestration & Tooling** | [`run_all.sh`](run_all.sh), [`dispatch_dual_tasks.sh`](dispatch_dual_tasks.sh), [`scripts/`](scripts/) | **Yes (100% Original)** | Synchronized dual-domain testbench orchestration (ROS Domain 10 vs. Domain 20) and automated comparative auditor. |
+| **Traditional Open-RMF Baseline** | [`rmf_ws_t/`](rmf_ws_t/) | **Baseline Control Group** | Standard upstream Open-RMF centralized schedule reservation system, included strictly as an objective control group to measure our speedup and halt reduction against. |
+
+---
+
 ## 🎯 Key Objectives & Core Pillars
 
 ### 1. 📡 Decentralized Peer-to-Peer Communication
