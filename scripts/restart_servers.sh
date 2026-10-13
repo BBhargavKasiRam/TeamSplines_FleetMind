@@ -6,7 +6,7 @@ pkill -9 -f telemetry_server.py 2>/dev/null || true
 sleep 1
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_DIR="${FLEETMIND_DIR:-$SCRIPT_DIR}"
+BASE_DIR="${FLEETMIND_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 EDGE_WS="$BASE_DIR/rmf_ws"
 TRAD_WS="$BASE_DIR/rmf_ws_t"
 WEB_DASH="$BASE_DIR/web_dashboard"
@@ -15,7 +15,7 @@ nohup setsid bash -c '
   export ROS_DOMAIN_ID=20
   source /opt/ros/jazzy/setup.bash
   source "'"$TRAD_WS"'/install/setup.bash"
-  exec python3 -u "'"$TRAD_WS"'/telemetry_server.py"
+  exec python3 -u "'"$WEB_DASH"'/traditional_telemetry_server.py"
 ' </dev/null > "$TRAD_WS/telemetry.log" 2>&1 &
 TRAD_PID=$!
 disown $TRAD_PID 2>/dev/null || true

@@ -65,7 +65,7 @@ nohup setsid bash -c '
   export ROS_DOMAIN_ID=20
   source /opt/ros/jazzy/setup.bash
   source "'"$TRAD_WS"'/install/setup.bash"
-  exec python3 -u "'"$TRAD_WS"'/telemetry_server.py"
+  exec python3 -u "'"$WEB_DASH"'/traditional_telemetry_server.py"
 ' </dev/null > "$TRAD_WS/telemetry.log" 2>&1 &
 TRAD_TELEMETRY_PID=$!
 disown $TRAD_TELEMETRY_PID 2>/dev/null || true
@@ -104,7 +104,7 @@ disown $EDGE_SIM_PID 2>/dev/null || true
 echo "      -> Edge-AI Gazebo & RViz2 launched (PID: $EDGE_SIM_PID, logs: $EDGE_WS/simulation.log)"
 
 # Auto-tile visualizer windows in background
-nohup setsid python3 "$BASE_DIR/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
+nohup setsid python3 "$BASE_DIR/scripts/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
 
 echo ""
 echo "================================================================================"
@@ -162,7 +162,7 @@ export DISPLAY=${DISPLAY:-:1}
 nohup setsid google-chrome http://localhost:8080/ </dev/null >/dev/null 2>&1 &
 
 # Auto-tile visualizer and dashboard windows
-nohup setsid python3 "$BASE_DIR/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
+nohup setsid python3 "$BASE_DIR/scripts/tile_dual_windows.py" </dev/null >/dev/null 2>&1 &
 
 echo "================================================================================"
 echo " 🎉 ALL 3 SYSTEMS ARE RUNNING AND FULLY CONNECTED!"

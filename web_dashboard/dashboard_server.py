@@ -44,7 +44,7 @@ from edge_fleet_msgs.msg import RobotIntent, ConflictEvent, TaskAuction, FleetBe
 
 # Workspace & File Paths
 CURRENT_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-FLEETMIND_DIR = os.environ.get("FLEETMIND_DIR", os.environ.get("SIH_DIR", ""))
+FLEETMIND_DIR = os.environ.get("FLEETMIND_DIR", "")
 if not FLEETMIND_DIR or not os.path.isdir(FLEETMIND_DIR):
     parent = os.path.abspath(os.path.join(CURRENT_FILE_DIR, ".."))
     if os.path.isdir(os.path.join(parent, "rmf_ws")):

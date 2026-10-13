@@ -16,7 +16,9 @@ echo " [LAUNCHING MODE 1] WAREHOUSE SIMULATION: DECENTRALIZED EDGE-AI MODE"
 echo " Configuration: ALL ROBOTS IN FLEET WILL OPERATE UNDER DECENTRALIZED EDGE-AI"
 echo "================================================================================"
 
-WS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+WS_DIR="$BASE_DIR/rmf_ws"
 
 source /opt/ros/jazzy/setup.bash
 source "$WS_DIR/install/setup.bash"
@@ -31,16 +33,16 @@ export SDF_PATH="$WS_DIR/install/rmf_demos_assets/share/rmf_demos_assets/models:
 export GZ_SIM_RESOURCE_PATH="$WS_DIR/install/rmf_demos_assets/share/rmf_demos_assets/models:$WS_DIR/install/rmf_demos_maps/share/rmf_demos_maps/maps/warehouse/models:$HOME/.gazebo/models:${GZ_SIM_RESOURCE_PATH:-}"
 
 # 1. Clean up any previous simulator and node instances
-"$WS_DIR/kill_sim.sh" >/dev/null 2>&1 || true
+"$BASE_DIR/kill_all.sh" >/dev/null 2>&1 || true
 sleep 1
 
 # 2. Start Fleet Dashboard in EDGE_AI mode
-python3 -u "$WS_DIR/src/edge_fleet_bringup/scripts/dashboard_server.py" --ros-args -p mode:=EDGE_AI > /tmp/dashboard_server.log 2>&1 &
+python3 -u "$BASE_DIR/web_dashboard/dashboard_server.py" > /tmp/dashboard_server.log 2>&1 &
 echo "[*] Live Fleet Dashboard Server started on http://localhost:8080 (MODE: EDGE_AI)"
 
 # 3. Launch 4x Warehouse in EDGE_AI mode
 # Automatically tiles Gazebo Sim (Left) and RViz2 (Right) side-by-side on display
-python3 "$WS_DIR/src/edge_fleet_bringup/scripts/tile_windows.py" >/dev/null 2>&1 &
+python3 "$SCRIPT_DIR/tile_dual_windows.py" >/dev/null 2>&1 &
 
 echo "[*] Launching Gazebo Sim & RViz2 in Decentralized Edge-AI Mode..."
 ros2 launch rmf_demos_gz warehouse.launch.xml mode:=edge_ai

@@ -5,7 +5,9 @@
 
 set -e
 
-WS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+WS_DIR="$BASE_DIR/rmf_ws_t"
 
 source /opt/ros/jazzy/setup.bash
 source "$WS_DIR/install/setup.bash"
@@ -20,11 +22,11 @@ export SDF_PATH="$WS_DIR/install/rmf_demos_assets/share/rmf_demos_assets/models:
 export GZ_SIM_RESOURCE_PATH="$WS_DIR/install/rmf_demos_assets/share/rmf_demos_assets/models:$WS_DIR/install/rmf_demos_maps/share/rmf_demos_maps/maps/warehouse/models:$HOME/.gazebo/models:${GZ_SIM_RESOURCE_PATH:-}"
 
 # Clean up any existing instances
-"$WS_DIR/kill_sim.sh" >/dev/null 2>&1 || true
+"$BASE_DIR/kill_all.sh" >/dev/null 2>&1 || true
 sleep 1
 
 # Start Traditional Telemetry API Server on port 8081
-python3 "$WS_DIR/telemetry_server.py" >/tmp/rmf_ws_t_telemetry.log 2>&1 &
+python3 "$BASE_DIR/web_dashboard/traditional_telemetry_server.py" >/tmp/rmf_ws_t_telemetry.log 2>&1 &
 echo "[*] Traditional Open-RMF Telemetry API Server started on http://localhost:8081"
 
 echo "[*] Launching Open-RMF Warehouse Demo with standard Open-RMF algorithm & NVIDIA GPU..."

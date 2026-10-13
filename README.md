@@ -64,24 +64,27 @@ To prove performance, the platform includes a **Unified Dual-Fleet Comparative S
 .
 ├── web_dashboard/                  # Real-Time Telemetry & Comparative Analytics Gateway
 │   ├── dashboard_server.py         # FastAPI / ROS 2 telemetry aggregator & WebSocket server (Port 8080)
+│   ├── traditional_telemetry_server.py # REST API bridge for traditional fleet telemetry (Port 8081)
 │   ├── dashboard_ui/               # Live web UI with 2D warehouse floorplan & Chart.js engine
 │   │   ├── index.html              # Interactive comparison dashboard
 │   │   ├── chart.umd.min.js        # Graph visualization library
 │   │   └── warehouse_L1.png        # Scaled warehouse coordinate texture
-│   ├── benchmark_history.db        # SQLite audit database storing historical runs
+│   ├── benchmark_history.db        # Canonical SQLite audit database storing historical runs
 │   └── run_dashboard.sh            # Standalone dashboard launcher
-├── rmf_ws/                         # Proposed: Decentralized Edge-AI Simulation (ROS Domain 10)
-│   ├── src/
-│   │   ├── edge_fleet_core/        # C++20 ORCA velocity negotiation & conflict resolution
-│   │   ├── edge_fleet_bringup/     # Master launch configurations & dynamic obstruction tools
-│   │   ├── edge_fleet_msgs/        # Distributed P2P message definitions (RobotIntent, TaskAuction)
-│   │   └── demonstrations/         # 3D Warehouse world models, textures, and AMR navigation maps
-│   ├── run_warehouse_edge_ai.sh    # Standalone Edge-AI warehouse simulation launcher
-│   └── watch_edge_ai_metrics.py    # Real-time console metrics auditor
-├── rmf_ws_t/                       # Baseline: Traditional Centralized Open-RMF Simulation (ROS Domain 20)
-│   ├── src/                        # Standard Open-RMF centralized schedule & reservation node
-│   ├── telemetry_server.py         # REST API bridge for traditional fleet telemetry (Port 8081)
-│   └── run_warehouse.sh            # Standalone traditional warehouse launcher
+├── rmf_ws/                         # Proposed: Decentralized Edge-AI Simulation Workspace (ROS Domain 10)
+│   └── src/
+│       ├── edge_fleet_core/        # C++20 ORCA velocity negotiation & conflict resolution
+│       ├── edge_fleet_bringup/     # Master launch configurations & dynamic obstruction tools
+│       ├── edge_fleet_msgs/        # Distributed P2P message definitions (RobotIntent, TaskAuction)
+│       └── demonstrations/         # 3D Warehouse world models, textures, and AMR navigation maps
+├── rmf_ws_t/                       # Baseline: Traditional Centralized Open-RMF Workspace (ROS Domain 20)
+│   └── src/                        # Standard Open-RMF centralized schedule & reservation node
+├── scripts/                        # Consolidated Operational & Evaluation Scripts
+│   ├── run_standalone_edge_ai.sh   # Standalone Edge-AI warehouse simulation launcher
+│   ├── run_standalone_traditional.sh # Standalone traditional warehouse launcher
+│   ├── restart_servers.sh          # Hot restart for web and telemetry servers
+│   ├── tile_dual_windows.py        # 🪟 4-quadrant auto-tiler for dual Gazebo & RViz visualizers
+│   └── watch_edge_ai_metrics.py    # Real-time console metrics and odometry auditor
 ├── screenshots/                    # High-resolution architectural & simulation captures
 │   ├── dashboard.png               # Real-time comparative dashboard overview
 │   ├── gazebo_warehouse_overview.png # Gazebo Sim 3D warehouse isometric environment
@@ -91,8 +94,6 @@ To prove performance, the platform includes a **Unified Dual-Fleet Comparative S
 ├── run_all.sh                      # 🚀 Master unified launcher (starts all 3 systems simultaneously)
 ├── dispatch_dual_tasks.sh          # ⚡ Simultaneous mission dispatcher & automated auditor
 ├── kill_all.sh                     # 🛑 Clean terminator for all simulations, visualizers & daemons
-├── restart_servers.sh              # Fast restart script for web and telemetry servers
-├── tile_dual_windows.py            # 🪟 4-quadrant auto-tiler for dual Gazebo & RViz visualizers
 └── README.md                       # Comprehensive project documentation
 ```
 
@@ -194,18 +195,19 @@ If you prefer to run individual subsystems in separate terminals:
 
 - **Web Dashboard Only:**
   ```bash
-  cd web_dashboard
-  ./run_dashboard.sh
+  ./web_dashboard/run_dashboard.sh
   ```
 - **Decentralized Edge-AI Simulation Only (Domain 10):**
   ```bash
-  cd rmf_ws
-  ./run_warehouse_edge_ai.sh
+  ./scripts/run_standalone_edge_ai.sh
   ```
 - **Traditional Centralized Simulation Only (Domain 20):**
   ```bash
-  cd rmf_ws_t
-  ./run_warehouse.sh
+  ./scripts/run_standalone_traditional.sh
+  ```
+- **Console Odometry & Metrics Auditor:**
+  ```bash
+  python3 ./scripts/watch_edge_ai_metrics.py
   ```
 
 ---

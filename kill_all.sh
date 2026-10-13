@@ -9,6 +9,7 @@ echo "==========================================================================
 
 # Terminate dashboard & telemetry servers
 pkill -9 -f "dashboard_server.py" 2>/dev/null || true
+pkill -9 -f "traditional_telemetry_server.py" 2>/dev/null || true
 pkill -9 -f "telemetry_server.py" 2>/dev/null || true
 
 # Terminate ROS 2 launch parents & nodes
