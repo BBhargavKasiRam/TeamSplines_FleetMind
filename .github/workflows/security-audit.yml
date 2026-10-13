@@ -18,7 +18,7 @@ jobs:
         run: |
           echo "Checking for private keys or sensitive credentials..."
           FOUND=0
-          if grep -rn --exclude-dir=.git "BEGIN RSA PRIVATE KEY\|BEGIN OPENSSH PRIVATE KEY\|AKIA[0-9A-Z]{16}" . ; then
+          if grep -rn --exclude-dir=.git --exclude-dir=.github "BEGIN RSA PRIVATE KEY\|BEGIN OPENSSH PRIVATE KEY\|AKIA[0-9A-Z]{16}" . ; then
             FOUND=1
           fi
           if [ $FOUND -eq 1 ]; then
