@@ -1,0 +1,49 @@
+name: Security & Supply Chain Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  secret-and-credential-scan:
+    name: Credential & Secret Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Scan for Accidental Secrets or Private Keys
+        run: |
+          echo "Checking for private keys or sensitive credentials..."
+          FOUND=0
+          if grep -rn --exclude-dir=.git "BEGIN RSA PRIVATE KEY\|BEGIN OPENSSH PRIVATE KEY\|AKIA[0-9A-Z]{16}" . ; then
+            FOUND=1
+          fi
+          if [ $FOUND -eq 1 ]; then
+            echo "Secrets detected!"
+            exit 1
+          fi
+          echo "Zero private keys or cloud credentials detected in codebase."
+
+  dependency-hygiene:
+    name: Python Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Dashboard Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install fastapi uvicorn websockets pyyaml
+
+      - name: Verify Dashboard Module Loading
+        run: |
+          python3 -c "import fastapi, uvicorn, websockets, yaml; print('All core dashboard runtime modules imported successfully.')"
