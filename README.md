@@ -140,6 +140,15 @@ To clearly distinguish what was engineered specifically for this solution versus
 
 ## 🚀 Quick Start Guide
 
+### Prerequisites & System Environment
+| Requirement | Specification |
+| :--- | :--- |
+| **Operating System** | Ubuntu 24.04 LTS (Noble Numbat) |
+| **Robotics Middleware** | ROS 2 Jazzy Jalisco (`ros-jazzy-desktop`) |
+| **Physics Simulator** | Gazebo Sim Harmonic 8.x (`ros-jazzy-ros-gz`) |
+| **Python Runtime** | Python 3.12+ (`fastapi`, `uvicorn`, `websockets`) |
+| **Hardware / Acceleration** | NVIDIA GPU with Vulkan / PRIME render offload (recommended) or integrated graphics |
+
 All commands can be executed directly from the project root:
 
 ### 1. Launch All Three Systems Simultaneously
