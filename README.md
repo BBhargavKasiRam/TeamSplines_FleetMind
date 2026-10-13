@@ -1,5 +1,14 @@
 # Edge-AI Based Distributed Fleet Coordination for Autonomous Mobile Robots (AMRs) in Smart Warehouses
 
+[![CI](https://github.com/BBhargavKasiRam/TeamSplines_FleetMind/actions/workflows/ci.yml/badge.svg)](https://github.com/BBhargavKasiRam/TeamSplines_FleetMind/actions)
+![ROS 2](https://img.shields.io/badge/ROS%202-Jazzy%20Jalisco-22314E?logo=ros&logoColor=white)
+![Gazebo](https://img.shields.io/badge/Gazebo%20Sim-Harmonic-FF6F00?logo=gazebo&logoColor=white)
+![C++](https://img.shields.io/badge/C%2B%2B-20-00599C?logo=c%2B%2B&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-Decentralized%20P2P-00C853)
+
+[Contributing Guide](CONTRIBUTING.md) • [Changelog](CHANGELOG.md) • [Security Policy](SECURITY.md) • [Report Bug](https://github.com/BBhargavKasiRam/TeamSplines_FleetMind/issues/new?template=bug_report.yml)
+
 **Organization:** Bharat Electronics Limited (BEL)  
 **Department:** Software / Smart Automation  
 **Category:** Software  

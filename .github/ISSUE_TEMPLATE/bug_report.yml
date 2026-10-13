@@ -1,0 +1,64 @@
+name: "🐛 Bug Report"
+description: File a reproducible bug or unexpected behavior in fleet coordination or simulation.
+title: "[BUG]: <concise title>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please provide as much context as possible to help isolate and resolve the defect.
+  - type: input
+    id: environment
+    attributes:
+      label: Execution Environment
+      description: OS version, ROS 2 distribution, Gazebo version, and hardware target (e.g., Jetson Nano, Raspberry Pi 5, x86_64 workstation).
+      placeholder: Ubuntu 24.04, ROS 2 Jazzy, Gazebo Harmonic 8.15.0, NVIDIA GPU
+    validations:
+      required: true
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Affected Subsystem
+      description: Which architectural layer is experiencing the defect?
+      options:
+        - "Decentralized P2P Mesh (edge_fleet_core/p2p_peer_node)"
+        - "ORCA Conflict Resolver (edge_fleet_core/conflict_resolver_node)"
+        - "Task Allocation & CNP (edge_fleet_core/task_allocator_node)"
+        - "Edge Perception & Obstacle Detection (edge_perception_node)"
+        - "Simulation & Gazebo Harmonic (rmf_demos_gz)"
+        - "Web Telemetry Dashboard & Gateway (web_dashboard)"
+        - "Launch & Automation Scripts (run_all.sh / dispatch_dual_tasks.sh)"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem Description
+      description: Detailed explanation of what occurred.
+    validations:
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Minimal commands or steps to trigger the behavior.
+      placeholder: |
+        1. Run `./run_all.sh`
+        2. Execute `./dispatch_dual_tasks.sh benchmark all`
+        3. Trigger blockage via `python3 .../inject_blockage.py`
+        4. Observe robot state in Web Dashboard
+    validations:
+      required: true
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: Expected vs Actual Behavior
+      description: What was expected to happen versus what actually occurred.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs or Stack Trace
+      description: Copy and paste relevant terminal logs or error output.
+      render: shell

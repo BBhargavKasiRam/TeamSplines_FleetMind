@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Project Documentation
+    url: https://github.com/BBhargavKasiRam/TeamSplines_FleetMind/blob/main/README.md
+    about: Read the complete architectural overview, subsystem details, and launch instructions.
+  - name: 🛠️ Contributing Guidelines
+    url: https://github.com/BBhargavKasiRam/TeamSplines_FleetMind/blob/main/CONTRIBUTING.md
+    about: Guidelines for code contributions, branching model, and code style.

@@ -1,0 +1,41 @@
+name: "💡 Feature Request"
+description: Propose an architectural enhancement, new algorithm, or interface improvement.
+title: "[FEATURE]: <concise title>"
+labels: ["enhancement", "proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please outline the proposed feature, the problem it solves, and how it aligns with edge-AI distributed fleet coordination.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: Is your feature request related to a specific operational bottleneck or constraint?
+      placeholder: "A clear and concise description of what the problem is."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / Algorithm
+      description: Detailed explanation of how this feature should be implemented.
+      placeholder: "Describe the architectural design, ROS 2 topics/messages involved, and algorithmic complexity."
+    validations:
+      required: true
+  - type: dropdown
+    id: edge_feasibility
+    attributes:
+      label: Edge Hardware Feasibility
+      description: Can this proposal run efficiently within edge compute constraints (e.g., Jetson Nano, Raspberry Pi 5)?
+      options:
+        - "Low Compute (< 5% CPU overhead on ARM64)"
+        - "Moderate Compute (5-15% CPU overhead on ARM64)"
+        - "High Compute (Requires dedicated NPU / TensorRT acceleration)"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Considered Alternatives
+      description: Describe any alternative approaches or existing packages you considered.
