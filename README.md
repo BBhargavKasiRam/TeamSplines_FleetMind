@@ -82,8 +82,12 @@ To prove performance, the platform includes a **Unified Dual-Fleet Comparative S
 │   ├── src/                        # Standard Open-RMF centralized schedule & reservation node
 │   ├── telemetry_server.py         # REST API bridge for traditional fleet telemetry (Port 8081)
 │   └── run_warehouse.sh            # Standalone traditional warehouse launcher
-├── screenshots/                    # High-resolution architectural & dashboard captures
-│   └── dashboard.png               # Real-time comparative dashboard overview
+├── screenshots/                    # High-resolution architectural & simulation captures
+│   ├── dashboard.png               # Real-time comparative dashboard overview
+│   ├── gazebo_warehouse_overview.png # Gazebo Sim 3D warehouse isometric environment
+│   ├── gazebo_aisle_blockage_navigation.png # Dynamic obstacle & blocked aisle navigation
+│   ├── gazebo_amr_closeup.png      # AMR differential-drive robot model close-up
+│   └── rviz_navigation_graph.png   # RViz2 top-down warehouse navigation & waypoint trails
 ├── run_all.sh                      # 🚀 Master unified launcher (starts all 3 systems simultaneously)
 ├── dispatch_dual_tasks.sh          # ⚡ Simultaneous mission dispatcher & automated auditor
 ├── kill_all.sh                     # 🛑 Clean terminator for all simulations, visualizers & daemons
@@ -91,6 +95,20 @@ To prove performance, the platform includes a **Unified Dual-Fleet Comparative S
 ├── tile_dual_windows.py            # 🪟 4-quadrant auto-tiler for dual Gazebo & RViz visualizers
 └── README.md                       # Comprehensive project documentation
 ```
+
+---
+
+## 📸 Simulation & Dashboard Gallery
+
+| Real-Time Web Telemetry Dashboard | Gazebo Sim 3D Warehouse Environment |
+| :---: | :---: |
+| ![Web Dashboard](screenshots/dashboard.png) | ![Gazebo 3D Warehouse](screenshots/gazebo_warehouse_overview.png) |
+| **Dynamic Obstacle & Blocked Aisle Detour** | **RViz2 Top-Down Navigation Graph** |
+| ![Aisle Navigation](screenshots/gazebo_aisle_blockage_navigation.png) | ![RViz2 Nav Graph](screenshots/rviz_navigation_graph.png) |
+
+| Autonomous Mobile Robot (AMR Model Close-Up) |
+| :---: |
+| ![AMR Model Close-Up](screenshots/gazebo_amr_closeup.png) |
 
 ---
 
