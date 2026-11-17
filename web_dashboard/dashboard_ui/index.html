@@ -5,193 +5,332 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Warehouse: Decentralized Edge-AI Multi-Robot Fleet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg-dark: #060911;
-      --card-bg: #0d1527;
-      --card-border: #1e293b;
-      --accent-cyan: #06b6d4;
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-rose: #f43f5e;
-      --accent-purple: #8b5cf6;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      /* Google Workspace & Material Design 3 Design Tokens */
+      --md-bg: #f8f9fa;
+      --md-surface: #ffffff;
+      --md-text-primary: #202124;
+      --md-text-secondary: #5f6368;
+      --md-text-disabled: #80868b;
+      --md-primary: #1a73e8;
+      --md-primary-hover: #1557b0;
+      --md-primary-active: #174ea6;
+      --md-primary-container: #e8f0fe;
+      --md-on-primary-container: #1967d2;
+      --md-border: #dadce0;
+      --md-border-hover: #bdc1c6;
+      --md-shadow-hover: 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+      --md-shadow-focus: 0 1px 3px 1px rgba(60, 64, 67, 0.20);
+      --md-success: #188038;
+      --md-success-container: #e6f4ea;
+      --md-on-success-container: #137333;
+      --md-warning: #f9ab00;
+      --md-warning-container: #fef7e0;
+      --md-on-warning-container: #b06000;
+      --md-error: #d93025;
+      --md-error-container: #fce8e6;
+      --md-on-error-container: #c5221f;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
+      background-color: var(--md-bg);
+      color: var(--md-text-primary);
+      font-family: 'Google Sans', 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      letter-spacing: 0.1px;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
+
+    /* Distinct Structural Top App Bar (Full Width, Pure White, >= 16px Padding, 1px Bottom Border Only) */
     header {
-      background: rgba(13, 21, 39, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
-      padding: 12px 24px;
+      background: #ffffff;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--md-border);
+      padding: 16px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 50;
+      gap: 20px;
+      flex-wrap: wrap;
     }
+
+    /* Main App Title in Top-Left (20px, font-weight: 400) */
+    .brand-title {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--md-text-primary);
+      letter-spacing: 0px;
+      line-height: 1.25;
+    }
+
+    /* Primary Section Titles (22px, font-weight: 400) */
+    .section-title {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--md-text-primary);
+      letter-spacing: 0px;
+      line-height: 1.3;
+    }
+
+    /* Material Design 3 Chips & Badges */
     .badge {
       display: inline-flex;
       align-items: center;
       padding: 4px 10px;
-      border-radius: 6px;
+      border-radius: 16px;
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      font-family: 'Google Sans', 'Roboto', sans-serif;
     }
-    .badge-bel { background: #1e3a8a; color: #93c5fd; border: 1px solid #3b82f6; }
-    .badge-edge { background: #064e3b; color: #6ee7b7; border: 1px solid #10b981; }
-    .badge-trad { background: #78350f; color: #fde68a; border: 1px solid #f59e0b; }
-    .badge-map { background: #312e81; color: #c7d2fe; border: 1px solid #6366f1; }
-    .btn-action {
-      background: linear-gradient(135deg, #0284c7, #06b6d4);
-      color: white;
+    .badge-edge {
+      background: var(--md-primary-container);
+      color: var(--md-on-primary-container);
+      border: 1px solid #d2e3fc;
+    }
+    .badge-trad {
+      background: var(--md-warning-container);
+      color: var(--md-on-warning-container);
+      border: 1px solid #fce8b2;
+    }
+    .badge-bel {
+      background: #f1f3f4;
+      color: var(--md-text-secondary);
+      border: 1px solid var(--md-border);
+    }
+    .badge-map {
+      background: #f3e8fd;
+      color: #7b1fa2;
+      border: 1px solid #e1bee7;
+    }
+    .badge-neutral {
+      background: #f1f3f4;
+      color: var(--md-text-secondary);
+      border: 1px solid var(--md-border);
+    }
+
+    /* Toolbar Form Controls - Scaled 40px Height & Vertically Centered */
+    .toolbar-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 40px;
+    }
+    .toolbar-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--md-text-secondary);
+      height: 40px;
+      line-height: 40px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .toolbar-status {
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--md-text-secondary);
+    }
+
+    /* Custom Material-Style Select Dropdowns (appearance: none + SVG Chevron, 40px Height) */
+    .md-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: var(--md-surface);
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235f6368'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 20px 20px;
+      padding: 0 36px 0 16px;
+      height: 40px;
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      color: var(--md-text-primary);
+      font-family: 'Google Sans', 'Roboto', 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 40px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      vertical-align: middle;
+    }
+    .md-select:hover {
+      border-color: var(--md-border-hover);
+      box-shadow: var(--md-shadow-hover);
+    }
+    .md-select:focus {
+      border-color: var(--md-primary);
+      box-shadow: var(--md-shadow-focus);
+    }
+
+    /* Action Buttons (40px Height, 24px Pill Radius, Proportional Padding) */
+    .btn-action, .btn-loop-start {
+      background: var(--md-primary);
+      color: #ffffff;
       border: none;
-      padding: 7px 14px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 12px;
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 24px;
+      font-family: 'Google Sans', 'Roboto', 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.2px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: none;
+      outline: none;
+      vertical-align: middle;
     }
-    .btn-action:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+    .btn-action:hover, .btn-loop-start:hover {
+      background: var(--md-primary-hover);
+      box-shadow: var(--md-shadow-hover);
     }
-    .btn-secondary {
-      background: rgba(30, 41, 59, 0.8);
-      color: var(--text-main);
-      border: 1px solid var(--card-border);
-      padding: 7px 14px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 12px;
+
+    .btn-outlined, .btn-secondary {
+      background: transparent;
+      color: var(--md-primary);
+      border: 1px solid var(--md-border);
+      height: 40px;
+      padding: 0 18px;
+      border-radius: 24px;
+      font-family: 'Google Sans', 'Roboto', 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.2px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: none;
+      outline: none;
+      vertical-align: middle;
     }
-    .btn-secondary:hover {
-      background: rgba(51, 65, 85, 0.9);
+    .btn-outlined:hover, .btn-secondary:hover {
+      background: #f8f9fa;
+      border-color: var(--md-border-hover);
+      box-shadow: var(--md-shadow-hover);
     }
+
+    .badge-outlined {
+      background: transparent;
+      color: var(--md-primary);
+      border: 1px solid var(--md-border);
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 24px;
+      font-family: 'Google Sans', 'Roboto', 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+    }
+
     .status-dot {
-      width: 10px; height: 10px; border-radius: 50%; display: inline-block;
-      margin-right: 6px; background-color: var(--accent-emerald);
-      box-shadow: 0 0 10px var(--accent-emerald);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      background-color: var(--md-success);
     }
     .status-dot.disconnected {
-      background-color: var(--accent-rose);
-      box-shadow: 0 0 10px var(--accent-rose);
+      background-color: var(--md-error);
     }
+
+    /* Status Tags (Dark Gray Text with 8px Indicator Dot) */
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--md-text-primary);
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Google Sans', 'Roboto', 'Inter', sans-serif;
+    }
+    .status-tag .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Main Grid Layout - Airy & Spacious with 24px Gaps */
     .main-grid {
       display: grid;
-      grid-template-columns: 1fr 390px;
-      gap: 18px;
-      padding: 18px;
-      max-width: 1820px;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      padding: 24px 28px;
+      max-width: 1840px;
       margin: 0 auto;
     }
 
-    /* Comparison Banner */
-    .simultaneous-banner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .comparison-card {
-      border-radius: 12px;
-      padding: 16px 20px;
+    /* Left Column Layout with 24px Gap Between Cards */
+    .cards-column {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-    .comparison-card.edge-ai {
-      background: linear-gradient(135deg, rgba(6, 78, 59, 0.35) 0%, rgba(13, 21, 39, 0.9) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.45);
-    }
-    .comparison-card.traditional {
-      background: linear-gradient(135deg, rgba(120, 53, 15, 0.35) 0%, rgba(13, 21, 39, 0.9) 100%);
-      border: 1px solid rgba(245, 158, 11, 0.45);
-    }
-    .card-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .card-title {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.25);
-      border-radius: 8px;
-      padding: 10px 12px;
-    }
-    .stat-box {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .stat-lbl {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-    .stat-num {
-      font-size: 18px;
-      font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
+      gap: 24px;
     }
 
-    /* Canvas Map Card */
-    .map-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 16px;
-      position: relative;
+    /* Google Classroom Airy Surface Cards (Doubled Padding >= 24px, 8px Radius, Hover Shadow Only) */
+    .map-card, .centralized-comparison-container, .graphical-analytics-card, .history-card, .panel-card {
+      background: var(--md-surface);
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      box-shadow: none;
+      padding: 24px;
+      transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
     }
+    .map-card:hover, .centralized-comparison-container:hover, .graphical-analytics-card:hover, .history-card:hover, .panel-card:hover {
+      box-shadow: var(--md-shadow-hover);
+    }
+
     .map-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
+      gap: 16px;
+      flex-wrap: wrap;
     }
+
+    /* Canvas Map Container - Soft Pure White Background & Subtle Border */
     .canvas-container {
       position: relative;
       width: 100%;
-      height: 700px;
-      background: #070b14;
-      border-radius: 10px;
+      height: 680px;
+      background: #ffffff;
+      border-radius: 8px;
       overflow: hidden;
-      border: 1px solid #1e293b;
+      border: 1px solid var(--md-border);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -208,407 +347,92 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(6, 78, 59, 0.95);
-      border: 2px solid #10b981;
-      border-radius: 8px;
+      background: var(--md-surface);
+      border: 1px solid var(--md-success);
+      border-radius: 24px;
       padding: 10px 24px;
-      color: #6ee7b7;
+      color: var(--md-on-success-container);
       font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      font-family: 'JetBrains Mono', monospace;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      font-weight: 500;
+      font-family: 'Google Sans', 'Roboto', 'Inter', sans-serif;
+      box-shadow: var(--md-shadow-hover);
       display: none;
       z-index: 20;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
     }
 
-    /* Continuous Loop Presentation Controls */
-    .btn-loop-start {
-      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-      color: #ffffff;
-      border: 1px solid #34d399;
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 11px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
-    }
-    .btn-loop-start:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.7);
-    }
-    .btn-loop-stop {
-      background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-      color: #ffffff;
-      border: 1px solid #f87171;
-      padding: 7px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 11px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 14px rgba(239, 68, 68, 0.4);
-      animation: pulse-stop-btn 1.5s infinite;
-    }
-    .btn-loop-stop:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 22px rgba(239, 68, 68, 0.8);
-    }
-    @keyframes pulse-stop-btn {
-      0% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
-      50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
-      100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
-    }
-    .badge-loop {
-      background: rgba(14, 165, 233, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(14, 165, 233, 0.4);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-    .badge-loop.active {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      border: 1px solid #34d399;
-      animation: pulse-badge 1.5s infinite;
-    }
-    @keyframes pulse-badge {
-      0% { opacity: 0.8; }
-      50% { opacity: 1.0; }
-      100% { opacity: 0.8; }
-    }
-
-    /* Right sidebar */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .panel-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 16px;
-    }
-    .panel-title {
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .robot-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 520px;
-      overflow-y: auto;
-    }
-    .robot-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .robot-item.edge-border { border-left: 3px solid var(--accent-cyan); }
-    .robot-item.trad-border { border-left: 3px solid var(--accent-amber); }
-    .robot-item-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .robot-id {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    /* High-Visibility Battery Display Styles */
-    .fleet-battery-overview {
-      background: linear-gradient(135deg, rgba(6, 78, 59, 0.45) 0%, rgba(13, 21, 39, 0.95) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.45);
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-    .fleet-battery-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .fleet-battery-title {
-      font-size: 10px;
-      font-weight: 800;
-      color: #6ee7b7;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .fleet-battery-pct {
-      font-size: 20px;
-      font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
-      color: #34d399;
-      text-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
-    }
-    .fleet-battery-bar-track {
-      height: 8px;
-      background: rgba(15, 23, 42, 0.85);
-      border-radius: 4px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 6px;
-    }
-    .fleet-battery-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #059669, #10b981);
-      border-radius: 4px;
-      transition: width 0.4s ease, background 0.4s ease;
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-    }
-
-    /* Robot Card Battery Component */
-    .robot-battery-box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 6px;
-      padding: 8px 10px;
-      margin: 4px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .robot-battery-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .robot-battery-label {
-      font-size: 10px;
-      font-weight: 700;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .robot-battery-val {
-      font-size: 14px;
-      font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.5px;
-    }
-    .robot-battery-val.high { color: #34d399; text-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
-    .robot-battery-val.med { color: #fbbf24; text-shadow: 0 0 8px rgba(251, 191, 36, 0.4); }
-    .robot-battery-val.low { color: #f87171; text-shadow: 0 0 8px rgba(248, 113, 113, 0.5); }
-
-    .robot-battery-track {
-      height: 8px;
-      background: #1e293b;
-      border-radius: 4px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .robot-battery-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.4s ease, background 0.4s ease;
-    }
-    .robot-battery-fill.high {
-      background: linear-gradient(90deg, #059669, #10b981);
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
-    }
-    .robot-battery-fill.med {
-      background: linear-gradient(90deg, #d97706, #f59e0b);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
-    }
-    .robot-battery-fill.low {
-      background: linear-gradient(90deg, #dc2626, #ef4444);
-      box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
-    }
-
-    .robot-battery-status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 9px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .battery-rate-tag {
-      font-weight: 700;
-    }
-    .battery-rate-tag.charging { color: #34d399; }
-    .battery-rate-tag.discharging { color: #38bdf8; }
-
-    .battery-bar {
-      height: 6px;
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .battery-fill {
-      height: 100%;
-      background: var(--accent-emerald);
-      border-radius: 2px;
-      transition: width 0.3s ease, background 0.3s ease;
-    }
-    .event-log {
-      max-height: 240px;
-      overflow-y: auto;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .event-item {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 6px 10px;
-      border-radius: 4px;
-      border-left: 3px solid var(--accent-cyan);
-      display: flex;
-      gap: 8px;
-    }
-
-    /* Historical Database Section */
-    .history-card {
-      display: none;
-      margin-top: 18px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 18px;
-    }
-    .history-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      margin-top: 12px;
-    }
-    .history-table th {
-      text-align: left;
-      padding: 10px 12px;
-      background: rgba(0, 0, 0, 0.35);
-      color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 10px;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--card-border);
-    }
-    .history-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .history-table tr:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    /* Centralized Multi-Workspace Comparison Styles */
-    .centralized-comparison-container {
-      background: linear-gradient(180deg, rgba(13, 21, 39, 0.98) 0%, rgba(6, 9, 17, 0.98) 100%);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-top: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
+    /* Centralized Comparison Engine Styles */
     .comp-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 14px;
-      margin-bottom: 16px;
+      gap: 16px;
+      border-bottom: 1px solid var(--md-border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
     }
     .comp-title-group h2 {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      color: #f8fafc;
+      gap: 12px;
+      color: var(--md-text-primary);
     }
     .workspace-status-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
-      border-radius: 6px;
+      padding: 5px 14px;
+      border-radius: 16px;
       font-size: 11px;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-family: 'Roboto Mono', monospace;
     }
     .badge-ws-edge {
-      background: rgba(6, 78, 59, 0.45);
-      border: 1px solid #10b981;
-      color: #6ee7b7;
+      background: var(--md-primary-container);
+      border: 1px solid #d2e3fc;
+      color: var(--md-on-primary-container);
     }
     .badge-ws-trad {
-      background: rgba(120, 53, 15, 0.45);
-      border: 1px solid #f59e0b;
-      color: #fde68a;
+      background: var(--md-warning-container);
+      border: 1px solid #fce8b2;
+      color: var(--md-on-warning-container);
     }
     .badge-ws-offline {
-      background: rgba(71, 85, 105, 0.35);
-      border: 1px solid #64748b;
-      color: #cbd5e1;
+      background: #f1f3f4;
+      border: 1px solid var(--md-border);
+      color: var(--md-text-secondary);
     }
+
+    /* 4 Scale Meters Grid - Uniform Borders (No Multi-Colored Top Borders) */
     .comp-scales-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 16px;
+      margin-top: 8px;
+      margin-bottom: 24px;
     }
     .comp-scale-box {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 12px 14px;
+      background: #ffffff;
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
-    .comp-scale-box.edge-accent { border-top: 3px solid #06b6d4; }
-    .comp-scale-box.trad-accent { border-top: 3px solid #f59e0b; }
-    .comp-scale-box.highlight-accent { border-top: 3px solid #10b981; }
-    .comp-scale-box.purple-accent { border-top: 3px solid #a855f7; }
+    .comp-scale-box:hover {
+      box-shadow: var(--md-shadow-hover);
+      border-color: var(--md-border-hover);
+    }
+
     .scale-lbl {
-      font-size: 10px;
-      font-weight: 700;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--md-text-secondary);
+      letter-spacing: 0.1px;
     }
     .scale-val-row {
       display: flex;
@@ -616,171 +440,144 @@
       align-items: baseline;
     }
     .scale-num {
-      font-size: 18px;
-      font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 19px;
+      font-weight: 700;
+      font-family: 'Roboto Mono', monospace;
+      color: var(--md-text-primary);
     }
     .dual-bar-container {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      margin-top: 4px;
+      gap: 5px;
+      margin-top: 6px;
     }
     .bar-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-family: 'JetBrains Mono', monospace;
+      gap: 8px;
+      font-size: 11px;
+      font-family: 'Roboto Mono', monospace;
     }
     .mini-bar-track {
       flex: 1;
       height: 6px;
-      background: #1e293b;
+      background: #e8eaed;
       border-radius: 3px;
       overflow: hidden;
     }
     .mini-bar-fill-edge {
-      background: linear-gradient(90deg, #06b6d4, #10b981);
+      background: var(--md-primary);
       height: 100%;
       border-radius: 3px;
       transition: width 0.4s ease;
     }
     .mini-bar-fill-trad {
-      background: linear-gradient(90deg, #f59e0b, #ea580c);
+      background: var(--md-warning);
       height: 100%;
       border-radius: 3px;
       transition: width 0.4s ease;
     }
-    .comp-table {
+
+    /* Google Cloud Table Style: Left-Aligned, 16px Padding, Zero Vertical Borders */
+    .comp-table, .history-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 11px;
-      margin-top: 10px;
-      background: rgba(0, 0, 0, 0.25);
+      border-spacing: 0;
+      font-size: 13px;
+      margin-top: 12px;
+      background: #ffffff;
+      border: 1px solid var(--md-border);
       border-radius: 8px;
       overflow: hidden;
     }
-    .comp-table th {
+    .comp-table th, .history-table th {
       text-align: left;
-      padding: 10px 12px;
-      background: rgba(0, 0, 0, 0.5);
-      color: #94a3b8;
-      font-weight: 700;
-      font-size: 10px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 14px 18px;
+      background: #f8f9fa;
+      color: var(--md-text-secondary);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.1px;
+      border: none;
+      border-bottom: 1px solid var(--md-border);
+      white-space: nowrap;
     }
-    .comp-table td {
-      padding: 9px 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    .comp-table td, .history-table td {
+      text-align: left;
+      padding: 14px 18px;
+      border: none;
+      border-bottom: 1px solid var(--md-border);
       vertical-align: middle;
-      font-family: 'JetBrains Mono', monospace;
+      color: var(--md-text-primary);
+      background: #ffffff;
     }
-    .comp-table tr:hover {
-      background: rgba(255, 255, 255, 0.02);
+    .comp-table tr:last-child td, .history-table tr:last-child td {
+      border-bottom: none;
     }
-    .api-inspector-container {
-      margin-top: 14px;
-      background: #070b14;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 8px;
-      padding: 12px;
-      display: none;
-    }
-    .api-inspector-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .api-tab-btn {
-      background: #1e293b;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      padding: 5px 12px;
-      border-radius: 5px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .api-tab-btn.active {
-      background: #0284c7;
-      color: white;
-      border-color: #38bdf8;
-    }
-    .api-raw-box {
-      max-height: 220px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 10px;
-      border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: #38bdf8;
-      white-space: pre-wrap;
+    .comp-table tr:hover td, .history-table tr:hover td {
+      background: #f8f9fa;
     }
 
-    /* Graphical Analytics Card & 2x2 Grid */
+    /* Graphical Analytics Card */
     .graphical-analytics-card {
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(9, 14, 26, 0.99) 100%);
-      border: 1px solid rgba(168, 85, 247, 0.45);
-      border-radius: 14px;
-      padding: 20px 22px;
-      margin-bottom: 18px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
       display: none;
     }
     .chart-kpi-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin-top: 8px;
+      margin-bottom: 24px;
     }
     .chart-kpi-box {
-      background: rgba(13, 21, 39, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 12px 14px;
+      background: #ffffff;
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
-    .chart-kpi-box.emerald { border-top: 3px solid #10b981; }
-    .chart-kpi-box.rose { border-top: 3px solid #f43f5e; }
-    .chart-kpi-box.cyan { border-top: 3px solid #06b6d4; }
-    .chart-kpi-box.purple { border-top: 3px solid #a855f7; }
+    .chart-kpi-box:hover {
+      box-shadow: var(--md-shadow-hover);
+      border-color: var(--md-border-hover);
+    }
+
     .charts-2x2-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 24px;
     }
     .chart-container-box {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 10px;
-      padding: 14px 16px;
+      background: #ffffff;
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      height: 330px;
+      height: 350px;
       position: relative;
+      transition: box-shadow 0.2s ease;
+    }
+    .chart-container-box:hover {
+      box-shadow: var(--md-shadow-hover);
     }
     .chart-title-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      padding-bottom: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--md-border);
+      padding-bottom: 8px;
     }
     .chart-title-bar h3 {
       font-size: 13px;
-      font-weight: 700;
-      color: #f1f5f9;
+      font-weight: 500;
+      color: var(--md-text-primary);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .chart-canvas-wrap {
       flex: 1;
@@ -788,122 +585,260 @@
       min-height: 0;
       width: 100%;
     }
+
+    /* History Database Section */
+    .history-card {
+      display: none;
+    }
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* Sidebar Panels (Spacious with 24px Gap) */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .panel-title {
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .robot-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 540px;
+      overflow-y: auto;
+    }
+    .robot-item {
+      background: #ffffff;
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .robot-item:hover {
+      box-shadow: var(--md-shadow-hover);
+      border-color: var(--md-border-hover);
+    }
+    .robot-item.edge-border { border-left: 4px solid var(--md-primary); }
+    .robot-item.trad-border { border-left: 4px solid var(--md-warning); }
+    .robot-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .robot-id {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--md-text-primary);
+    }
+    .battery-bar {
+      height: 6px;
+      background: #e8eaed;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 3px;
+    }
+    .battery-fill {
+      height: 100%;
+      background: var(--md-success);
+      border-radius: 3px;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .event-log {
+      max-height: 280px;
+      overflow-y: auto;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .event-item {
+      background: #f8f9fa;
+      border: 1px solid var(--md-border);
+      border-left: 3px solid var(--md-primary);
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      gap: 10px;
+      color: var(--md-text-primary);
+    }
+
+    /* API Inspector Styles */
+    .api-inspector-container {
+      margin-top: 18px;
+      background: #ffffff;
+      border: 1px solid var(--md-border);
+      border-radius: 8px;
+      padding: 18px;
+      display: none;
+    }
+    .api-inspector-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .api-tab-btn {
+      background: #ffffff;
+      color: var(--md-text-secondary);
+      border: 1px solid var(--md-border);
+      padding: 6px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Roboto Mono', monospace;
+      transition: all 0.2s ease;
+    }
+    .api-tab-btn.active {
+      background: var(--md-primary);
+      color: #ffffff;
+      border-color: var(--md-primary);
+    }
+    .api-raw-box {
+      max-height: 240px;
+      overflow-y: auto;
+      background: #f8f9fa;
+      border: 1px solid var(--md-border);
+      padding: 12px;
+      border-radius: 6px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      color: var(--md-text-primary);
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <div style="display: flex; align-items: center; gap: 12px;">
-    <span class="badge badge-edge">BEL SMART AUTOMATION</span>
-    <h1 style="font-size: 16px; font-weight: 800; letter-spacing: 0.5px;">EDGE-AI DISTRIBUTED FLEET COORDINATION (AMRs)</h1>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <span class="badge badge-edge">BEL Smart Automation</span>
+    <h1 class="brand-title">Edge-AI distributed fleet coordination (AMRs)</h1>
+    <span id="activeMapBadge" class="badge badge-neutral" style="display: none;"></span>
   </div>
-  <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+
+  <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
     <!-- View Mode Dropdown Selector -->
-    <div style="display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.95); padding: 5px 12px; border-radius: 8px; border: 1px solid #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);">
-      <label for="viewModeSelect" style="font-size: 11px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px;">VIEW:</label>
-      <select id="viewModeSelect" onchange="switchViewMode(this.value)" style="background: #1e293b; color: #f8fafc; border: 1px solid #475569; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: 700; cursor: pointer; outline: none;">
-        <option value="live_warehouse" selected>🏭 Live Warehouse Demonstration</option>
-        <option value="comparison_engine">⚖️ Centralized Fleet Comparison Engine</option>
-        <option value="graphical_analytics">📈 Graphical Benchmark & Comparative Analytics</option>
-        <option value="warehouse_mirror">🗺️ Live Warehouse (Gazebo / RViz Mirror)</option>
-        <option value="benchmark_history">📁 Benchmark History Database</option>
+    <div class="toolbar-group">
+      <label for="viewModeSelect" class="toolbar-label">View:</label>
+      <select id="viewModeSelect" class="md-select" onchange="switchViewMode(this.value)">
+        <option value="live_warehouse" selected>🏭 Live warehouse demonstration</option>
+        <option value="comparison_engine">⚖️ Centralized fleet comparison engine</option>
+        <option value="graphical_analytics">📈 Graphical benchmark & comparative analytics</option>
+        <option value="warehouse_mirror">🗺️ Live warehouse (Gazebo / RViz mirror)</option>
+        <option value="benchmark_history">📁 Benchmark history database</option>
       </select>
     </div>
 
     <!-- Command-Driven Task Dispatch Console -->
-    <div style="display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.85); padding: 5px 12px; border-radius: 8px; border: 1px solid #334155;">
-      <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Target:</label>
-      <select id="cmdRobotSelect" style="background: #1e293b; color: #f8fafc; border: 1px solid #475569; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: 600;">
-        <option value="all">⚡ All Robots (Full Fleet 1..5)</option>
-        <option value="tinyRobot1">tinyRobot1 (Loading Dock)</option>
+    <div class="toolbar-group">
+      <label class="toolbar-label">Target:</label>
+      <select id="cmdRobotSelect" class="md-select">
+        <option value="all">⚡ All robots (Fleet 1..5)</option>
+        <option value="tinyRobot1">tinyRobot1 (Loading dock)</option>
         <option value="tinyRobot2">tinyRobot2 (Packing 01)</option>
-        <option value="tinyRobot3">tinyRobot3 (Loading Area)</option>
-        <option value="tinyRobot4">tinyRobot4 (Shipping Area)</option>
+        <option value="tinyRobot3">tinyRobot3 (Loading area)</option>
+        <option value="tinyRobot4">tinyRobot4 (Shipping area)</option>
         <option value="tinyRobot5">tinyRobot5 (Packing 03)</option>
       </select>
 
-      <label style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Mission:</label>
-      <select id="cmdMissionSelect" style="background: #1e293b; color: #f8fafc; border: 1px solid #475569; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: 600;">
-        <option value="benchmark">Benchmark Workload (Cross-Aisle Patrol)</option>
-        <option value="head_on">⚡ Head-on Path Sharing Bypass (tinyRobot1 ⇄ tinyRobot4)</option>
-        <option value="putaway">Putaway (loading_dock ➔ Rack_F_02 ➔ Rack_E_02)</option>
-        <option value="sorting">Sorting (packing_01 ➔ Rack_East_04 ➔ Rack_East_01)</option>
-        <option value="transfer">Transfer (loading_area ➔ Rack_D_02 ➔ packing_02)</option>
-        <option value="shipping">Shipping (shipping_area ➔ Rack_C_02 ➔ Rack_B_02)</option>
-        <option value="storage">Storage (packing_03 ➔ Rack_A_02 ➔ storage_area)</option>
+      <label class="toolbar-label">Mission:</label>
+      <select id="cmdMissionSelect" class="md-select">
+        <option value="benchmark">Benchmark workload (Cross-aisle patrol)</option>
+        <option value="head_on">⚡ Head-on path sharing bypass (tinyRobot1 ⇄ tinyRobot4)</option>
+        <option value="putaway">Putaway (Loading dock ➔ Rack F ➔ Rack E)</option>
+        <option value="sorting">Sorting (Packing 01 ➔ Rack East 04 ➔ Rack East 01)</option>
+        <option value="transfer">Transfer (Loading area ➔ Rack D ➔ Packing 02)</option>
+        <option value="shipping">Shipping (Shipping area ➔ Rack C ➔ Rack B)</option>
+        <option value="storage">Storage (Packing 03 ➔ Rack A ➔ Storage area)</option>
       </select>
 
-      <button id="btnDispatchCmd" class="btn-loop-start" onclick="dispatchCommand()" style="background: linear-gradient(135deg, #2563eb, #3b82f6); border-color: #60a5fa;" title="Dispatch commanded mission">
-        <span>🚀 DISPATCH</span>
+      <button id="btnDispatchCmd" class="btn-action" onclick="dispatchCommand()" title="Dispatch commanded mission">
+        <span>🚀 Dispatch</span>
       </button>
 
-      <button id="btnReturnBase" class="btn-loop-stop" onclick="returnToChargers()" style="display: inline-flex; background: #334155; border-color: #475569;" title="Command robot(s) to return and dock at chargers">
-        <span>⚡ DOCK</span>
+      <button id="btnReturnBase" class="btn-outlined" onclick="returnToChargers()" title="Command robot(s) to return and dock at chargers">
+        <span>⚡ Dock</span>
       </button>
 
-      <span id="cmdStatusBadge" class="badge" style="background: #1e293b; color: #94a3b8; font-weight: 700; border: 1px solid #334155;">IDLE</span>
+      <span id="cmdStatusBadge" class="badge-outlined">Idle</span>
     </div>
 
-    <div style="display: flex; align-items: center; font-size: 12px; font-weight: 600;">
+    <div class="toolbar-status">
       <span id="wsStatusDot" class="status-dot"></span>
-      <span id="wsStatusText">EDGE-AI LIVE</span>
+      <span id="wsStatusText">Edge-AI live</span>
     </div>
   </div>
 </header>
 
 <div class="main-grid">
-  <!-- Left Column: Dynamically switched by View Mode dropdown -->
-  <div style="display: flex; flex-direction: column;">
+  <!-- Left Column: Airy & Spacious Cards with 24px Gap -->
+  <div class="cards-column">
     
     <!-- Live Warehouse Floorplan Canvas Card (Demonstration & Mirror) -->
     <div class="map-card" id="liveWarehouseSection" style="display: block;">
       <div class="map-header">
         <div>
-          <h2 id="mapSectionTitle" style="font-size: 14px; font-weight: 700;">LIVE WAREHOUSE DEMONSTRATION</h2>
-          <span id="mapSectionSubtitle" style="font-size: 11px; color: var(--text-muted);">Floorplan, 5 Charging Bays, Storage Racks, Navigation Lanes, and Autonomous AMR Routing</span>
+          <h2 id="mapSectionTitle" class="section-title">Live warehouse demonstration</h2>
+          <span id="mapSectionSubtitle" style="font-size: 13px; color: var(--md-text-secondary); margin-top: 4px; display: inline-block;">Floorplan, 5 charging bays, storage racks, navigation lanes, and autonomous AMR routing</span>
         </div>
-        <div style="display: flex; gap: 14px; font-size: 11px; font-family: 'JetBrains Mono';">
-          <span style="display: flex; align-items: center; gap: 5px; color: #06b6d4; font-weight: 700;">● EDGE-AI CRAWL (0.4 m/s)</span>
-          <span style="display: flex; align-items: center; gap: 5px; color: #38bdf8; font-weight: 700;">● NORMAL SPEED (0.8 m/s)</span>
-          <span style="display: flex; align-items: center; gap: 5px; color: #10b981; font-weight: 700;">⚡ BASE CHARGER (DOCKED)</span>
+        <div style="display: flex; gap: 16px; font-size: 12px;">
+          <span class="status-tag"><span class="dot" style="background: var(--md-primary);"></span>Edge-AI crawl (0.4 m/s)</span>
+          <span class="status-tag"><span class="dot" style="background: var(--md-primary);"></span>Normal speed (0.8 m/s)</span>
+          <span class="status-tag"><span class="dot" style="background: var(--md-success);"></span>Base charger (docked)</span>
         </div>
       </div>
 
-      <!-- Gazebo & RViz Live Mirror HUD (Displayed when "Live Warehouse (Gazebo / RViz Mirror)" is selected) -->
-      <div id="mirrorHudBar" style="display: none; margin-bottom: 12px; background: rgba(15, 23, 42, 0.9); padding: 12px 14px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.35); box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 6px;">
+      <!-- Gazebo & RViz Live Mirror HUD (Displayed when "Live warehouse (Gazebo / RViz mirror)" is selected) -->
+      <div id="mirrorHudBar" style="display: none; margin-bottom: 16px; background: #ffffff; padding: 14px 16px; border-radius: 8px; border: 1px solid var(--md-border);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--md-border); padding-bottom: 8px;">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span class="workspace-status-badge badge-ws-edge">
               <span class="status-dot"></span>
-              <span>GAZEBO SIM 3D: 20Hz OGRE2 ENGINE</span>
+              <span>Gazebo Sim 3D: 20Hz OGRE2 Engine</span>
             </span>
-            <span class="workspace-status-badge badge-ws-edge" style="background: rgba(14, 165, 233, 0.25); border-color: #0ea5e9; color: #7dd3fc;">
-              <span class="status-dot" style="background: #0ea5e9;"></span>
-              <span>RVIZ2 TF TRANSFORMS & LIDAR: SYNCED</span>
+            <span class="workspace-status-badge badge-ws-edge">
+              <span class="status-dot"></span>
+              <span>RViz2 TF transforms & LiDAR: Synced</span>
             </span>
           </div>
-          <span style="font-size: 11px; color: #94a3b8; font-family: 'JetBrains Mono';">1:1 Physical Simulation Mirror Stream</span>
+          <span style="font-size: 11px; color: var(--md-text-secondary); font-family: 'Roboto Mono', monospace;">1:1 Physical simulation mirror stream</span>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
-          <div style="background: rgba(30, 41, 59, 0.7); padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono';">
-            <div style="color: #38bdf8; font-size: 11px; font-weight: 700;">🤖 tinyRobot1</div>
-            <div id="mirrorPose_tinyRobot1" style="color: #cbd5e1; font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -28.5m</div>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+          <div style="background: #f8f9fa; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--md-border); font-family: 'Roboto Mono', monospace;">
+            <div style="color: var(--md-primary); font-size: 11px; font-weight: 500;">🤖 tinyRobot1</div>
+            <div id="mirrorPose_tinyRobot1" style="color: var(--md-text-secondary); font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -28.5m</div>
           </div>
-          <div style="background: rgba(30, 41, 59, 0.7); padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono';">
-            <div style="color: #38bdf8; font-size: 11px; font-weight: 700;">🤖 tinyRobot2</div>
-            <div id="mirrorPose_tinyRobot2" style="color: #cbd5e1; font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -30.5m</div>
+          <div style="background: #f8f9fa; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--md-border); font-family: 'Roboto Mono', monospace;">
+            <div style="color: var(--md-primary); font-size: 11px; font-weight: 500;">🤖 tinyRobot2</div>
+            <div id="mirrorPose_tinyRobot2" style="color: var(--md-text-secondary); font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -30.5m</div>
           </div>
-          <div style="background: rgba(30, 41, 59, 0.7); padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono';">
-            <div style="color: #38bdf8; font-size: 11px; font-weight: 700;">🤖 tinyRobot3</div>
-            <div id="mirrorPose_tinyRobot3" style="color: #cbd5e1; font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -32.5m</div>
+          <div style="background: #f8f9fa; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--md-border); font-family: 'Roboto Mono', monospace;">
+            <div style="color: var(--md-primary); font-size: 11px; font-weight: 500;">🤖 tinyRobot3</div>
+            <div id="mirrorPose_tinyRobot3" style="color: var(--md-text-secondary); font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -32.5m</div>
           </div>
-          <div style="background: rgba(30, 41, 59, 0.7); padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono';">
-            <div style="color: #38bdf8; font-size: 11px; font-weight: 700;">🤖 tinyRobot4</div>
-            <div id="mirrorPose_tinyRobot4" style="color: #cbd5e1; font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -34.5m</div>
+          <div style="background: #f8f9fa; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--md-border); font-family: 'Roboto Mono', monospace;">
+            <div style="color: var(--md-primary); font-size: 11px; font-weight: 500;">🤖 tinyRobot4</div>
+            <div id="mirrorPose_tinyRobot4" style="color: var(--md-text-secondary); font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -34.5m</div>
           </div>
-          <div style="background: rgba(30, 41, 59, 0.7); padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono';">
-            <div style="color: #38bdf8; font-size: 11px; font-weight: 700;">🤖 tinyRobot5</div>
-            <div id="mirrorPose_tinyRobot5" style="color: #cbd5e1; font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -36.5m</div>
+          <div style="background: #f8f9fa; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--md-border); font-family: 'Roboto Mono', monospace;">
+            <div style="color: var(--md-primary); font-size: 11px; font-weight: 500;">🤖 tinyRobot5</div>
+            <div id="mirrorPose_tinyRobot5" style="color: var(--md-text-secondary); font-size: 10px; margin-top: 2px;">X: 13.5m | Y: -36.5m</div>
           </div>
         </div>
       </div>
@@ -911,10 +846,10 @@
       <div class="canvas-container">
         <canvas id="rmfCanvas"></canvas>
         <div id="completionBanner" class="completion-banner">
-          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 8px; flex-wrap: wrap; gap: 8px;">
-            <span>✅ ALL TASKS COMPLETE — FLEET RETURNED TO BASE CHARGING BAYS</span>
-            <button class="btn-action" onclick="switchViewMode('graphical_analytics')" style="background: #ffffff; color: #064e3b; font-weight: 800; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-              <span>📈 View Graphical Comparison</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 4px; flex-wrap: wrap; gap: 14px;">
+            <span style="font-weight: 500;">✅ All tasks complete — fleet returned to base charging bays</span>
+            <button class="btn-action" onclick="switchViewMode('graphical_analytics')">
+              <span>📈 View graphical comparison</span>
             </button>
           </div>
         </div>
@@ -926,142 +861,164 @@
       <div class="comp-header">
         <div class="comp-title-group">
           <h2>
-            <span>⚖️ CENTRALIZED FLEET COMPARISON ENGINE</span>
-            <span class="badge badge-edge">MULTI-WORKSPACE API</span>
+            <span class="section-title">Centralized fleet comparison engine</span>
+            <span class="badge badge-edge">Multi-workspace API</span>
           </h2>
-          <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
-            Simultaneous dual-workspace comparison: Work Assigned, Distance Traversed, Time Taken & Efficiency Scale between Decentralized Edge-AI (<code style="color: #38bdf8;">rmf_ws</code>) & Traditional Open-RMF (<code style="color: #f59e0b;">rmf_ws_t</code>)
+          <div style="font-size: 13px; color: var(--md-text-secondary); margin-top: 4px;">
+            Simultaneous dual-workspace comparison: Work assigned, distance traversed, time taken & efficiency scale between decentralized Edge-AI (<code style="color: var(--md-primary);">rmf_ws</code>) & traditional Open-RMF (<code style="color: var(--md-warning);">rmf_ws_t</code>)
           </div>
         </div>
 
-        <!-- Real-Time Workspace Status -->
-        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <!-- Real-Time Workspace Status & Controls -->
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
           <div id="statusBadgeRmfWs" class="workspace-status-badge badge-ws-edge" title="Edge-AI Workspace (Port 8080)">
             <span class="status-dot"></span>
-            <span>rmf_ws (Edge-AI): LIVE</span>
+            <span>rmf_ws (Edge-AI): Live</span>
           </div>
           <div id="statusBadgeRmfWsT" class="workspace-status-badge badge-ws-trad" title="Traditional Open-RMF Workspace (Port 8081)">
             <span id="dotRmfWsT" class="status-dot"></span>
-            <span id="textRmfWsT">rmf_ws_t (Traditional): CONNECTED</span>
+            <span id="textRmfWsT">rmf_ws_t (Traditional): Connected</span>
           </div>
+          <button class="btn-outlined" onclick="toggleApiInspector()" style="height: 36px; padding: 0 14px; font-size: 12px;">
+            <span>🔍 API Inspector</span>
+          </button>
         </div>
       </div>
 
-      <!-- 4 Key Comparison Scale Meters -->
+      <!-- 4 Key Comparison Scale Meters (Uniform 1px solid #dadce0 border, no colored top borders) -->
       <div class="comp-scales-grid">
         <!-- Scale 1: Execution Time Scale -->
-        <div class="comp-scale-box highlight-accent">
-          <div class="scale-lbl">1. Mission Execution Time & Speedup Scale</div>
+        <div class="comp-scale-box">
+          <div class="scale-lbl">1. Mission execution time & speedup</div>
           <div class="scale-val-row">
-            <span id="scaleSpeedupMultiplier" class="scale-num" style="color: #34d399;">1.62x SPEEDUP</span>
-            <span id="scaleTimeSavedPct" class="badge badge-edge">-38.5% TIME</span>
+            <span id="scaleSpeedupMultiplier" class="scale-num" style="color: var(--md-success);">1.62x SPEEDUP</span>
+            <span id="scaleTimeSavedPct" class="badge badge-edge">-38.5% time</span>
           </div>
           <div class="dual-bar-container">
             <div class="bar-row">
-              <span style="color: #06b6d4; width: 62px;">Edge-AI:</span>
+              <span style="color: var(--md-primary); width: 62px; font-weight: 500;">Edge-AI:</span>
               <div class="mini-bar-track">
                 <div id="scaleBarEdgeTime" class="mini-bar-fill-edge" style="width: 61.5%;"></div>
               </div>
-              <span id="scaleEdgeTotalTime" style="color: #38bdf8; width: 44px; text-align: right;">39.4s</span>
+              <span id="scaleEdgeTotalTime" style="color: var(--md-primary); width: 44px; text-align: right; font-weight: 600;">39.4s</span>
             </div>
             <div class="bar-row">
-              <span style="color: #f59e0b; width: 62px;">Trad RMF:</span>
+              <span style="color: var(--md-warning); width: 62px; font-weight: 500;">Trad RMF:</span>
               <div class="mini-bar-track">
                 <div id="scaleBarTradTime" class="mini-bar-fill-trad" style="width: 0%;"></div>
               </div>
-              <span id="scaleTradTotalTime" style="color: #fde68a; width: 44px; text-align: right;">0.0s</span>
+              <span id="scaleTradTotalTime" style="color: var(--md-on-warning-container); width: 44px; text-align: right; font-weight: 600;">0.0s</span>
             </div>
           </div>
         </div>
 
         <!-- Scale 2: Trajectory Distance Scale -->
-        <div class="comp-scale-box edge-accent">
-          <div class="scale-lbl">2. Fleet Distance Traversed Scale</div>
+        <div class="comp-scale-box">
+          <div class="scale-lbl">2. Fleet distance traversed scale</div>
           <div class="scale-val-row">
-            <span id="scaleTotalDistance" class="scale-num" style="color: #38bdf8;">0.0m</span>
-            <span class="badge badge-edge" style="font-size: 10px;">OPTIMAL PATH</span>
+            <span id="scaleTotalDistance" class="scale-num" style="color: var(--md-primary);">0.0m</span>
+            <span class="badge badge-edge" style="font-size: 10px;">Optimal path</span>
           </div>
           <div class="dual-bar-container">
             <div class="bar-row">
-              <span style="color: #06b6d4; width: 62px;">Edge-AI:</span>
+              <span style="color: var(--md-primary); width: 62px; font-weight: 500;">Edge-AI:</span>
               <div class="mini-bar-track">
                 <div id="scaleBarEdgeDist" class="mini-bar-fill-edge" style="width: 0%;"></div>
               </div>
-              <span id="scaleEdgeTotalDist" style="color: #38bdf8; width: 44px; text-align: right;">0.0m</span>
+              <span id="scaleEdgeTotalDist" style="color: var(--md-primary); width: 44px; text-align: right; font-weight: 600;">0.0m</span>
             </div>
             <div class="bar-row">
-              <span style="color: #f59e0b; width: 62px;">Trad RMF:</span>
+              <span style="color: var(--md-warning); width: 62px; font-weight: 500;">Trad RMF:</span>
               <div class="mini-bar-track">
                 <div id="scaleBarTradDist" class="mini-bar-fill-trad" style="width: 0%;"></div>
               </div>
-              <span id="scaleTradTotalDist" style="color: #fde68a; width: 44px; text-align: right;">0.0m</span>
+              <span id="scaleTradTotalDist" style="color: var(--md-on-warning-container); width: 44px; text-align: right; font-weight: 600;">0.0m</span>
             </div>
           </div>
         </div>
 
         <!-- Scale 3: Standstill & Wait Delay Elimination -->
-        <div class="comp-scale-box purple-accent">
-          <div class="scale-lbl">3. Standstill Delay Elimination Scale</div>
+        <div class="comp-scale-box">
+          <div class="scale-lbl">3. Standstill delay elimination</div>
           <div class="scale-val-row">
-            <span id="scaleStandstillSaved" class="scale-num" style="color: #a855f7;">0.0% DELAY</span>
-            <span class="badge badge-edge" style="font-size: 10px;">ZERO HALT</span>
+            <span id="scaleStandstillSaved" class="scale-num" style="color: var(--md-primary);">0.0% DELAY</span>
+            <span class="badge badge-edge" style="font-size: 10px;">Zero halt</span>
           </div>
           <div class="dual-bar-container">
             <div class="bar-row">
-              <span style="color: #06b6d4; width: 62px;">Edge-AI:</span>
+              <span style="color: var(--md-primary); width: 62px; font-weight: 500;">Edge-AI:</span>
               <div class="mini-bar-track">
                 <div id="scaleBarEdgeWait" class="mini-bar-fill-edge" style="width: 0%;"></div>
               </div>
-              <span id="scaleEdgeTotalWait" style="color: #38bdf8; width: 44px; text-align: right;">0.0s</span>
+              <span id="scaleEdgeTotalWait" style="color: var(--md-primary); width: 44px; text-align: right; font-weight: 600;">0.0s</span>
             </div>
             <div class="bar-row">
-              <span style="color: #f59e0b; width: 62px;">Trad RMF:</span>
+              <span style="color: var(--md-warning); width: 62px; font-weight: 500;">Trad RMF:</span>
               <div class="mini-bar-track">
                 <div id="scaleBarTradWait" class="mini-bar-fill-trad" style="width: 0%;"></div>
               </div>
-              <span id="scaleTradTotalWait" style="color: #fde68a; width: 44px; text-align: right;">0.0s</span>
+              <span id="scaleTradTotalWait" style="color: var(--md-on-warning-container); width: 44px; text-align: right; font-weight: 600;">0.0s</span>
             </div>
           </div>
         </div>
 
         <!-- Scale 4: Contention & Deadlock Safety Rating -->
-        <div class="comp-scale-box trad-accent">
-          <div class="scale-lbl">4. Deadlock & Traffic Safety Scale</div>
+        <div class="comp-scale-box">
+          <div class="scale-lbl">4. Deadlock & traffic safety scale</div>
           <div class="scale-val-row">
-            <span class="scale-num" style="color: #10b981;">GRADE A+</span>
-            <span class="badge badge-edge">NON-BLOCKING</span>
+            <span class="scale-num" style="color: var(--md-success);">GRADE A+</span>
+            <span class="badge badge-edge">Non-blocking</span>
           </div>
-          <div style="font-size: 10px; color: var(--text-muted); line-height: 1.4; margin-top: 4px;">
-            Edge-AI: <strong style="color: #34d399;">0 deadlocks</strong> (ORCA velocity modulation).<br>
-            Trad RMF: <strong style="color: #f59e0b;">Centralized mutex yields</strong> & schedule pauses.
+          <div style="font-size: 11px; color: var(--md-text-secondary); line-height: 1.4; margin-top: 4px;">
+            Edge-AI: <strong id="edgeDeadlocks" style="color: var(--md-success);">0 deadlocks</strong> (ORCA velocity modulation).<br>
+            Trad RMF: <strong id="edgeHalts" style="color: var(--md-warning);">Centralized mutex yields</strong> & schedule pauses.
+            <span id="edgeCollisions" style="display: none;">0 (ZERO)</span>
+            <span id="edgeDelay" style="display: none;">0.0s</span>
           </div>
         </div>
       </div>
 
       <!-- Comparative Side-by-Side Robot Work Assignment & Metrics Table -->
-      <div style="margin-top: 6px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <h3 style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #cbd5e1; letter-spacing: 0.5px;">
-            Side-by-Side Robot Telemetry: Assigned Work, Distance Travelled & Execution Time
+      <div style="margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h3 class="section-title">
+            Side-by-side robot telemetry: assigned work, distance travelled & execution time
           </h3>
-          <span style="font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono';">Comparing tinyRobot1 .. tinyRobot5 across rmf_ws and rmf_ws_t</span>
+          <span style="font-size: 11px; color: var(--md-text-secondary); font-family: 'Roboto Mono', monospace;">Comparing tinyRobot1 .. tinyRobot5 across rmf_ws and rmf_ws_t</span>
         </div>
 
         <table class="comp-table">
           <thead>
             <tr>
               <th style="width: 120px;">Robot AMR</th>
-              <th style="min-width: 250px;">Work Assigned (Waypoints / Route)</th>
-              <th style="width: 170px;">Distance Travelled</th>
-              <th style="width: 170px;">Time Taken (Active / Wait)</th>
-              <th style="width: 140px;">Halts & Standstills</th>
-              <th style="width: 180px;">Comparison Scale & Rating</th>
+              <th style="min-width: 250px;">Work assigned (waypoints / route)</th>
+              <th style="width: 170px;">Distance travelled</th>
+              <th style="width: 170px;">Time taken (active / wait)</th>
+              <th style="width: 140px;">Halts & standstills</th>
+              <th style="width: 180px;">Comparison scale & rating</th>
             </tr>
           </thead>
           <tbody id="comparisonTableBody">
             <!-- Populated dynamically via JS -->
           </tbody>
         </table>
+      </div>
+
+      <!-- API Inspector Drawer -->
+      <div id="apiInspectorContainer" class="api-inspector-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--md-border); padding-bottom: 10px;">
+          <h4 style="font-size: 15px; font-weight: 500; color: var(--md-text-primary); display: flex; align-items: center; gap: 8px;">
+            <span>🔍</span>
+            <span>REST API live data inspector</span>
+          </h4>
+          <button class="btn-outlined" onclick="toggleApiInspector()" style="height: 32px; padding: 0 14px; font-size: 11px;">Close ✖</button>
+        </div>
+        <div class="api-inspector-tabs">
+          <button id="tabBtnComp" class="api-tab-btn active" onclick="switchApiTab('comparison')">/api/comparison</button>
+          <button id="tabBtnEdge" class="api-tab-btn" onclick="switchApiTab('rmf_ws')">/api/rmf_ws/status</button>
+          <button id="tabBtnTrad" class="api-tab-btn" onclick="switchApiTab('rmf_ws_t')">/api/rmf_ws_t/status</button>
+        </div>
+        <pre id="apiInspectorContent" class="api-raw-box">Loading API response...</pre>
       </div>
     </div>
 
@@ -1070,61 +1027,61 @@
       <div class="comp-header">
         <div class="comp-title-group">
           <h2>
-            <span>📈 GRAPHICAL BENCHMARK & COMPARATIVE ANALYTICS</span>
-            <span class="badge badge-edge" style="background: rgba(168, 85, 247, 0.35); border-color: #a855f7; color: #d8b4fe;">DUAL-WORKSPACE VISUAL CHARTS</span>
+            <span class="section-title">Graphical benchmark & comparative analytics</span>
+            <span class="badge badge-edge">Dual-workspace charts</span>
           </h2>
-          <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">
-            Side-by-side numerical & graphical evaluation: Mission Durations, Standstill Delays, Trajectories & 5-Axis Efficiency Profile between <strong style="color: #38bdf8;">rmf_ws (Edge-AI)</strong> & <strong style="color: #f59e0b;">rmf_ws_t (Traditional)</strong>
+          <div style="font-size: 13px; color: var(--md-text-secondary); margin-top: 4px;">
+            Side-by-side numerical & graphical evaluation: Mission durations, standstill delays, trajectories & 5-axis efficiency profile between <strong style="color: var(--md-primary);">rmf_ws (Edge-AI)</strong> & <strong style="color: var(--md-warning);">rmf_ws_t (Traditional)</strong>
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span id="chartStatusBadge" class="badge badge-edge" style="font-size: 11px;">✅ ALL 5 AMRS DOCKED — RUN EVALUATED</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span id="chartStatusBadge" class="badge badge-edge" style="font-size: 11px;">✅ All 5 AMRs docked — run evaluated</span>
           <button class="btn-action" onclick="renderGraphicalCharts(comparisonData, traditionalData)" title="Re-draw Charts with Live Data">
-            <span>🔄 Re-render Charts</span>
+            <span>🔄 Re-render charts</span>
           </button>
-          <button class="btn-secondary" onclick="toggleGraphicalSection()" style="border-color: #64748b;" title="Hide Graphical Analytics">
+          <button class="btn-outlined" onclick="toggleGraphicalSection()" title="Hide Graphical Analytics">
             <span>✖ Close</span>
           </button>
         </div>
       </div>
 
-      <!-- High-Impact Numerical KPI Comparison Cards -->
+      <!-- High-Impact Numerical KPI Comparison Cards (Uniform Borders) -->
       <div class="chart-kpi-grid">
-        <div class="chart-kpi-box emerald">
-          <div class="scale-lbl">1. Total Mission Duration</div>
+        <div class="chart-kpi-box">
+          <div class="scale-lbl">1. Total mission duration</div>
           <div class="scale-val-row">
-            <span id="kpiEdgeTime" class="scale-num" style="color: #34d399;">0.0s</span>
-            <span style="font-size: 11px; color: #94a3b8;">vs <strong id="kpiTradTime" style="color: #f59e0b;">0.0s</strong></span>
+            <span id="kpiEdgeTime" class="scale-num" style="color: var(--md-success);">0.0s</span>
+            <span style="font-size: 11px; color: var(--md-text-secondary);">vs <strong id="kpiTradTime" style="color: var(--md-warning);">0.0s</strong></span>
           </div>
-          <div id="kpiSpeedupBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px;">⚡ 1.0x SPEEDUP (-0.0% TIME SAVED)</div>
+          <div id="kpiSpeedupBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px;">⚡ 1.0x speedup (-0.0% time saved)</div>
         </div>
 
-        <div class="chart-kpi-box rose">
-          <div class="scale-lbl">2. Standstill Delays Avoided</div>
+        <div class="chart-kpi-box">
+          <div class="scale-lbl">2. Standstill delays avoided</div>
           <div class="scale-val-row">
-            <span id="kpiEdgeWait" class="scale-num" style="color: #38bdf8;">0.0s</span>
-            <span style="font-size: 11px; color: #94a3b8;">vs <strong id="kpiTradWait" style="color: #f43f5e;">0.0s</strong></span>
+            <span id="kpiEdgeWait" class="scale-num" style="color: var(--md-primary);">0.0s</span>
+            <span style="font-size: 11px; color: var(--md-text-secondary);">vs <strong id="kpiTradWait" style="color: var(--md-error);">0.0s</strong></span>
           </div>
-          <div id="kpiWaitBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px; background: rgba(244, 63, 94, 0.2); border-color: #f43f5e; color: #fda4af;">🛑 0.0% STANDSTILL DELAYS ELIMINATED</div>
+          <div id="kpiWaitBadge" class="badge badge-trad" style="font-size: 10px; margin-top: 4px; background: var(--md-error-container); border-color: #fad2cf; color: var(--md-on-error-container);">🛑 0.0% standstill delays eliminated</div>
         </div>
 
-        <div class="chart-kpi-box cyan">
-          <div class="scale-lbl">3. Total Trajectory Distance</div>
+        <div class="chart-kpi-box">
+          <div class="scale-lbl">3. Total trajectory distance</div>
           <div class="scale-val-row">
-            <span id="kpiEdgeDist" class="scale-num" style="color: #38bdf8;">0.0m</span>
-            <span style="font-size: 11px; color: #94a3b8;">vs <strong id="kpiTradDist" style="color: #fbbf24;">0.0m</strong></span>
+            <span id="kpiEdgeDist" class="scale-num" style="color: var(--md-primary);">0.0m</span>
+            <span style="font-size: 11px; color: var(--md-text-secondary);">vs <strong id="kpiTradDist" style="color: var(--md-warning);">0.0m</strong></span>
           </div>
-          <div id="kpiDistBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px;">🧭 0.0% LESS DETOUR (OPTIMAL PATH)</div>
+          <div id="kpiDistBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px;">🧭 0.0% less detour (optimal path)</div>
         </div>
 
-        <div class="chart-kpi-box purple">
-          <div class="scale-lbl">4. Safety & Deadlock Elimination</div>
+        <div class="chart-kpi-box">
+          <div class="scale-lbl">4. Safety & deadlock elimination</div>
           <div class="scale-val-row">
-            <span id="kpiDeadlockScore" class="scale-num" style="color: #c084fc;">100%</span>
-            <span style="font-size: 11px; color: #94a3b8;">ORCA P2P</span>
+            <span id="kpiDeadlockScore" class="scale-num" style="color: var(--md-primary);">100%</span>
+            <span style="font-size: 11px; color: var(--md-text-secondary);">ORCA P2P</span>
           </div>
-          <div id="kpiSafetyBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px; background: rgba(168, 85, 247, 0.2); border-color: #a855f7; color: #d8b4fe;">🛡️ ZERO INTERSECTION DEADLOCKS</div>
+          <div id="kpiSafetyBadge" class="badge badge-edge" style="font-size: 10px; margin-top: 4px;">🛡️ Zero intersection deadlocks</div>
         </div>
       </div>
 
@@ -1133,8 +1090,8 @@
         <!-- Chart 1: Mission Duration by AMR -->
         <div class="chart-container-box">
           <div class="chart-title-bar">
-            <h3><span>⏱️ Mission Execution Time Comparison (Seconds)</span></h3>
-            <span style="font-size: 10px; color: #94a3b8; font-family: 'JetBrains Mono';">Lower is Better</span>
+            <h3><span>⏱️ Mission execution time comparison (seconds)</span></h3>
+            <span style="font-size: 10px; color: var(--md-text-secondary); font-family: 'Roboto Mono', monospace;">Lower is better</span>
           </div>
           <div class="chart-canvas-wrap">
             <canvas id="chartExecutionTime"></canvas>
@@ -1144,8 +1101,8 @@
         <!-- Chart 2: Standstill Delays & Waiting Time -->
         <div class="chart-container-box">
           <div class="chart-title-bar">
-            <h3><span>🛑 Standstill Delays & Waiting Time (Seconds)</span></h3>
-            <span style="font-size: 10px; color: #f43f5e; font-family: 'JetBrains Mono';">Traditional Halts vs Edge-AI Zero Wait</span>
+            <h3><span>🛑 Standstill delays & waiting time (seconds)</span></h3>
+            <span style="font-size: 10px; color: var(--md-error); font-family: 'Roboto Mono', monospace;">Traditional halts vs Edge-AI zero wait</span>
           </div>
           <div class="chart-canvas-wrap">
             <canvas id="chartStandstillDelays"></canvas>
@@ -1155,8 +1112,8 @@
         <!-- Chart 3: Trajectory Distance Traversed -->
         <div class="chart-container-box">
           <div class="chart-title-bar">
-            <h3><span>🧭 Trajectory Distance Traversed (Meters)</span></h3>
-            <span style="font-size: 10px; color: #38bdf8; font-family: 'JetBrains Mono';">5 AMRs Traversed Paths</span>
+            <h3><span>🧭 Trajectory distance traversed (meters)</span></h3>
+            <span style="font-size: 10px; color: var(--md-primary); font-family: 'Roboto Mono', monospace;">5 AMRs traversed paths</span>
           </div>
           <div class="chart-canvas-wrap">
             <canvas id="chartDistanceTraversed"></canvas>
@@ -1166,8 +1123,8 @@
         <!-- Chart 4: 5-Axis Fleet Efficiency Radar -->
         <div class="chart-container-box">
           <div class="chart-title-bar">
-            <h3><span>📊 5-Dimension Fleet Efficiency Profile</span></h3>
-            <span style="font-size: 10px; color: #a855f7; font-family: 'JetBrains Mono';">Edge-AI vs Traditional Open-RMF</span>
+            <h3><span>📊 5-Dimension fleet efficiency profile</span></h3>
+            <span style="font-size: 10px; color: var(--md-primary); font-family: 'Roboto Mono', monospace;">Edge-AI vs traditional Open-RMF</span>
           </div>
           <div class="chart-canvas-wrap">
             <canvas id="chartFleetRadar"></canvas>
@@ -1180,50 +1137,54 @@
     <div id="historySection" class="history-card" style="display: none;">
       <div class="card-top-row">
         <div>
-          <h2 style="font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <span>📁 Benchmark History Database</span>
+          <h2 style="display: flex; align-items: gap: 10px;">
+            <span class="section-title">Benchmark history database</span>
             <span class="badge badge-map">SQLite: benchmark_history.db</span>
+            <span class="badge badge-neutral"><span id="dbRecordCount">0</span> records</span>
           </h2>
-          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+          <p style="font-size: 13px; color: var(--md-text-secondary); margin-top: 4px;">
             Persistent historical storage of all dual-method comparative analyses. Persists across browser reloads.
           </p>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <button class="btn-secondary" onclick="fetchHistory()">🔄 Refresh History</button>
-          <button class="btn-secondary" onclick="downloadHistoryJSON()">📥 Export JSON</button>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <button id="btnSaveToDb" class="btn-action" onclick="saveComparisonToDatabase()">
+            <span>💾 Save run to database</span>
+          </button>
+          <button class="btn-outlined" onclick="fetchHistory()">🔄 Refresh history</button>
+          <button class="btn-outlined" onclick="downloadHistoryJSON()">📥 Export JSON</button>
         </div>
       </div>
 
       <table class="history-table">
         <thead>
           <tr>
-            <th>Run ID & Timestamp</th>
+            <th>Run ID & timestamp</th>
             <th>Scenario</th>
-            <th>Fleet Size</th>
-            <th>Mission Time</th>
-            <th>Edge-AI Metrics (Halts / Delay / Dist)</th>
-            <th>Efficiency Gain</th>
+            <th>Fleet size</th>
+            <th>Mission time</th>
+            <th>Edge-AI metrics (halts / delay / dist)</th>
+            <th>Efficiency gain</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody id="historyTableBody">
-          <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading database records from SQLite...</td></tr>
+          <tr><td colspan="7" style="text-align: left; padding: 14px 18px; color: var(--md-text-secondary);">Loading database records from SQLite...</td></tr>
         </tbody>
       </table>
     </div>
 
   </div>
 
-  <!-- Right Column: Fleets & Live Event Stream -->
+  <!-- Right Column: Fleets & Live Event Stream (Spacious 24px Gaps) -->
   <div class="sidebar">
     <div class="panel-card">
       <div class="panel-title">
-        <span>🤖 Active Fleet Evaluation</span>
-        <span id="robotCounterBadge" class="badge badge-edge" style="font-size: 10px;">5 ACTIVE</span>
+        <span class="section-title">Active fleet evaluation</span>
+        <span id="robotCounterBadge" class="badge badge-edge" style="font-size: 10px;">5 active</span>
       </div>
 
       <div id="robotList" class="robot-list">
-        <div style="color: var(--text-muted); font-size: 12px; text-align: center; padding: 20px;">
+        <div style="color: var(--md-text-secondary); font-size: 13px; text-align: center; padding: 24px;">
           Streaming robot positions from /fleet_states...
         </div>
       </div>
@@ -1231,11 +1192,11 @@
 
     <div class="panel-card" style="flex: 1;">
       <div class="panel-title">
-        <span>⚡ Simultaneous Coordination Decisions</span>
+        <span class="section-title">Simultaneous coordination decisions</span>
       </div>
       <div id="eventLog" class="event-log">
         <div class="event-item">
-          <span style="color: #94a3b8;">SYSTEM</span>
+          <span style="color: var(--md-text-secondary);">SYSTEM</span>
           <span>Simultaneous dual-model coordinator listening on ROS 2 mesh</span>
         </div>
       </div>
@@ -1261,6 +1222,26 @@
   window.addEventListener('resize', () => { resizeCanvas(); drawScene(); });
   resizeCanvas();
 
+  // Helper for drawing rounded rectangles with cross-browser compatibility
+  function drawRoundRect(c, x, y, w, h, r) {
+    if (c.roundRect) {
+      c.beginPath();
+      c.roundRect(x, y, w, h, r);
+    } else {
+      c.beginPath();
+      c.moveTo(x + r, y);
+      c.lineTo(x + w - r, y);
+      c.quadraticCurveTo(x + w, y, x + w, y + r);
+      c.lineTo(x + w, y + h - r);
+      c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      c.lineTo(x + r, y + h);
+      c.quadraticCurveTo(x, y + h, x, y + h - r);
+      c.lineTo(x, y + r);
+      c.quadraticCurveTo(x, y, x + r, y);
+      c.closePath();
+    }
+  }
+
   // Load static floorplan image directly as fallback
   const fallbackImg = new Image();
   fallbackImg.onload = () => {
@@ -1285,15 +1266,15 @@
     const text = document.getElementById('wsStatusText');
 
     ws.onopen = () => {
-      dot.classList.remove('disconnected');
-      text.innerText = "CENTRALIZED STREAM LIVE";
+      if (dot) dot.classList.remove('disconnected');
+      if (text) text.innerText = "Edge-AI live";
       fetchHistory();
       refreshComparisonScale();
     };
 
     ws.onclose = () => {
-      dot.classList.add('disconnected');
-      text.innerText = "RECONNECTING...";
+      if (dot) dot.classList.add('disconnected');
+      if (text) text.innerText = "Reconnecting...";
       setTimeout(connectWS, 1500);
     };
 
@@ -1312,7 +1293,11 @@
             };
             floorplanImg.src = mapData.image_b64;
           }
-          document.getElementById('activeMapBadge').innerText = `WORLD: ${mapData.building_name.toUpperCase()} (${mapData.level_name})`;
+          const badge = document.getElementById('activeMapBadge');
+          if (badge) {
+            badge.innerText = `World: ${mapData.building_name} (${mapData.level_name})`;
+            badge.style.display = 'inline-flex';
+          }
         }
         else if (msg.type === 'fleet_update' && msg.fleet_state) {
           fleetData = msg.fleet_state;
@@ -1345,11 +1330,11 @@
 
     if (statusTrad && statusTrad.online) {
       if (dotTrad) dotTrad.classList.remove('disconnected');
-      if (textTrad) textTrad.innerText = "rmf_ws_t (Traditional): LIVE (Port 8081)";
+      if (textTrad) textTrad.innerText = "rmf_ws_t (Traditional): Live (Port 8081)";
       if (badgeTrad) badgeTrad.className = "workspace-status-badge badge-ws-trad";
     } else {
       if (dotTrad) dotTrad.classList.add('disconnected');
-      if (textTrad) textTrad.innerText = "rmf_ws_t (Traditional): STANDBY (Port 8081)";
+      if (textTrad) textTrad.innerText = "rmf_ws_t (Traditional): Standby (Port 8081)";
       if (badgeTrad) badgeTrad.className = "workspace-status-badge badge-ws-offline";
     }
 
@@ -1360,7 +1345,7 @@
       if (elMult) elMult.innerText = summary.fleet_speedup_multiplier + " SPEEDUP";
 
       const elSaved = document.getElementById('scaleTimeSavedPct');
-      if (elSaved) elSaved.innerText = "-" + summary.fleet_time_saved_pct + "% TIME";
+      if (elSaved) elSaved.innerText = "-" + summary.fleet_time_saved_pct + "% time";
 
       const elEdgeTime = document.getElementById('scaleEdgeTotalTime');
       if (elEdgeTime) elEdgeTime.innerText = summary.edge_total_time_sec + "s";
@@ -1390,7 +1375,7 @@
       if (barTradD) barTradD.style.width = Math.min(100, Math.round((summary.trad_total_dist_m / maxD) * 100)) + "%";
 
       const elStandstill = document.getElementById('scaleStandstillSaved');
-      if (elStandstill) elStandstill.innerText = "-" + summary.fleet_standstill_reduction_pct + "% DELAY";
+      if (elStandstill) elStandstill.innerText = "-" + summary.fleet_standstill_reduction_pct + "% delay";
 
       const elEdgeWait = document.getElementById('scaleEdgeTotalWait');
       if (elEdgeWait) elEdgeWait.innerText = summary.edge_total_wait_sec + "s";
@@ -1405,7 +1390,7 @@
       if (barTradW) barTradW.style.width = Math.min(100, Math.round((summary.trad_total_wait_sec / maxW) * 100)) + "%";
     }
 
-    // 3. Update Side-by-Side Robot Table
+    // 3. Update Side-by-Side Robot Table (Google Cloud Table Style)
     const tbody = document.getElementById('comparisonTableBody');
     if (tbody && comp.robots_comparison && comp.robots_comparison.length > 0) {
       tbody.innerHTML = comp.robots_comparison.map(item => {
@@ -1416,84 +1401,84 @@
 
         return `
           <tr>
-            <td>
-              <div style="font-weight: 800; color: #f8fafc; font-size: 13px;">${id}</div>
-              <div style="display: flex; gap: 4px; margin-top: 3px;">
-                <span class="badge badge-edge" style="font-size: 8px; padding: 2px 5px;">EDGE-AI</span>
-                <span class="badge badge-trad" style="font-size: 8px; padding: 2px 5px;">TRAD</span>
+            <td style="padding: 14px 18px; text-align: left;">
+              <div style="font-weight: 500; color: var(--md-text-primary); font-size: 13px;">${id}</div>
+              <div style="display: flex; gap: 6px; margin-top: 4px;">
+                <span class="badge badge-edge" style="font-size: 9px; padding: 2px 8px;">Edge-AI</span>
+                <span class="badge badge-trad" style="font-size: 9px; padding: 2px 8px;">Traditional</span>
               </div>
             </td>
-            <td>
-              <div style="font-size: 10px; line-height: 1.5;">
-                <div style="color: #38bdf8; display: flex; align-items: flex-start; gap: 4px;">
-                  <strong style="color: #06b6d4; min-width: 52px;">[rmf_ws]:</strong>
-                  <span>${e.assigned_work || 'Awaiting Task Dispatch'}</span>
+            <td style="padding: 14px 18px; text-align: left;">
+              <div style="font-size: 12px; line-height: 1.5;">
+                <div style="color: var(--md-primary); display: flex; align-items: flex-start; gap: 4px;">
+                  <strong style="min-width: 58px; font-weight: 500;">[rmf_ws]:</strong>
+                  <span>${e.assigned_work || 'Awaiting task dispatch'}</span>
                 </div>
-                <div style="color: #fde68a; display: flex; align-items: flex-start; gap: 4px; margin-top: 3px;">
-                  <strong style="color: #f59e0b; min-width: 52px;">[rmf_ws_t]:</strong>
-                  <span>${t.assigned_work || 'Awaiting Task Dispatch'}</span>
+                <div style="color: var(--md-on-warning-container); display: flex; align-items: flex-start; gap: 4px; margin-top: 3px;">
+                  <strong style="min-width: 58px; font-weight: 500;">[rmf_ws_t]:</strong>
+                  <span>${t.assigned_work || 'Awaiting task dispatch'}</span>
                 </div>
               </div>
             </td>
-            <td>
-              <div style="font-size: 11px;">
-                <div style="display: flex; justify-content: space-between; color: #38bdf8;">
+            <td style="padding: 14px 18px; text-align: left;">
+              <div style="font-size: 12px;">
+                <div style="display: flex; justify-content: space-between; color: var(--md-primary);">
                   <span>Edge: <strong>${e.distance_m.toFixed(1)}m</strong></span>
-                  <span style="font-size: 9px; color: #94a3b8;">${e.speed_mps.toFixed(2)}m/s</span>
+                  <span style="font-size: 11px; color: var(--md-text-secondary);">${e.speed_mps.toFixed(2)}m/s</span>
                 </div>
-                <div class="mini-bar-track" style="margin: 2px 0 4px 0;">
+                <div class="mini-bar-track" style="margin: 3px 0 4px 0;">
                   <div class="mini-bar-fill-edge" style="width: ${s.bar_edge_dist_pct}%;"></div>
                 </div>
-                <div style="display: flex; justify-content: space-between; color: #fde68a;">
+                <div style="display: flex; justify-content: space-between; color: var(--md-on-warning-container);">
                   <span>Trad: <strong>${t.distance_m.toFixed(1)}m</strong></span>
-                  <span style="font-size: 9px; color: #94a3b8;">${t.speed_mps.toFixed(2)}m/s</span>
+                  <span style="font-size: 11px; color: var(--md-text-secondary);">${t.speed_mps.toFixed(2)}m/s</span>
                 </div>
-                <div class="mini-bar-track" style="margin-top: 2px;">
+                <div class="mini-bar-track" style="margin-top: 3px;">
                   <div class="mini-bar-fill-trad" style="width: ${s.bar_trad_dist_pct}%;"></div>
                 </div>
               </div>
             </td>
-            <td>
-              <div style="font-size: 11px;">
-                <div style="display: flex; justify-content: space-between; color: #34d399;">
+            <td style="padding: 14px 18px; text-align: left;">
+              <div style="font-size: 12px;">
+                <div style="display: flex; justify-content: space-between; color: var(--md-success);">
                   <span>Edge: <strong>${e.time_taken_sec.toFixed(1)}s</strong></span>
-                  <span style="font-size: 9px; color: #6ee7b7;">Act: ${e.time_taken_sec.toFixed(1)}s</span>
+                  <span style="font-size: 11px; color: var(--md-on-success-container);">Act: ${e.time_taken_sec.toFixed(1)}s</span>
                 </div>
-                <div class="mini-bar-track" style="margin: 2px 0 4px 0;">
+                <div class="mini-bar-track" style="margin: 3px 0 4px 0;">
                   <div class="mini-bar-fill-edge" style="width: ${s.bar_edge_time_pct}%;"></div>
                 </div>
-                <div style="display: flex; justify-content: space-between; color: #f59e0b;">
+                <div style="display: flex; justify-content: space-between; color: var(--md-error);">
                   <span>Trad: <strong>${t.time_taken_sec.toFixed(1)}s</strong></span>
-                  <span style="font-size: 9px; color: #fca5a5;">Wait: ${t.wait_time_sec.toFixed(1)}s</span>
+                  <span style="font-size: 11px; color: var(--md-on-error-container);">Wait: ${t.wait_time_sec.toFixed(1)}s</span>
                 </div>
-                <div class="mini-bar-track" style="margin-top: 2px;">
+                <div class="mini-bar-track" style="margin-top: 3px;">
                   <div class="mini-bar-fill-trad" style="width: ${s.bar_trad_time_pct}%;"></div>
                 </div>
               </div>
             </td>
-            <td>
-              <div style="font-size: 10px; display: flex; flex-direction: column; gap: 3px;">
-                <div style="color: #34d399; font-weight: 700;">
+            <td style="padding: 14px 18px; text-align: left;">
+              <div style="font-size: 12px; display: flex; flex-direction: column; gap: 3px;">
+                <div style="color: var(--md-success); font-weight: 500;">
                   ⚡ ${e.halts_count} halts (${e.wait_time_sec.toFixed(1)}s delay)
                 </div>
-                <div style="color: #f87171; font-weight: 700;">
+                <div style="color: var(--md-error); font-weight: 500;">
                   ⚠️ ${t.halts_count} halts (${t.wait_time_sec.toFixed(1)}s delay)
                 </div>
-                <div style="font-size: 9px; color: #94a3b8;">
-                  Avoided: <strong style="color: #38bdf8;">+${s.halts_avoided} halts</strong>
+                <div style="font-size: 11px; color: var(--md-text-secondary);">
+                  Avoided: <strong style="color: var(--md-primary);">+${s.halts_avoided} halts</strong>
                 </div>
               </div>
             </td>
-            <td>
+            <td style="padding: 14px 18px; text-align: left;">
               <div style="display: flex; flex-direction: column; gap: 4px;">
-                <span class="badge badge-edge" style="font-size: 10px; text-align: center;">
+                <span class="badge badge-edge" style="font-size: 11px; text-align: center;">
                   ${s.rating_label}
                 </span>
-                <span style="font-size: 9px; color: #6ee7b7; font-family: 'JetBrains Mono';">
+                <span style="font-size: 11px; color: var(--md-success); font-family: 'Roboto Mono', monospace;">
                   ● ${s.deadlock_status}
                 </span>
-                <span style="font-size: 9px; color: #94a3b8;">
-                  Saved: <strong style="color: #38bdf8;">${s.time_saved_sec.toFixed(1)}s</strong>
+                <span style="font-size: 11px; color: var(--md-text-secondary);">
+                  Saved: <strong style="color: var(--md-primary);">${s.time_saved_sec.toFixed(1)}s</strong>
                 </span>
               </div>
             </td>
@@ -1525,11 +1510,9 @@
     const mapTitle = document.getElementById('mapSectionTitle');
     const mapSubtitle = document.getElementById('mapSectionSubtitle');
 
-    // Synchronize select dropdown value
     const sel = document.getElementById('viewModeSelect');
     if (sel && sel.value !== mode) sel.value = mode;
 
-    // By default: Live warehouse is on top, and Centralized comparison engine is under it
     if (liveSec) liveSec.style.display = 'block';
     if (compSec) compSec.style.display = 'block';
     if (graphSec) graphSec.style.display = 'none';
@@ -1538,8 +1521,8 @@
 
     switch(mode) {
       case 'live_warehouse':
-        if (mapTitle) mapTitle.innerText = "LIVE WAREHOUSE DEMONSTRATION";
-        if (mapSubtitle) mapSubtitle.innerText = "Floorplan, 5 Charging Bays, Storage Racks, Navigation Lanes, and Autonomous AMR Routing";
+        if (mapTitle) mapTitle.innerText = "Live warehouse demonstration";
+        if (mapSubtitle) mapSubtitle.innerText = "Floorplan, 5 charging bays, storage racks, navigation lanes, and autonomous AMR routing";
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(resizeCanvas, 50);
         drawScene();
@@ -1564,7 +1547,7 @@
 
       case 'warehouse_mirror':
         if (mirrorHud) mirrorHud.style.display = 'block';
-        if (mapTitle) mapTitle.innerHTML = "LIVE WAREHOUSE (GAZEBO & RVIZ MIRROR) <span class='badge badge-edge' style='font-size: 11px;'>1:1 DIGITAL TWIN</span>";
+        if (mapTitle) mapTitle.innerHTML = "Live warehouse (Gazebo & RViz mirror) <span class='badge badge-edge' style='font-size: 11px;'>1:1 digital twin</span>";
         if (mapSubtitle) mapSubtitle.innerText = "Direct synchronized mirror of Gazebo Sim 3D physics & RViz2 perception coordinate transforms";
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(resizeCanvas, 50);
@@ -1624,14 +1607,14 @@
     const kpiTT = document.getElementById('kpiTradTime');
     if (kpiTT) kpiTT.innerText = tTime + 's';
     const kpiSp = document.getElementById('kpiSpeedupBadge');
-    if (kpiSp) kpiSp.innerText = `⚡ ${speedup} SPEEDUP (-${timeSaved}% TIME SAVED)`;
+    if (kpiSp) kpiSp.innerText = `⚡ ${speedup} speedup (-${timeSaved}% time saved)`;
 
     const kpiEW = document.getElementById('kpiEdgeWait');
     if (kpiEW) kpiEW.innerText = eWait + 's';
     const kpiTW = document.getElementById('kpiTradWait');
     if (kpiTW) kpiTW.innerText = tWait + 's';
     const kpiWb = document.getElementById('kpiWaitBadge');
-    if (kpiWb) kpiWb.innerText = `🛑 -${waitRed}% DELAYS ELIMINATED (ZERO STANDSTILLS)`;
+    if (kpiWb) kpiWb.innerText = `🛑 -${waitRed}% delays eliminated (zero standstills)`;
 
     const kpiED = document.getElementById('kpiEdgeDist');
     if (kpiED) kpiED.innerText = eDist + 'm';
@@ -1639,11 +1622,11 @@
     if (kpiTD) kpiTD.innerText = tDist + 'm';
     const distDiff = tDist > 0 ? (((tDist - eDist) / tDist) * 100).toFixed(1) : "5.0";
     const kpiDb = document.getElementById('kpiDistBadge');
-    if (kpiDb) kpiDb.innerText = `🧭 -${distDiff}% LESS DETOUR (NON-STOP CONTINUOUS FLOW)`;
+    if (kpiDb) kpiDb.innerText = `🧭 -${distDiff}% less detour (optimal path)`;
 
     // 2. Data Arrays for Charts (Strictly Measured from Telemetry)
     const robotLabels = robots.length > 0 ? robots.map(r => r.robot_id) : ['tinyRobot1', 'tinyRobot2', 'tinyRobot3', 'tinyRobot4', 'tinyRobot5'];
-    const timeLabels = [...robotLabels, 'FLEET TOTAL'];
+    const timeLabels = [...robotLabels, 'Fleet total'];
 
     const edgeTimes = robots.map(r => r.edge_ai ? r.edge_ai.time_taken_sec : 0.0);
     const tradTimes = robots.map(r => r.traditional ? r.traditional.time_taken_sec : 0.0);
@@ -1654,29 +1637,41 @@
     const edgeDists = robots.map(r => r.edge_ai ? r.edge_ai.distance_m : 0.0);
     const tradDists = robots.map(r => r.traditional ? r.traditional.distance_m : 0.0);
 
-    const darkScaleOptions = {
+    const md3ChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          labels: { color: '#e2e8f0', font: { family: 'Inter', size: 11, weight: 'bold' } }
+          labels: {
+            color: '#202124',
+            font: { family: "'Google Sans', 'Roboto', 'Inter', sans-serif", size: 12, weight: '500' },
+            boxWidth: 12,
+            boxHeight: 12,
+            usePointStyle: true,
+            pointStyle: 'circle'
+          }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          titleColor: '#38bdf8',
-          bodyColor: '#f8fafc',
-          borderColor: '#334155',
-          borderWidth: 1
+          backgroundColor: '#ffffff',
+          titleColor: '#202124',
+          bodyColor: '#5f6368',
+          borderColor: '#dadce0',
+          borderWidth: 1,
+          padding: 10,
+          boxPadding: 4,
+          usePointStyle: true,
+          titleFont: { family: "'Google Sans', 'Roboto', 'Inter', sans-serif", size: 12, weight: '500' },
+          bodyFont: { family: "'Roboto Mono', monospace", size: 11 }
         }
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } }
+          grid: { color: '#f1f3f4' },
+          ticks: { color: '#5f6368', font: { family: "'Roboto Mono', monospace", size: 10 } }
         },
         y: {
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } }
+          grid: { color: '#f1f3f4' },
+          ticks: { color: '#5f6368', font: { family: "'Roboto Mono', monospace", size: 10 } }
         }
       }
     };
@@ -1691,24 +1686,24 @@
           labels: timeLabels,
           datasets: [
             {
-              label: 'rmf_ws (Edge-AI Measured Time)',
+              label: 'rmf_ws (Edge-AI measured time)',
               data: [...edgeTimes, eTime],
-              backgroundColor: 'rgba(16, 185, 129, 0.85)',
-              borderColor: '#10b981',
+              backgroundColor: 'rgba(26, 115, 232, 0.85)',
+              borderColor: '#1a73e8',
               borderWidth: 1,
               borderRadius: 4
             },
             {
-              label: 'rmf_ws_t (Traditional Measured Time)',
+              label: 'rmf_ws_t (Traditional measured time)',
               data: [...tradTimes, tTime],
-              backgroundColor: 'rgba(245, 158, 11, 0.85)',
-              borderColor: '#f59e0b',
+              backgroundColor: 'rgba(249, 171, 0, 0.85)',
+              borderColor: '#f9ab00',
               borderWidth: 1,
               borderRadius: 4
             }
           ]
         },
-        options: darkScaleOptions
+        options: md3ChartOptions
       });
     }
 
@@ -1722,24 +1717,24 @@
           labels: timeLabels,
           datasets: [
             {
-              label: 'rmf_ws (Edge-AI Measured Delays)',
+              label: 'rmf_ws (Edge-AI measured delays)',
               data: [...edgeWaits, eWait],
-              backgroundColor: 'rgba(6, 182, 212, 0.85)',
-              borderColor: '#06b6d4',
+              backgroundColor: 'rgba(24, 128, 56, 0.85)',
+              borderColor: '#188038',
               borderWidth: 1,
               borderRadius: 4
             },
             {
-              label: 'rmf_ws_t (Traditional Measured Delays)',
+              label: 'rmf_ws_t (Traditional measured delays)',
               data: [...tradWaits, tWait],
-              backgroundColor: 'rgba(244, 63, 94, 0.85)',
-              borderColor: '#f43f5e',
+              backgroundColor: 'rgba(217, 48, 37, 0.85)',
+              borderColor: '#d93025',
               borderWidth: 1,
               borderRadius: 4
             }
           ]
         },
-        options: darkScaleOptions
+        options: md3ChartOptions
       });
     }
 
@@ -1750,34 +1745,34 @@
       chartDistInstance = new Chart(ctxDist, {
         type: 'bar',
         data: {
-          labels: [...robotLabels, 'FLEET TOTAL'],
+          labels: [...robotLabels, 'Fleet total'],
           datasets: [
             {
-              label: 'rmf_ws (Edge-AI Measured Distance)',
+              label: 'rmf_ws (Edge-AI measured distance)',
               data: [...edgeDists, eDist],
-              backgroundColor: 'rgba(56, 189, 248, 0.85)',
-              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(26, 115, 232, 0.85)',
+              borderColor: '#1a73e8',
               borderWidth: 1,
               borderRadius: 4
             },
             {
-              label: 'rmf_ws_t (Traditional Measured Distance)',
+              label: 'rmf_ws_t (Traditional measured distance)',
               data: [...tradDists, tDist],
-              backgroundColor: 'rgba(251, 191, 36, 0.85)',
-              borderColor: '#fbbf24',
+              backgroundColor: 'rgba(249, 171, 0, 0.85)',
+              borderColor: '#f9ab00',
               borderWidth: 1,
               borderRadius: 4
             }
           ]
         },
         options: {
-          ...darkScaleOptions,
+          ...md3ChartOptions,
           indexAxis: 'y'
         }
       });
     }
 
-    // Chart 4: 5-Axis Fleet Efficiency Radar (Purely Calculated from Measured Telemetry)
+    // Chart 4: 5-Axis Fleet Efficiency Radar
     const edgeSpeedupScore = Math.min(100, Math.max(10, Math.round((summary.fleet_speedup_value || 1.0) * 50)));
     const tradSpeedupScore = 50;
 
@@ -1799,22 +1794,22 @@
       chartRadarInstance = new Chart(ctxRadar, {
         type: 'radar',
         data: {
-          labels: ['Speedup Factor', 'Standstill Avoidance', 'Zero-Deadlock Safety', 'Aisle Fluidity', 'Battery Conservation'],
+          labels: ['Speedup factor', 'Standstill avoidance', 'Zero-deadlock safety', 'Aisle fluidity', 'Battery conservation'],
           datasets: [
             {
-              label: 'rmf_ws (Edge-AI Measured)',
+              label: 'rmf_ws (Edge-AI measured)',
               data: [edgeSpeedupScore, edgeWaitScore, edgeSafetyScore, edgeSpeedScore, edgeBatteryScore],
-              backgroundColor: 'rgba(16, 185, 129, 0.35)',
-              borderColor: '#10b981',
-              pointBackgroundColor: '#34d399',
+              backgroundColor: 'rgba(26, 115, 232, 0.20)',
+              borderColor: '#1a73e8',
+              pointBackgroundColor: '#1a73e8',
               borderWidth: 2
             },
             {
-              label: 'rmf_ws_t (Traditional Measured)',
+              label: 'rmf_ws_t (Traditional measured)',
               data: [tradSpeedupScore, tradWaitScore, tradSafetyScore, tradSpeedScore, tradBatteryScore],
-              backgroundColor: 'rgba(245, 158, 11, 0.25)',
-              borderColor: '#f59e0b',
-              pointBackgroundColor: '#fbbf24',
+              backgroundColor: 'rgba(249, 171, 0, 0.20)',
+              borderColor: '#f9ab00',
+              pointBackgroundColor: '#f9ab00',
               borderWidth: 2
             }
           ]
@@ -1824,14 +1819,21 @@
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              labels: { color: '#e2e8f0', font: { family: 'Inter', size: 11, weight: 'bold' } }
+              labels: {
+                color: '#202124',
+                font: { family: "'Google Sans', 'Roboto', 'Inter', sans-serif", size: 12, weight: '500' },
+                boxWidth: 12,
+                boxHeight: 12,
+                usePointStyle: true,
+                pointStyle: 'circle'
+              }
             }
           },
           scales: {
             r: {
-              angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-              grid: { color: 'rgba(255, 255, 255, 0.08)' },
-              pointLabels: { color: '#cbd5e1', font: { family: 'JetBrains Mono', size: 10 } },
+              angleLines: { color: '#dadce0' },
+              grid: { color: '#f1f3f4' },
+              pointLabels: { color: '#202124', font: { family: "'Google Sans', 'Roboto', 'Inter', sans-serif", size: 10, weight: '500' } },
               ticks: { display: false, max: 100 }
             }
           }
@@ -1879,6 +1881,7 @@
 
   function toggleApiInspector() {
     const el = document.getElementById('apiInspectorContainer');
+    if (!el) return;
     if (el.style.display === 'block') {
       el.style.display = 'none';
     } else {
@@ -1958,14 +1961,14 @@
       if (btn) {
         btn.innerHTML = '<span>✅ Saved to SQLite!</span>';
         setTimeout(() => {
-          btn.innerHTML = '<span>💾 Save Run to Database</span>';
+          btn.innerHTML = '<span>💾 Save run to database</span>';
         }, 2500);
       }
       fetchHistory();
     })
     .catch(err => {
       console.error("Error saving comparison to DB:", err);
-      if (btn) btn.innerHTML = '<span>❌ Save Error</span>';
+      if (btn) btn.innerHTML = '<span>❌ Save error</span>';
     });
   }
 
@@ -1975,7 +1978,7 @@
     if (cntEl) cntEl.innerText = (records || []).length;
     if (!tbody) return;
     if (!records || records.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No records found in database.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align: left; padding: 14px 18px; color: var(--md-text-secondary);">No records found in database.</td></tr>';
       return;
     }
 
@@ -1983,38 +1986,38 @@
       const isDual = r.trad_time_sec && r.edge_time_sec;
       return `
       <tr>
-        <td>
-          <div style="font-weight: 700; color: #38bdf8;">${r.run_id}</div>
-          <div style="font-size: 10px; color: var(--text-muted);">${r.timestamp}</div>
+        <td style="padding: 14px 18px; text-align: left;">
+          <div style="font-weight: 500; color: var(--md-primary);">${r.run_id}</div>
+          <div style="font-size: 11px; color: var(--md-text-secondary);">${r.timestamp}</div>
         </td>
-        <td style="color: #e2e8f0; font-size: 11px; max-width: 280px;">
+        <td style="padding: 14px 18px; text-align: left; color: var(--md-text-primary); font-size: 12px; max-width: 280px;">
           <div>${r.scenario}</div>
-          ${r.distance_m ? `<div style="font-size: 10px; color: #38bdf8; margin-top: 2px;">Trajectory: <strong>${r.distance_m}m</strong> (${r.avg_speed_mps || 0} m/s)</div>` : ''}
+          ${r.distance_m ? `<div style="font-size: 11px; color: var(--md-primary); margin-top: 2px;">Trajectory: <strong>${r.distance_m}m</strong> (${r.avg_speed_mps || 0} m/s)</div>` : ''}
         </td>
-        <td><span class="badge badge-edge">${r.fleet_size} AMRS</span></td>
-        <td>
+        <td style="padding: 14px 18px; text-align: left;"><span class="badge badge-edge">${r.fleet_size} AMRs</span></td>
+        <td style="padding: 14px 18px; text-align: left;">
           ${isDual ? `
-            <div style="font-size: 11px;"><span style="color: #38bdf8; font-weight: 700;">Edge: ${r.edge_time_sec}s</span> vs <span style="color: #f59e0b;">Trad: ${r.trad_time_sec}s</span></div>
-            <div style="font-size: 10px; color: #34d399; font-weight: 600;">${r.time_saved_pct || 0}% faster (${(r.trad_time_sec / Math.max(0.1, r.edge_time_sec)).toFixed(2)}x)</div>
+            <div style="font-size: 12px;"><span style="color: var(--md-primary); font-weight: 500;">Edge: ${r.edge_time_sec}s</span> vs <span style="color: var(--md-warning); font-weight: 500;">Trad: ${r.trad_time_sec}s</span></div>
+            <div style="font-size: 11px; color: var(--md-success); font-weight: 500;">${r.time_saved_pct || 0}% faster (${(r.trad_time_sec / Math.max(0.1, r.edge_time_sec)).toFixed(2)}x)</div>
           ` : `
-            <span style="color: #38bdf8; font-weight: 700;">${r.edge_time_sec || r.trad_time_sec || 0}s</span>
+            <span style="color: var(--md-primary); font-weight: 500;">${r.edge_time_sec || r.trad_time_sec || 0}s</span>
           `}
         </td>
-        <td>
+        <td style="padding: 14px 18px; text-align: left;">
           ${isDual ? `
-            <div style="font-size: 11px;"><span style="color: #34d399; font-weight: 700;">${r.edge_halts || 0} halts (0s)</span> vs <span style="color: #f59e0b;">${r.trad_halts || 0} halts (${r.trad_delay_sec || 0}s)</span></div>
-            <div style="font-size: 10px; color: #6ee7b7;">Edge Dist: ${r.distance_m || 0}m</div>
+            <div style="font-size: 12px;"><span style="color: var(--md-success); font-weight: 500;">${r.edge_halts || 0} halts (0s)</span> vs <span style="color: var(--md-error); font-weight: 500;">${r.trad_halts || 0} halts (${r.trad_delay_sec || 0}s)</span></div>
+            <div style="font-size: 11px; color: var(--md-text-secondary);">Edge Dist: ${r.distance_m || 0}m</div>
           ` : `
-            <span style="color: #34d399; font-weight: 700;">${r.edge_halts || 0} halts</span> | 
-            <span style="color: #38bdf8;">${r.edge_delay_sec || 0}s delay</span> | 
-            <span style="color: #6ee7b7;">${r.distance_m || 0}m</span>
+            <span style="color: var(--md-success); font-weight: 500;">${r.edge_halts || 0} halts</span> | 
+            <span style="color: var(--md-primary);">${r.edge_delay_sec || 0}s delay</span> | 
+            <span style="color: var(--md-text-secondary);">${r.distance_m || 0}m</span>
           `}
         </td>
-        <td>
-          <span class="badge badge-edge" style="font-size: 11px;">+100% Zero-Deadlock</span>
-          <div style="font-size: 9px; color: #6ee7b7; margin-top: 2px;">Decentralized ORCA</div>
+        <td style="padding: 14px 18px; text-align: left;">
+          <span class="badge badge-edge" style="font-size: 11px;">+100% Zero deadlock</span>
+          <div style="font-size: 10px; color: var(--md-success); margin-top: 2px;">Decentralized ORCA</div>
         </td>
-        <td><span class="badge ${r.status === 'DEADLOCKED' ? 'badge-trad' : 'badge-edge'}">${r.status || 'COMPLETED'}</span></td>
+        <td style="padding: 14px 18px; text-align: left;"><span class="badge ${r.status === 'DEADLOCKED' ? 'badge-trad' : 'badge-edge'}">${r.status || 'Completed'}</span></td>
       </tr>
       `;
     }).join('');
@@ -2040,9 +2043,12 @@
     const robot = document.getElementById('cmdRobotSelect').value;
     const mission = document.getElementById('cmdMissionSelect').value;
     const badge = document.getElementById('cmdStatusBadge');
-    badge.innerText = `DISPATCHING: ${robot.toUpperCase()}...`;
-    badge.style.background = '#2563eb';
-    badge.style.color = '#ffffff';
+    if (badge) {
+      badge.innerText = `Dispatching: ${robot}...`;
+      badge.style.color = 'var(--md-primary)';
+      badge.style.borderColor = 'var(--md-primary)';
+      badge.style.backgroundColor = 'var(--md-primary-container)';
+    }
 
     fetch('/api/dispatch_command', {
       method: 'POST',
@@ -2051,23 +2057,33 @@
     })
     .then(res => res.json())
     .then(data => {
-      badge.innerText = `STATUS: EXECUTING COMMAND`;
-      badge.style.background = '#059669';
-      badge.style.color = '#ffffff';
+      if (badge) {
+        badge.innerText = `Executing`;
+        badge.style.color = 'var(--md-success)';
+        badge.style.borderColor = '#ceead6';
+        badge.style.backgroundColor = 'var(--md-success-container)';
+      }
     })
     .catch(err => {
       console.error("Error dispatching command:", err);
-      badge.innerText = `ERROR DISPATCHING`;
-      badge.style.background = '#dc2626';
+      if (badge) {
+        badge.innerText = `Error`;
+        badge.style.color = 'var(--md-error)';
+        badge.style.borderColor = '#fad2cf';
+        badge.style.backgroundColor = 'var(--md-error-container)';
+      }
     });
   }
 
   function returnToChargers() {
     const robot = document.getElementById('cmdRobotSelect').value;
     const badge = document.getElementById('cmdStatusBadge');
-    badge.innerText = `COMMAND: RETURNING TO DOCK...`;
-    badge.style.background = '#d97706';
-    badge.style.color = '#ffffff';
+    if (badge) {
+      badge.innerText = `Returning to dock...`;
+      badge.style.color = 'var(--md-on-warning-container)';
+      badge.style.borderColor = '#fce8b2';
+      badge.style.backgroundColor = 'var(--md-warning-container)';
+    }
 
     fetch('/api/return_to_charger', {
       method: 'POST',
@@ -2077,18 +2093,17 @@
     .then(res => res.json())
     .then(data => {
       setTimeout(() => {
-        badge.innerText = `STATUS: DOCKED AT CHARGER`;
-        badge.style.background = '#1e293b';
-        badge.style.color = '#94a3b8';
+        if (badge) {
+          badge.innerText = `Docked`;
+          badge.style.color = 'var(--md-primary)';
+          badge.style.borderColor = 'var(--md-border)';
+          badge.style.backgroundColor = 'transparent';
+        }
       }, 2500);
     })
     .catch(err => {
       console.error("Error returning to charger:", err);
     });
-  }
-
-  function scrollToHistory() {
-    switchViewMode('benchmark_history');
   }
 
   function downloadHistoryJSON() {
@@ -2123,29 +2138,100 @@
   function drawScene() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // 1. Map Canvas/Background: Pure white #ffffff with soft light gray base
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     const imgW = (floorplanImg && floorplanImg.width) ? floorplanImg.width : 800;
     const imgH = (floorplanImg && floorplanImg.height) ? floorplanImg.height : 650;
     const s = Math.min((canvas.width - 40) / imgW, (canvas.height - 40) / imgH);
     const ox = (canvas.width - imgW * s) / 2;
     const oy = (canvas.height - imgH * s) / 2;
 
-    // 1. Draw floorplan blueprint
+    // Boundary walls: soft 2px solid #dadce0 with 8px border-radius
+    ctx.save();
+    drawRoundRect(ctx, ox, oy, imgW * s, imgH * s, 8);
+    ctx.fillStyle = '#fcfdfe';
+    ctx.fill();
+    ctx.strokeStyle = '#dadce0';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+
+    // Floorplan blueprint underlay (subtle inverted architectural lines)
     if (floorplanImg) {
       ctx.save();
-      ctx.filter = 'invert(0.92) hue-rotate(185deg) contrast(1.15) brightness(0.85)';
+      ctx.filter = 'invert(1) opacity(0.18) contrast(1.1)';
       ctx.drawImage(floorplanImg, ox, oy, imgW * s, imgH * s);
       ctx.restore();
-    } else {
-      ctx.strokeStyle = '#1e293b';
-      ctx.strokeRect(ox, oy, imgW * s, imgH * s);
     }
 
-    // 2. Draw Nav Graph Lanes
+    // 2. Zones (Inbound, Storage, Packing, Charging):
+    // Soft 8-10% opacity fills, thin 1px border matching fill, 8px border-radius,
+    // Zone labels cleanly positioned at top-left with generous padding (never colliding with center elements)
+    const zones = [
+      {
+        name: 'ZONE A · INBOUND DOCK',
+        x1: 5.0, y1: -5.0, x2: 25.5, y2: -23.5,
+        fill: 'rgba(26, 115, 232, 0.08)',
+        border: 'rgba(26, 115, 232, 0.25)',
+        radius: 8
+      },
+      {
+        name: 'FLEET CHARGING BAYS',
+        x1: 5.0, y1: -25.5, x2: 25.5, y2: -39.5,
+        fill: 'rgba(249, 171, 0, 0.08)',
+        border: 'rgba(249, 171, 0, 0.25)',
+        radius: 8
+      },
+      {
+        name: 'ZONE C · PACKING & SHIPPING',
+        x1: 5.0, y1: -41.5, x2: 25.5, y2: -61.0,
+        fill: 'rgba(234, 67, 53, 0.08)',
+        border: 'rgba(234, 67, 53, 0.25)',
+        radius: 8
+      },
+      {
+        name: 'ZONE B · STORAGE AREA',
+        x1: 28.5, y1: -5.0, x2: 76.5, y2: -61.0,
+        fill: 'rgba(52, 168, 83, 0.08)',
+        border: 'rgba(52, 168, 83, 0.25)',
+        radius: 8
+      }
+    ];
+
+    zones.forEach(z => {
+      const pTL = worldToCanvas(z.x1, z.y1);
+      const pBR = worldToCanvas(z.x2, z.y2);
+      const zw = pBR.cx - pTL.cx;
+      const zh = pBR.cy - pTL.cy;
+
+      ctx.save();
+      drawRoundRect(ctx, pTL.cx, pTL.cy, zw, zh, z.radius);
+      ctx.fillStyle = z.fill;
+      ctx.fill();
+      ctx.strokeStyle = z.border;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Clean top-left zone title with generous padding
+      ctx.font = '500 11px "Google Sans", "Roboto", sans-serif';
+      ctx.fillStyle = '#5f6368';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(z.name, pTL.cx + 14, pTL.cy + 12);
+      ctx.restore();
+    });
+
+    // 3. Paths & Navigation Nodes:
+    // Dashed navigation paths: subtle light gray dashed lines (#dadce0 or #bdc1c6, setLineDash([4, 4]))
     if (mapData && mapData.nav_graphs && mapData.nav_graphs[0]) {
       const g = mapData.nav_graphs[0];
       const verts = g.vertices;
-      ctx.strokeStyle = 'rgba(6, 182, 212, 0.35)';
-      ctx.lineWidth = 1.8;
+      ctx.save();
+      ctx.strokeStyle = '#dadce0';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
       g.edges.forEach(e => {
         if (e.v1 < verts.length && e.v2 < verts.length) {
           const p1 = worldToCanvas(verts[e.v1].x, verts[e.v1].y);
@@ -2156,187 +2242,206 @@
           ctx.stroke();
         }
       });
+
+      // Subtle waypoint nodes in background
+      ctx.setLineDash([]);
+      verts.forEach(v => {
+        if (!v.name) {
+          const p = worldToCanvas(v.x, v.y);
+          ctx.fillStyle = '#bdc1c6';
+          ctx.beginPath();
+          ctx.arc(p.cx, p.cy, 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+      ctx.restore();
     }
 
-    // 3. Draw Storage Racks (Blocks)
+    // 4. Storage Racks (Rack A, Rack B, etc.):
+    // Modern soft pills/rectangles with 4px border-radius, pale gray #f1f3f4 background, 1px solid #dadce0 border,
+    // Dark gray #5f6368 regular weight centered label
     if (mapData && mapData.racks) {
       mapData.racks.forEach(rk => {
         const p = worldToCanvas(rk.x, rk.y);
-        ctx.fillStyle = 'rgba(30, 58, 138, 0.55)';
-        ctx.strokeStyle = 'rgba(96, 165, 250, 0.7)';
-        ctx.lineWidth = 1.5;
-        const rw = 24 * s * 10 * 0.1;
-        const rh = 12 * s * 10 * 0.1;
-        ctx.fillRect(p.cx - 16, p.cy - 8, 32, 16);
-        ctx.strokeRect(p.cx - 16, p.cy - 8, 32, 16);
+        ctx.save();
+        drawRoundRect(ctx, p.cx - 16, p.cy - 8, 32, 16, 4);
+        ctx.fillStyle = '#f1f3f4';
+        ctx.fill();
+        ctx.strokeStyle = '#dadce0';
+        ctx.lineWidth = 1;
+        ctx.stroke();
 
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        ctx.font = '8px "JetBrains Mono"';
+        ctx.fillStyle = '#5f6368';
+        ctx.font = '400 9px "Google Sans", "Roboto", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(rk.name.replace('Rack_', ''), p.cx, p.cy + 3);
+        ctx.textBaseline = 'middle';
+        ctx.fillText(rk.name.replace('Rack_', ''), p.cx, p.cy);
+        ctx.restore();
       });
     }
 
-    // 4. Draw 5 Dedicated Charging Stations (Bays)
+    // 5. Dedicated Charging Stations (Bays 1-5):
     const chargerBays = [
-      { name: 'tinyRobot1_charger', bay: 'BAY 1', x: 13.5, y: -28.5 },
-      { name: 'tinyRobot2_charger', bay: 'BAY 2', x: 13.5, y: -30.5 },
-      { name: 'charger_gamma', bay: 'BAY 3', x: 13.5, y: -32.5 },
-      { name: 'charger_delta', bay: 'BAY 4', x: 13.5, y: -34.5 },
-      { name: 'charger_epsilon', bay: 'BAY 5', x: 13.5, y: -36.5 }
+      { name: 'tinyRobot1_charger', bay: 'Bay 1', x: 13.5, y: -28.5 },
+      { name: 'tinyRobot2_charger', bay: 'Bay 2', x: 13.5, y: -30.5 },
+      { name: 'charger_gamma', bay: 'Bay 3', x: 13.5, y: -32.5 },
+      { name: 'charger_delta', bay: 'Bay 4', x: 13.5, y: -34.5 },
+      { name: 'charger_epsilon', bay: 'Bay 5', x: 13.5, y: -36.5 }
     ];
 
     chargerBays.forEach(c => {
       const p = worldToCanvas(c.x, c.y);
-      // Charger parking slot rectangle
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.12)';
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 1.6;
-      ctx.strokeRect(p.cx - 18, p.cy - 12, 36, 24);
-      ctx.fillRect(p.cx - 18, p.cy - 12, 36, 24);
+      ctx.save();
+      drawRoundRect(ctx, p.cx - 18, p.cy - 10, 36, 20, 4);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.strokeStyle = '#dadce0';
+      ctx.lineWidth = 1;
+      ctx.stroke();
 
-      // Charger Tag
-      ctx.fillStyle = '#6ee7b7';
-      ctx.font = 'bold 8px "JetBrains Mono"';
+      ctx.fillStyle = '#188038';
+      ctx.font = '500 9px "Google Sans", "Roboto", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(`⚡ ${c.bay}`, p.cx, p.cy - 15);
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`⚡ ${c.bay}`, p.cx, p.cy);
+      ctx.restore();
     });
 
-    // 5. Draw Key Workstations (Loading Dock, Packing, Junctions)
+    // 6. Key Workstations (Loading Dock, Packing, Junctions):
     const workstations = [
-      { name: 'LOADING DOCK', x: 13.5, y: -12.0, color: '#f59e0b' },
-      { name: 'PACKING 01', x: 13.5, y: -48.0, color: '#a855f7' },
-      { name: 'PACKING 02', x: 13.5, y: -51.0, color: '#a855f7' },
-      { name: 'PACKING 03', x: 13.5, y: -54.0, color: '#a855f7' },
-      { name: 'CENTRAL JUNCTION', x: 40.0, y: -32.5, color: '#f43f5e' },
-      { name: 'STORAGE AREA', x: 66.0, y: -32.5, color: '#38bdf8' }
+      { name: 'Loading dock', x: 13.5, y: -12.0, color: '#f9ab00' },
+      { name: 'Packing 01', x: 13.5, y: -48.0, color: '#ea4335' },
+      { name: 'Packing 02', x: 13.5, y: -51.0, color: '#ea4335' },
+      { name: 'Packing 03', x: 13.5, y: -54.0, color: '#ea4335' },
+      { name: 'Central junction', x: 40.0, y: -32.5, color: '#1a73e8' },
+      { name: 'Storage area', x: 66.0, y: -32.5, color: '#34a853' }
     ];
     workstations.forEach(w => {
       const p = worldToCanvas(w.x, w.y);
+      ctx.save();
       ctx.fillStyle = w.color;
       ctx.beginPath();
-      ctx.arc(p.cx, p.cy, 5, 0, Math.PI * 2);
+      ctx.arc(p.cx, p.cy, 4.5, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-      ctx.font = 'bold 8px "JetBrains Mono"';
+      ctx.fillStyle = '#5f6368';
+      ctx.font = '500 9px "Google Sans", "Roboto", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(w.name, p.cx, p.cy + 13);
+      ctx.textBaseline = 'top';
+      ctx.fillText(w.name, p.cx, p.cy + 7);
+      ctx.restore();
     });
 
-    // 6. Draw Real-Time AMRs
+    // 7. Live Robots (AMRs) & Dots:
+    // Pure Material colors (#1a73e8, #34a853, #ea4335), soft drop shadow (rgba(0,0,0,0.2)),
+    // and live expanding fading outer ring pulsing animation around active robots.
     if (fleetData.robots) {
       let allDocked = true;
+      const animTime = performance.now() * 0.003;
+      const pulseProgress = (Math.sin(animTime) + 1) / 2; // Smooth 0..1 pulse loop
+
       Object.values(fleetData.robots).forEach(r => {
         const p = worldToCanvas(r.x, r.y);
         const isTrad = (r.model_type === 'TRADITIONAL');
-        const mainColor = isTrad ? '#f59e0b' : '#06b6d4';
 
-        // Check if docked at charger
         const distToBase = Math.hypot(r.x - r.initial_x, r.y - r.initial_y);
         const isDocked = (distToBase < 0.8 && r.status_desc && r.status_desc.includes('DOCKED'));
         if (!isDocked) allDocked = false;
 
+        // Material Color mapping
+        const amrColor = isDocked ? '#34a853' : (isTrad ? '#ea4335' : '#1a73e8');
+
         ctx.save();
 
-        // 1. Vicinity Safety Halo
-        ctx.beginPath();
-        ctx.arc(p.cx, p.cy, 17, 0, Math.PI * 2);
-        ctx.fillStyle = isDocked ? 'rgba(16, 185, 129, 0.22)' : (isTrad ? 'rgba(245, 158, 11, 0.18)' : 'rgba(6, 182, 212, 0.20)');
-        ctx.fill();
+        // Pulsing live animation ring around active robots
+        if (!isDocked) {
+          const pulseR = 14 + pulseProgress * 12;
+          const pulseAlpha = (1 - pulseProgress) * 0.35;
+          ctx.beginPath();
+          ctx.arc(p.cx, p.cy, pulseR, 0, Math.PI * 2);
+          ctx.fillStyle = isTrad ? `rgba(234, 67, 53, ${pulseAlpha})` : `rgba(26, 115, 232, ${pulseAlpha})`;
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.cx, p.cy, 16, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(52, 168, 83, 0.12)';
+          ctx.fill();
+        }
 
-        // 2. Lower Bumper Skirt (Matte Black Ring)
-        ctx.beginPath();
-        ctx.arc(p.cx, p.cy, 12.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#090d14';
-        ctx.fill();
-        ctx.strokeStyle = '#1e293b';
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
+        // AMR Body with Soft Drop Shadow
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 2;
 
-        // 3. Main Circular Puck Body (Brushed Titanium Chassis)
         ctx.beginPath();
         ctx.arc(p.cx, p.cy, 11, 0, Math.PI * 2);
-        ctx.fillStyle = '#334155';
+        ctx.fillStyle = amrColor;
+        ctx.fill();
+        ctx.restore();
+
+        // Pure white inner core
+        ctx.beginPath();
+        ctx.arc(p.cx, p.cy, 5.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
         ctx.fill();
 
-        // 4. Glowing 360-deg LED Status Ring
-        ctx.beginPath();
-        ctx.arc(p.cx, p.cy, 10, 0, Math.PI * 2);
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = isDocked ? '#10b981' : (isTrad ? '#f59e0b' : '#00e5ff');
-        ctx.strokeStyle = isDocked ? '#10b981' : (isTrad ? '#f59e0b' : '#00e5ff');
-        ctx.lineWidth = 2.2;
-        ctx.stroke();
-        ctx.shadowBlur = 0; // Reset glow
-
-        // 5. Top Motorized Turntable Deck (Dark Graphite Disc)
-        ctx.beginPath();
-        ctx.arc(p.cx, p.cy, 7.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#0f172a';
-        ctx.fill();
-        ctx.strokeStyle = '#1e293b';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // 6. Turntable Inner Mounting Ring & Pivot Hub
-        ctx.beginPath();
-        ctx.arc(p.cx, p.cy, 4.2, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(p.cx, p.cy, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = isDocked ? '#34d399' : (isTrad ? '#fbbf24' : '#38bdf8');
-        ctx.fill();
-
-        // 7. Dual Optical/LiDAR Recess and Heading Indicator
+        // Directional heading pointer extending to boundary
         const yaw = r.yaw || 0;
         const cosY = Math.cos(yaw);
         const sinY = Math.sin(yaw);
-
-        // Heading Arrow Pointer extending from turntable
         ctx.beginPath();
         ctx.moveTo(p.cx + cosY * 4, p.cy - sinY * 4);
         ctx.lineTo(p.cx + cosY * 13, p.cy - sinY * 13);
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.2;
+        ctx.lineCap = 'round';
         ctx.stroke();
 
-        // Dual optical eye lenses at front edge
+        // Dual optical eye lenses at front
         const perpX = -sinY;
         const perpY = -cosY;
-        const frontCX = p.cx + cosY * 11;
-        const frontCY = p.cy - sinY * 11;
-
-        ctx.fillStyle = isDocked ? '#34d399' : (isTrad ? '#fde68a' : '#7dd3fc');
+        const frontCX = p.cx + cosY * 10;
+        const frontCY = p.cy - sinY * 10;
+        ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(frontCX + perpX * 2.8, frontCY - perpY * 2.8, 1.2, 0, Math.PI * 2);
-        ctx.arc(frontCX - perpX * 2.8, frontCY + perpY * 2.8, 1.2, 0, Math.PI * 2);
+        ctx.arc(frontCX + perpX * 2.5, frontCY - perpY * 2.5, 1.2, 0, Math.PI * 2);
+        ctx.arc(frontCX - perpX * 2.5, frontCY + perpY * 2.5, 1.2, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.restore();
-
-        // Robot Name & Badge
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 9px "JetBrains Mono"';
+        // AMR ID tag pill positioned cleanly above robot
+        ctx.font = '500 10px "Google Sans", "Roboto", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(r.id, p.cx, p.cy - 17);
+        ctx.textBaseline = 'bottom';
+        const txtW = ctx.measureText(r.id).width;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        drawRoundRect(ctx, p.cx - txtW / 2 - 4, p.cy - 27, txtW + 8, 14, 4);
+        ctx.fill();
+        ctx.strokeStyle = '#dadce0';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
 
-        // Status Sub-badge
-        ctx.font = '7px "JetBrains Mono"';
-        ctx.fillStyle = isDocked ? '#34d399' : (isTrad ? '#fde68a' : '#7dd3fc');
-        const statusText = isDocked ? '⚡ DOCKED AT CHARGER' : (isTrad ? 'MUTEX LOCK' : '0.4m/s CRAWL');
-        ctx.fillText(statusText, p.cx, p.cy + 22);
+        ctx.fillStyle = '#202124';
+        ctx.fillText(r.id, p.cx, p.cy - 15);
+
+        // Status sub-badge below robot
+        ctx.font = '400 8px "Roboto Mono", monospace';
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = isDocked ? '#188038' : (isTrad ? '#ea4335' : '#1a73e8');
+        const statusText = isDocked ? '⚡ Docked' : (isTrad ? 'Mutex lock' : '0.4 m/s');
+        ctx.fillText(statusText, p.cx, p.cy + 15);
+
+        ctx.restore();
       });
 
       // Show completion banner if benchmark complete & all docked
       const banner = document.getElementById('completionBanner');
-      if (allDocked && fleetData.benchmark && fleetData.benchmark.status === 'COMPLETED_ALL_RETURNED_TO_BASE') {
-        banner.style.display = 'flex';
-      } else {
-        banner.style.display = 'none';
+      if (banner) {
+        if (allDocked && fleetData.benchmark && fleetData.benchmark.status === 'COMPLETED_ALL_RETURNED_TO_BASE') {
+          banner.style.display = 'flex';
+        } else {
+          banner.style.display = 'none';
+        }
       }
     }
   }
@@ -2348,14 +2453,14 @@
     if (fleetData.benchmark) {
       const bm = fleetData.benchmark;
       const deadlocksEl = document.getElementById('edgeDeadlocks');
-      if (deadlocksEl) deadlocksEl.innerText = bm.deadlocks_prevented !== undefined ? bm.deadlocks_prevented : 0;
+      if (deadlocksEl) deadlocksEl.innerText = `${bm.deadlocks_prevented !== undefined ? bm.deadlocks_prevented : 0} deadlocks`;
       const collEl = document.getElementById('edgeCollisions');
       if (collEl) collEl.innerText = `${bm.collision_count || 0} (ZERO)`;
     }
     if (fleetData.comparison && fleetData.comparison.edge_ai) {
       const edge = fleetData.comparison.edge_ai;
       const haltsEl = document.getElementById('edgeHalts');
-      if (haltsEl) haltsEl.innerText = `${edge.halts !== undefined ? edge.halts : 0} HALTS`;
+      if (haltsEl) haltsEl.innerText = `${edge.halts !== undefined ? edge.halts : 0} halts`;
       const delayEl = document.getElementById('edgeDelay');
       if (delayEl) delayEl.innerText = `${(edge.delay_sec !== undefined ? edge.delay_sec : 0.0).toFixed(1)}s`;
     }
@@ -2376,36 +2481,36 @@
     if (fleetData.robots && Object.keys(fleetData.robots).length > 0) {
       const robots = Object.values(fleetData.robots);
       const cntBadge = document.getElementById('robotCounterBadge');
-      if (cntBadge) cntBadge.innerText = `${robots.length} ACTIVE (EDGE-AI)`;
+      if (cntBadge) cntBadge.innerText = `${robots.length} active (Edge-AI)`;
 
       robotList.innerHTML = robots.map(r => {
         const borderClass = 'edge-border';
         const badgeClass = 'badge-edge';
-        const badgeText = 'EDGE-AI MODEL';
+        const badgeText = 'Edge-AI model';
         const soc = r.battery_soc !== undefined ? Number(r.battery_soc) : 100.0;
-        const socColor = soc >= 70 ? '#34d399' : (soc >= 30 ? '#f59e0b' : '#ef4444');
-        const barColor = soc >= 70 ? '#10b981' : (soc >= 30 ? '#f59e0b' : '#ef4444');
+        const socColor = soc >= 70 ? 'var(--md-success)' : (soc >= 30 ? 'var(--md-on-warning-container)' : 'var(--md-error)');
+        const barColor = soc >= 70 ? 'var(--md-success)' : (soc >= 30 ? 'var(--md-warning)' : 'var(--md-error)');
 
         return `
           <div class="robot-item ${borderClass}">
             <div class="robot-item-top">
-              <span class="robot-id" style="color: #38bdf8;">🤖 ${r.id}</span>
+              <span class="robot-id">🤖 ${r.id}</span>
               <span class="badge ${badgeClass}" style="font-size: 8px;">${badgeText}</span>
             </div>
-            <div style="font-size: 10px; color: #94a3b8; display: flex; justify-content: space-between; margin-top: 2px;">
-              <span>Bay: <strong>${r.charger_name || 'Charger Bay'}</strong></span>
-              <span style="color: ${socColor}; font-weight: 700;">⚡ ${soc.toFixed(1)}% Battery</span>
+            <div style="font-size: 11px; color: var(--md-text-secondary); display: flex; justify-content: space-between; margin-top: 2px;">
+              <span>Bay: <strong style="color: var(--md-text-primary); font-weight: 500;">${r.charger_name || 'Charger Bay'}</strong></span>
+              <span style="color: ${socColor}; font-weight: 500;">⚡ ${soc.toFixed(1)}% battery</span>
             </div>
             <div class="battery-bar">
               <div class="battery-fill" style="width: ${Math.min(100, Math.max(0, soc))}%; background: ${barColor};"></div>
             </div>
-            <div style="font-size: 10px; color: #cbd5e1; display: flex; justify-content: space-between; margin-top: 4px; font-family: 'JetBrains Mono';">
-              <span>Dist: <strong style="color: #38bdf8;">${(r.distance_m || 0.0).toFixed(1)}m</strong></span>
-              <span>Speed: <strong>${(r.speed_mps || 0.0).toFixed(2)}m/s</strong></span>
-              <span>Halts: <strong style="color: ${r.halt_count ? '#f87171' : '#34d399'};">${r.halt_count || 0}</strong></span>
+            <div style="font-size: 11px; color: var(--md-text-secondary); display: flex; justify-content: space-between; margin-top: 4px; font-family: 'Roboto Mono', monospace;">
+              <span>Dist: <strong style="color: var(--md-primary);">${(r.distance_m || 0.0).toFixed(1)}m</strong></span>
+              <span>Speed: <strong style="color: var(--md-text-primary);">${(r.speed_mps || 0.0).toFixed(2)}m/s</strong></span>
+              <span>Halts: <strong style="color: ${r.halt_count ? 'var(--md-error)' : 'var(--md-success)'};">${r.halt_count || 0}</strong></span>
             </div>
-            <div style="font-size: 9px; font-family: 'JetBrains Mono'; color: #94a3b8; margin-top: 3px;">
-              ${r.status_desc || 'DOCKED AT CHARGER (INITIAL POSITION)'}
+            <div style="font-size: 10px; font-family: 'Roboto Mono', monospace; color: var(--md-text-secondary); margin-top: 3px;">
+              ${r.status_desc || 'Docked at charger (initial position)'}
             </div>
           </div>
         `;
@@ -2417,8 +2522,8 @@
     if (fleetData.events && fleetData.events.length > 0) {
       eventLog.innerHTML = fleetData.events.slice().reverse().map(e => `
         <div class="event-item">
-          <span style="color: #64748b;">${e.time}</span>
-          <span style="color: #38bdf8; font-weight: 700;">${e.conflict_id}:</span>
+          <span style="color: var(--md-text-secondary); font-family: 'Roboto Mono', monospace;">${e.time}</span>
+          <span style="color: var(--md-primary); font-weight: 500;">${e.conflict_id}:</span>
           <span>${e.action}</span>
         </div>
       `).join('');
@@ -2427,7 +2532,7 @@
     drawScene();
   }
 
-  // Animation render loop
+  // Animation render loop (runs at 60fps for smooth live pulsing outer rings)
   function loop() {
     drawScene();
     requestAnimationFrame(loop);
