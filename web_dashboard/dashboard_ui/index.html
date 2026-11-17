@@ -2170,90 +2170,22 @@
     const ox = (canvas.width - imgW * s) / 2;
     const oy = (canvas.height - imgH * s) / 2;
 
-    // Boundary walls: crisp 2px solid #5f6368 with 8px border-radius
-    ctx.save();
-    drawRoundRect(ctx, ox, oy, imgW * s, imgH * s, 8);
-    ctx.fillStyle = '#fcfdfe';
-    ctx.fill();
-    ctx.strokeStyle = '#5f6368';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.restore();
-
-    // Floorplan blueprint underlay (sharp high-contrast architectural lines)
+    // 1. Draw floorplan blueprint (native crisp Light-Theme Material Design 3)
     if (floorplanImg) {
       ctx.save();
-      ctx.filter = 'invert(0.9) contrast(1.5) brightness(0.85)';
+      ctx.filter = 'none';
       ctx.drawImage(floorplanImg, ox, oy, imgW * s, imgH * s);
       ctx.restore();
     }
 
-    // 2. Zones (Inbound, Storage, Packing, Charging):
-    // Soft 10% opacity fills, distinct 1.5px border matching zone color, 8px border-radius,
-    // Zone labels cleanly positioned at top-left with generous padding (never colliding with center elements)
-    const zones = [
-      {
-        name: 'ZONE A · INBOUND DOCK',
-        x1: 5.0, y1: -5.0, x2: 25.5, y2: -23.5,
-        fill: 'rgba(26, 115, 232, 0.10)',
-        border: '#1a73e8',
-        radius: 8
-      },
-      {
-        name: 'FLEET CHARGING BAYS',
-        x1: 5.0, y1: -25.5, x2: 25.5, y2: -39.5,
-        fill: 'rgba(249, 171, 0, 0.10)',
-        border: '#f9ab00',
-        radius: 8
-      },
-      {
-        name: 'ZONE C · PACKING & SHIPPING',
-        x1: 5.0, y1: -41.5, x2: 25.5, y2: -61.0,
-        fill: 'rgba(234, 67, 53, 0.10)',
-        border: '#ea4335',
-        radius: 8
-      },
-      {
-        name: 'ZONE B · STORAGE AREA',
-        x1: 28.5, y1: -5.0, x2: 76.5, y2: -61.0,
-        fill: 'rgba(24, 128, 56, 0.10)',
-        border: '#188038',
-        radius: 8
-      }
-    ];
-
-    zones.forEach(z => {
-      const pTL = worldToCanvas(z.x1, z.y1);
-      const pBR = worldToCanvas(z.x2, z.y2);
-      const zw = pBR.cx - pTL.cx;
-      const zh = pBR.cy - pTL.cy;
-
-      ctx.save();
-      drawRoundRect(ctx, pTL.cx, pTL.cy, zw, zh, z.radius);
-      ctx.fillStyle = z.fill;
-      ctx.fill();
-      ctx.strokeStyle = z.border;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      // Clean top-left zone title with generous padding
-      ctx.font = '600 11px "Google Sans", "Roboto", sans-serif';
-      ctx.fillStyle = z.border;
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-      ctx.fillText(z.name, pTL.cx + 14, pTL.cy + 12);
-      ctx.restore();
-    });
-
-    // 3. Paths & Navigation Nodes:
-    // Distinct, clearly visible dashed lines (lineWidth: 2, #80868b)
+    // 2. Paths & Navigation Nodes
     if (mapData && mapData.nav_graphs && mapData.nav_graphs[0]) {
       const g = mapData.nav_graphs[0];
       const verts = g.vertices;
       ctx.save();
-      ctx.strokeStyle = '#80868b';
-      ctx.lineWidth = 2;
-      ctx.setLineDash([6, 4]);
+      ctx.strokeStyle = 'rgba(95, 99, 104, 0.45)';
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([5, 4]);
       g.edges.forEach(e => {
         if (e.v1 < verts.length && e.v2 < verts.length) {
           const p1 = worldToCanvas(verts[e.v1].x, verts[e.v1].y);
@@ -2270,7 +2202,7 @@
       verts.forEach(v => {
         if (!v.name) {
           const p = worldToCanvas(v.x, v.y);
-          ctx.fillStyle = '#5f6368';
+          ctx.fillStyle = '#80868b';
           ctx.beginPath();
           ctx.arc(p.cx, p.cy, 2.5, 0, Math.PI * 2);
           ctx.fill();
@@ -2279,10 +2211,8 @@
       ctx.restore();
     }
 
-    // 4. Storage Racks (Rack A, Rack B, etc.):
-    // Modern pills with 4px border-radius, pale gray #f8f9fa background, crisp 1.5px solid #5f6368 border,
-    // Dark #202124 regular-bold weight centered label
-    if (mapData && mapData.racks) {
+    // 3. Fallback Storage Racks (only if blueprint image is not loaded)
+    if (!floorplanImg && mapData && mapData.racks) {
       mapData.racks.forEach(rk => {
         const p = worldToCanvas(rk.x, rk.y);
         ctx.save();
@@ -2302,7 +2232,7 @@
       });
     }
 
-    // 5. Dedicated Charging Stations (Bays 1-5):
+    // 4. Dedicated Charging Stations (Bays 1-5 inside Zone D)
     const chargerBays = [
       { name: 'tinyRobot1_charger', bay: 'Bay 1', x: 13.5, y: -28.5 },
       { name: 'tinyRobot2_charger', bay: 'Bay 2', x: 13.5, y: -30.5 },
@@ -2314,35 +2244,35 @@
     chargerBays.forEach(c => {
       const p = worldToCanvas(c.x, c.y);
       ctx.save();
-      drawRoundRect(ctx, p.cx - 18, p.cy - 10, 36, 20, 4);
+      drawRoundRect(ctx, p.cx - 16, p.cy - 8, 32, 16, 3);
       ctx.fillStyle = 'rgba(24, 128, 56, 0.08)';
       ctx.fill();
       ctx.strokeStyle = '#188038';
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
 
       ctx.fillStyle = '#188038';
-      ctx.font = '600 9px "Google Sans", "Roboto", sans-serif';
+      ctx.font = '600 8.5px "Google Sans", "Roboto", sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(`⚡ ${c.bay}`, p.cx, p.cy);
       ctx.restore();
     });
 
-    // 6. Key Workstations (Loading Dock, Packing, Junctions):
+    // 5. Key Workstations (Loading Dock, Packing, Junctions)
     const workstations = [
-      { name: 'Loading dock', x: 13.5, y: -12.0, color: '#f9ab00' },
-      { name: 'Packing 01', x: 13.5, y: -48.0, color: '#ea4335' },
-      { name: 'Packing 02', x: 13.5, y: -51.0, color: '#ea4335' },
-      { name: 'Packing 03', x: 13.5, y: -54.0, color: '#ea4335' },
-      { name: 'Central junction', x: 40.0, y: -32.5, color: '#1a73e8' },
-      { name: 'Storage area', x: 66.0, y: -32.5, color: '#188038' }
+      { name: 'Loading dock', x: 13.5, y: -12.0, color: '#f9ab00', align: 'center', offsetY: 13 },
+      { name: 'Central junction', x: 40.0, y: -32.5, color: '#1a73e8', align: 'center', offsetY: 13 },
+      { name: 'Storage area', x: 66.0, y: -32.5, color: '#188038', align: 'center', offsetY: 13 },
+      { name: 'Packing 01', x: 13.5, y: -48.0, color: '#ea4335', align: 'left', offsetX: 9 },
+      { name: 'Packing 02', x: 13.5, y: -51.0, color: '#ea4335', align: 'left', offsetX: 9 },
+      { name: 'Packing 03', x: 13.5, y: -54.0, color: '#ea4335', align: 'left', offsetX: 9 }
     ];
     workstations.forEach(w => {
       const p = worldToCanvas(w.x, w.y);
       ctx.save();
       ctx.beginPath();
-      ctx.arc(p.cx, p.cy, 5, 0, Math.PI * 2);
+      ctx.arc(p.cx, p.cy, 4.5, 0, Math.PI * 2);
       ctx.fillStyle = w.color;
       ctx.fill();
       ctx.strokeStyle = '#3c4043';
@@ -2350,10 +2280,16 @@
       ctx.stroke();
 
       ctx.fillStyle = '#202124';
-      ctx.font = '600 9.5px "Google Sans", "Roboto", sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(w.name, p.cx + 9, p.cy);
+      ctx.font = '600 9px "Google Sans", "Roboto", sans-serif';
+      if (w.align === 'center') {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText(w.name, p.cx, p.cy + w.offsetY);
+      } else {
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(w.name, p.cx + w.offsetX, p.cy);
+      }
       ctx.restore();
     });
 
