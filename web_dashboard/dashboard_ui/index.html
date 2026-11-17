@@ -21,8 +21,10 @@
       --md-primary-active: #174ea6;
       --md-primary-container: #e8f0fe;
       --md-on-primary-container: #1967d2;
-      --md-border: #dadce0;
-      --md-border-hover: #bdc1c6;
+      --md-border: #bdc1c6;
+      --md-border-subtle: #dadce0;
+      --md-border-hover: #80868b;
+      --md-border-focus: #1a73e8;
       --md-shadow-hover: 0 1px 3px 1px rgba(60, 64, 67, 0.15);
       --md-shadow-focus: 0 1px 3px 1px rgba(60, 64, 67, 0.20);
       --md-success: #188038;
@@ -283,30 +285,49 @@
       display: inline-block;
     }
 
-    /* Main Grid Layout - Airy & Spacious with 24px Gaps */
+    /* Main Grid Layout - Restored Original Alignment (1fr 390px, 18px gap, 1820px max-width) */
     .main-grid {
       display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 24px;
-      padding: 24px 28px;
-      max-width: 1840px;
+      grid-template-columns: 1fr 390px;
+      gap: 18px;
+      padding: 18px;
+      max-width: 1820px;
       margin: 0 auto;
     }
 
-    /* Left Column Layout with 24px Gap Between Cards */
+    /* Comparison Banner (1fr 1fr Grid) */
+    .simultaneous-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .comparison-card {
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      background: var(--md-surface);
+      border: 1px solid var(--md-border);
+    }
+
+    /* Left Column Layout with 18px Gap Between Cards */
     .cards-column {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 18px;
     }
 
-    /* Google Classroom Airy Surface Cards (Doubled Padding >= 24px, 8px Radius, Hover Shadow Only) */
+    /* Google Classroom Airy Surface Cards (Crisp 1px solid #bdc1c6 border, 8px Radius, Hover Shadow Only) */
     .map-card, .centralized-comparison-container, .graphical-analytics-card, .history-card, .panel-card {
       background: var(--md-surface);
       border: 1px solid var(--md-border);
       border-radius: 8px;
       box-shadow: none;
-      padding: 24px;
+      padding: 18px 20px;
       transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
     }
     .map-card:hover, .centralized-comparison-container:hover, .graphical-analytics-card:hover, .history-card:hover, .panel-card:hover {
@@ -317,16 +338,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       gap: 16px;
       flex-wrap: wrap;
     }
 
-    /* Canvas Map Container - Soft Pure White Background & Subtle Border */
+    /* Canvas Map Container - Restored 700px Height, Pure White Background & Crisp Border */
     .canvas-container {
       position: relative;
       width: 100%;
-      height: 680px;
+      height: 700px;
       background: #ffffff;
       border-radius: 8px;
       overflow: hidden;
@@ -405,22 +426,22 @@
       color: var(--md-text-secondary);
     }
 
-    /* 4 Scale Meters Grid - Uniform Borders (No Multi-Colored Top Borders) */
+    /* 4 Scale Meters Grid - Restored Original Alignment (4 columns, 12px gap, 16px margin) */
     .comp-scales-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 12px;
       margin-top: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
     .comp-scale-box {
       background: #ffffff;
       border: 1px solid var(--md-border);
       border-radius: 8px;
-      padding: 16px 18px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
     .comp-scale-box:hover {
@@ -518,25 +539,25 @@
       background: #f8f9fa;
     }
 
-    /* Graphical Analytics Card */
+    /* Graphical Analytics Card - Restored Original Alignment (12px KPI gap, 16px Chart gap) */
     .graphical-analytics-card {
       display: none;
     }
     .chart-kpi-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 12px;
       margin-top: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
     .chart-kpi-box {
       background: #ffffff;
       border: 1px solid var(--md-border);
       border-radius: 8px;
-      padding: 16px 18px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
     .chart-kpi-box:hover {
@@ -547,16 +568,16 @@
     .charts-2x2-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 16px;
     }
     .chart-container-box {
       background: #ffffff;
       border: 1px solid var(--md-border);
       border-radius: 8px;
-      padding: 18px 20px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      height: 350px;
+      height: 330px;
       position: relative;
       transition: box-shadow 0.2s ease;
     }
@@ -599,11 +620,12 @@
       margin-bottom: 16px;
     }
 
-    /* Sidebar Panels (Spacious with 24px Gap) */
+    /* Sidebar Panels - Restored Original Alignment (390px Width, 16px Gap) */
     .sidebar {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 16px;
+      width: 390px;
     }
     .panel-title {
       margin-bottom: 16px;
@@ -2148,54 +2170,54 @@
     const ox = (canvas.width - imgW * s) / 2;
     const oy = (canvas.height - imgH * s) / 2;
 
-    // Boundary walls: soft 2px solid #dadce0 with 8px border-radius
+    // Boundary walls: crisp 2px solid #5f6368 with 8px border-radius
     ctx.save();
     drawRoundRect(ctx, ox, oy, imgW * s, imgH * s, 8);
     ctx.fillStyle = '#fcfdfe';
     ctx.fill();
-    ctx.strokeStyle = '#dadce0';
+    ctx.strokeStyle = '#5f6368';
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.restore();
 
-    // Floorplan blueprint underlay (subtle inverted architectural lines)
+    // Floorplan blueprint underlay (sharp high-contrast architectural lines)
     if (floorplanImg) {
       ctx.save();
-      ctx.filter = 'invert(1) opacity(0.18) contrast(1.1)';
+      ctx.filter = 'invert(0.9) contrast(1.5) brightness(0.85)';
       ctx.drawImage(floorplanImg, ox, oy, imgW * s, imgH * s);
       ctx.restore();
     }
 
     // 2. Zones (Inbound, Storage, Packing, Charging):
-    // Soft 8-10% opacity fills, thin 1px border matching fill, 8px border-radius,
+    // Soft 10% opacity fills, distinct 1.5px border matching zone color, 8px border-radius,
     // Zone labels cleanly positioned at top-left with generous padding (never colliding with center elements)
     const zones = [
       {
         name: 'ZONE A · INBOUND DOCK',
         x1: 5.0, y1: -5.0, x2: 25.5, y2: -23.5,
-        fill: 'rgba(26, 115, 232, 0.08)',
-        border: 'rgba(26, 115, 232, 0.25)',
+        fill: 'rgba(26, 115, 232, 0.10)',
+        border: '#1a73e8',
         radius: 8
       },
       {
         name: 'FLEET CHARGING BAYS',
         x1: 5.0, y1: -25.5, x2: 25.5, y2: -39.5,
-        fill: 'rgba(249, 171, 0, 0.08)',
-        border: 'rgba(249, 171, 0, 0.25)',
+        fill: 'rgba(249, 171, 0, 0.10)',
+        border: '#f9ab00',
         radius: 8
       },
       {
         name: 'ZONE C · PACKING & SHIPPING',
         x1: 5.0, y1: -41.5, x2: 25.5, y2: -61.0,
-        fill: 'rgba(234, 67, 53, 0.08)',
-        border: 'rgba(234, 67, 53, 0.25)',
+        fill: 'rgba(234, 67, 53, 0.10)',
+        border: '#ea4335',
         radius: 8
       },
       {
         name: 'ZONE B · STORAGE AREA',
         x1: 28.5, y1: -5.0, x2: 76.5, y2: -61.0,
-        fill: 'rgba(52, 168, 83, 0.08)',
-        border: 'rgba(52, 168, 83, 0.25)',
+        fill: 'rgba(24, 128, 56, 0.10)',
+        border: '#188038',
         radius: 8
       }
     ];
@@ -2211,12 +2233,12 @@
       ctx.fillStyle = z.fill;
       ctx.fill();
       ctx.strokeStyle = z.border;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
       // Clean top-left zone title with generous padding
-      ctx.font = '500 11px "Google Sans", "Roboto", sans-serif';
-      ctx.fillStyle = '#5f6368';
+      ctx.font = '600 11px "Google Sans", "Roboto", sans-serif';
+      ctx.fillStyle = z.border;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       ctx.fillText(z.name, pTL.cx + 14, pTL.cy + 12);
@@ -2224,14 +2246,14 @@
     });
 
     // 3. Paths & Navigation Nodes:
-    // Dashed navigation paths: subtle light gray dashed lines (#dadce0 or #bdc1c6, setLineDash([4, 4]))
+    // Distinct, clearly visible dashed lines (lineWidth: 2, #80868b)
     if (mapData && mapData.nav_graphs && mapData.nav_graphs[0]) {
       const g = mapData.nav_graphs[0];
       const verts = g.vertices;
       ctx.save();
-      ctx.strokeStyle = '#dadce0';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = '#80868b';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 4]);
       g.edges.forEach(e => {
         if (e.v1 < verts.length && e.v2 < verts.length) {
           const p1 = worldToCanvas(verts[e.v1].x, verts[e.v1].y);
@@ -2243,14 +2265,14 @@
         }
       });
 
-      // Subtle waypoint nodes in background
+      // Distinct waypoint nodes
       ctx.setLineDash([]);
       verts.forEach(v => {
         if (!v.name) {
           const p = worldToCanvas(v.x, v.y);
-          ctx.fillStyle = '#bdc1c6';
+          ctx.fillStyle = '#5f6368';
           ctx.beginPath();
-          ctx.arc(p.cx, p.cy, 2, 0, Math.PI * 2);
+          ctx.arc(p.cx, p.cy, 2.5, 0, Math.PI * 2);
           ctx.fill();
         }
       });
@@ -2258,21 +2280,21 @@
     }
 
     // 4. Storage Racks (Rack A, Rack B, etc.):
-    // Modern soft pills/rectangles with 4px border-radius, pale gray #f1f3f4 background, 1px solid #dadce0 border,
-    // Dark gray #5f6368 regular weight centered label
+    // Modern pills with 4px border-radius, pale gray #f8f9fa background, crisp 1.5px solid #5f6368 border,
+    // Dark #202124 regular-bold weight centered label
     if (mapData && mapData.racks) {
       mapData.racks.forEach(rk => {
         const p = worldToCanvas(rk.x, rk.y);
         ctx.save();
         drawRoundRect(ctx, p.cx - 16, p.cy - 8, 32, 16, 4);
-        ctx.fillStyle = '#f1f3f4';
+        ctx.fillStyle = '#f8f9fa';
         ctx.fill();
-        ctx.strokeStyle = '#dadce0';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#5f6368';
+        ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        ctx.fillStyle = '#5f6368';
-        ctx.font = '400 9px "Google Sans", "Roboto", sans-serif';
+        ctx.fillStyle = '#202124';
+        ctx.font = '600 9px "Google Sans", "Roboto", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(rk.name.replace('Rack_', ''), p.cx, p.cy);
@@ -2293,14 +2315,14 @@
       const p = worldToCanvas(c.x, c.y);
       ctx.save();
       drawRoundRect(ctx, p.cx - 18, p.cy - 10, 36, 20, 4);
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = 'rgba(24, 128, 56, 0.08)';
       ctx.fill();
-      ctx.strokeStyle = '#dadce0';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#188038';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
       ctx.fillStyle = '#188038';
-      ctx.font = '500 9px "Google Sans", "Roboto", sans-serif';
+      ctx.font = '600 9px "Google Sans", "Roboto", sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(`⚡ ${c.bay}`, p.cx, p.cy);
@@ -2314,21 +2336,24 @@
       { name: 'Packing 02', x: 13.5, y: -51.0, color: '#ea4335' },
       { name: 'Packing 03', x: 13.5, y: -54.0, color: '#ea4335' },
       { name: 'Central junction', x: 40.0, y: -32.5, color: '#1a73e8' },
-      { name: 'Storage area', x: 66.0, y: -32.5, color: '#34a853' }
+      { name: 'Storage area', x: 66.0, y: -32.5, color: '#188038' }
     ];
     workstations.forEach(w => {
       const p = worldToCanvas(w.x, w.y);
       ctx.save();
-      ctx.fillStyle = w.color;
       ctx.beginPath();
-      ctx.arc(p.cx, p.cy, 4.5, 0, Math.PI * 2);
+      ctx.arc(p.cx, p.cy, 5, 0, Math.PI * 2);
+      ctx.fillStyle = w.color;
       ctx.fill();
+      ctx.strokeStyle = '#3c4043';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
 
-      ctx.fillStyle = '#5f6368';
-      ctx.font = '500 9px "Google Sans", "Roboto", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      ctx.fillText(w.name, p.cx, p.cy + 7);
+      ctx.fillStyle = '#202124';
+      ctx.font = '600 9.5px "Google Sans", "Roboto", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(w.name, p.cx + 9, p.cy);
       ctx.restore();
     });
 
@@ -2417,8 +2442,8 @@
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         drawRoundRect(ctx, p.cx - txtW / 2 - 4, p.cy - 27, txtW + 8, 14, 4);
         ctx.fill();
-        ctx.strokeStyle = '#dadce0';
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = '#bdc1c6';
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         ctx.fillStyle = '#202124';
